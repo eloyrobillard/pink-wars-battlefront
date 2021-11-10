@@ -1,4 +1,3 @@
-import React from "react";
 import Sketch from "react-p5";
 import p5Types from "p5"; //Import this for typechecking and intellisense
 
@@ -11,7 +10,8 @@ export default function Canvas() {
 	const setup = (p5: p5Types, canvasParentRef: Element) => {
 		// use parent to render the canvas in this ref
 		// (without that p5 will render the canvas outside of your component)
-		p5.createCanvas(500, 500).parent(canvasParentRef);
+		p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
+    window.addEventListener('resize', () => p5.resizeCanvas(window.innerWidth, window.innerHeight));
 	};
 
 	const draw = (p5: p5Types) => {
