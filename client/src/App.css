@@ -2,6 +2,8 @@
   text-align: center;
 }
 .App #nav-bar {
+  width: 100%;
   position: absolute;
   left: 0;
+  padding: 0.5rem;
 }
