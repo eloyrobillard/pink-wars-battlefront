@@ -3,9 +3,9 @@ import './App.css';
 
 function NavBar() {
   return (
-    <a id="nav-bar" href="https://fontmeme.com/star-wars-font/">
+    <div id="nav-bar">
       <img src="https://fontmeme.com/permalink/211110/50d0d2aa0f0cc86184324342f5bfc93e.png" alt="star-wars-font" />
-    </a>
+    </div>
   )
 }
 
