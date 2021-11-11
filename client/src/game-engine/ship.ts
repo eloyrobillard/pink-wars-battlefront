@@ -4,25 +4,15 @@ import Game from './index';
 import math from '../math/index';
 
 export class Ship {
-	transform: Transform2D = {
-		// in pixels
-		position: { x: 0, y: 0 },
-		height: 15,
-		width: 8,
-		rot: 0
-	};
+	transform: Transform2D;
 	rb: RigidBody2D = {
 		speed: 100
 	};
 	body = new Model2D(3, [ { x: -15, y: -4 }, { x: 0, y: 0 }, { x: -15, y: 4 } ]);
 	wallEvadeRot = 0;
 
-	constructor ({ x, y }: vec2, rot: number = 0) {
-		this.transform = {
-			...this.transform,
-			position: { x, y },
-			rot
-		};
+	constructor (position: vec2, rot: number = 0) {
+		this.transform = new Transform2D(position, rot);
 	}
 
 	addRot (deltaRot: number = 0): number {
@@ -43,6 +33,7 @@ export class Ship {
 	}
 
 	update () {
+		this.transform.update(this.rb.speed);
 		this.body.update(this.transform);
 	}
 }

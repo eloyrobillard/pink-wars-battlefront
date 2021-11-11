@@ -30,7 +30,7 @@ function evade(ship: Ship, rot: number, normal: number) {
 }
 
 function detectedFront(ship: Ship, rot: number): boolean {
-
+  
 }
 
 export function detectWalls(ship: Ship) {
