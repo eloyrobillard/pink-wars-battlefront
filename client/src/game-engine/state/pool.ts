@@ -3,10 +3,6 @@ import math from '../../math/index';
 
 const pool = Array.from({ length: 50}, () => new Ship(math.randPos(), math.randRot()));
 
-function insert() {
-
-}
-
 /**
  * Variant of map that acts as an endofunctor (takes a ship, returns a ship and only a ship).
  * @param {(Ship, number) => Ship} cb the usual map callback
@@ -19,6 +15,6 @@ function map(cb: (ship: Ship, index: number) => Ship): Ship[] {
   return [...pool];
 }
 
-const Pool = { insert, map };
+const Pool = { map };
 
 export default Pool;
