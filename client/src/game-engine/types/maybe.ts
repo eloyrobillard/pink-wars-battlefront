@@ -1,4 +1,4 @@
-export default class Maybe<T> {
+export class Maybe<T> {
   constructor(private contents: T | null = null) {}
 
   /**

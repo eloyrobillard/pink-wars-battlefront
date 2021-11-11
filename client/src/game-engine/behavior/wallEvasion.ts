@@ -29,10 +29,15 @@ function evade(ship: Ship, rot: number, normal: number) {
   return ship.wallEvadeRot = 1;
 }
 
+function detectedFront(ship: Ship, rot: number): boolean {
+
+}
+
 export function detectWalls(ship: Ship) {
   let deltaRot = 0;
-  // const { height, width, front: { x, y }} = ship;
-  // const rot = Math.floor(ship.rot);
+
+  const rot = Math.floor(ship.transform.rot);
+  if (!detectedFront(ship, rot))
   
   // if ship moving mostly horizontally
   // if (rot < 45 || rot > 315 || (rot > 135 && rot < 225)) {
