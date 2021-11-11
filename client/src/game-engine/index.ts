@@ -25,7 +25,7 @@ function update() {
   pool.map((ship) => {
     Behavior.detectWalls(ship);
     ship.moveForward(100);
-		ship.addRot(0);
+		ship.addRot(100);
     ship.update();
     return ship;
   });
