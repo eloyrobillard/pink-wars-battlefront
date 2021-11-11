@@ -31,24 +31,40 @@ function evade(ship: Ship, rot: number, normal: number) {
 
 export function detectWalls(ship: Ship) {
   let deltaRot = 0;
-  const { height, width, base: { x, y }} = ship;
+  const { height, width, front: { x, y }} = ship;
   const rot = Math.floor(ship.rot);
   
   // if ship moving mostly vertically, check for height
-  if (rot > 315 || rot < 45 || (rot > 135 && rot < 225)) {
+  if (rot < 45 || rot > 315 || (rot > 135 && rot < 225)) {
     if (y - height < WALL_DIST) {
       // top
       deltaRot = evadeTop(ship, rot);
     } else if (y + height > window.innerHeight - WALL_DIST) {
+      // bottom
       deltaRot = evade(ship, rot, 180);
+    } else if (x - width < WALL_DIST) {
+      // left
+      deltaRot = evade(ship, rot, 90);
+    } else if (x + width > window.innerWidth - WALL_DIST) {
+      // right
+      deltaRot = evade(ship, rot, 270);
     }
   }
   
   // if ship moving mostly horizontally, check for width
   if ((rot < 315 && rot > 225) || (rot > 45 && rot < 135)) {
-    if (x - width < WALL_DIST) {
+    if (y - width < WALL_DIST) {
+      // top
+      deltaRot = evadeTop(ship, rot);
+    } else if (y + width > window.innerHeight - WALL_DIST) {
+      // bottom
+      deltaRot = evade(ship, rot, 180);
+    } else if (x - height < WALL_DIST) {
+      // left
       deltaRot = evade(ship, rot, 90);
-    } else if (x + width > window.innerWidth - WALL_DIST) {
+    } else if (x + height > window.innerWidth - WALL_DIST) {
+      // right
+      // console.log(rot);
       deltaRot = evade(ship, rot, 270);
     }
   }
