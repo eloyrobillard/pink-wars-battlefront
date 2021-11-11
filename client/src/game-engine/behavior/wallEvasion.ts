@@ -48,7 +48,7 @@ function detectedFront(front: vec2, direction: vec2, rot: number): Maybe<CastHit
 
   if (castPoint.x < 0) {
     // found left wall
-    return Some({
+    return new Some({
       normal: {
         x: 1,
         y: 0
@@ -56,7 +56,7 @@ function detectedFront(front: vec2, direction: vec2, rot: number): Maybe<CastHit
     })
   } else if (castPoint.x > window.innerWidth) {
     // found right wall
-    return Some({
+    return new Some({
       normal: {
         x: -1,
         y: 0
@@ -64,7 +64,7 @@ function detectedFront(front: vec2, direction: vec2, rot: number): Maybe<CastHit
     })
   } else if (castPoint.y < 0) {
     // found top wall
-    return Some({
+    return new Some({
       normal: {
         x: 0,
         y: 1
@@ -72,7 +72,7 @@ function detectedFront(front: vec2, direction: vec2, rot: number): Maybe<CastHit
     })
   } else if (castPoint.y > window.innerHeight) {
     // found top wall
-    return Some({
+    return new Some({
       normal: {
         x: 0,
         y: -1
@@ -80,7 +80,7 @@ function detectedFront(front: vec2, direction: vec2, rot: number): Maybe<CastHit
     })
   }
 
-  return None;
+  return new None();
 }
 
 export function detectWalls(ship: Ship) {
