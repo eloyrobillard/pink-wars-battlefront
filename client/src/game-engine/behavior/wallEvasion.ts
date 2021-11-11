@@ -91,9 +91,12 @@ export function detectWalls(ship: Ship) {
   
   const maybeWall = castFront(position, direction, rot);
   if (maybeWall.isNone) {
-
+    ship.wallEvadeRot = 0;
+    return;
   }
   
+  const { normal } = maybeWall.unwrapOr();
+  const angleToHit = 
   // if ship moving mostly horizontally
   // if (rot < 45 || rot > 315 || (rot > 135 && rot < 225)) {
   //   if (y - width < WALL_DIST) {

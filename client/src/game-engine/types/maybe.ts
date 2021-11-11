@@ -5,7 +5,9 @@ export abstract class Maybe<T> {
    * @param  {T} def
    * @returns T
    */
-  abstract unwrapOr(def: T): T | null;
+  abstract unwrapOr(def: T): T;
+  
+  abstract unwrap(): T | void;
 
   abstract isSome: boolean;
 
@@ -20,6 +22,10 @@ export class Some<T> extends Maybe<T> {
 		this.contents = contents;
 	}
 
+  unwrap(): T {
+    return this.contents;
+  }
+
 	unwrapOr (): T {
 		return this.contents;
 	}
@@ -31,6 +37,10 @@ export class Some<T> extends Maybe<T> {
 export class None<T> extends Maybe<T> {
   unwrapOr (def: T) {
     return def;
+  }
+
+  unwrap () {
+    throw new Error('Tried to unwrap None');
   }
 
   isSome = false;
