@@ -27,7 +27,7 @@ export default function Canvas () {
 			p5.background('#ffdbed');
 			p5.noStroke();
 			Game.pool.map((ship, i) => {
-				ship.move(1);
+				ship.move(-1);
 				const { body } = ship;
 				const { x1, y1, x2, y2, x3, y3 } = body;
 				p5.triangle(x1, y1, x2, y2, x3, y3);

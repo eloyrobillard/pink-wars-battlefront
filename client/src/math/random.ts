@@ -8,3 +8,7 @@ export function randPos() {
   const y = Math.floor(Math.random() * window.innerHeight - 10) + 10;
   return { x, y };
 }
+
+export function randDir() {
+  return Math.random() - 0.5;
+}

@@ -1,7 +1,6 @@
 import pool from './state/pool';
 
-// NOTE p5.draw update ~= 76 fps
-const FPS = 30;
+const FPS = 30; // NOTE p5.draw ~= 76 fps
 const fixedDeltaTime = 1 / FPS;
 const fixedDeltaMsec = 1000 / FPS;
 let frameStart = 0;
