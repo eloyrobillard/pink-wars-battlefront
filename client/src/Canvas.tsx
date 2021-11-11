@@ -3,6 +3,7 @@ import Sketch from 'react-p5';
 import p5Types from 'p5';
 import './Canvas.css' //Import this for typechecking and intellisense;
 
+// let start = performance.now();
 export default function Canvas () {
 
 	const setup = (p5: p5Types, canvasParentRef: Element) => {
@@ -14,7 +15,8 @@ export default function Canvas () {
 		p5.createCanvas(width, height).parent(canvasParentRef);
 		// always fit canvas to view
 		window.addEventListener('resize', () => {
-			p5.resizeCanvas(window.innerWidth - 1, window.innerHeight - 1)
+			const { width, height } = canvasDiv.getBoundingClientRect();
+			p5.resizeCanvas(width, height)
 		});
 		Game.start();
 	};
