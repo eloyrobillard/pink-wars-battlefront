@@ -3,32 +3,6 @@ import { vec2, Maybe, Some, None, Ship } from '../types/index';
 
 const WALL_DIST = 100; // px
 
-export function evadeRight(ship: Ship, rot: number) {
-  // if going straight towards wall
-  if (rot === 0) {
-    return ship.wallEvadeRot = math.randDir() > 0 ? 1 : -1;
-  } else if (rot > 315) {
-    // evade to right
-    return ship.wallEvadeRot = -1;
-  } 
-  // evade to left
-  return ship.wallEvadeRot = 1;
-}
-
-
-// normal is angle perpendicular to wall
-function evade(ship: Ship, rot: number, normal: number) {
-  // if going straight towards wall
-  if (rot === normal) {
-    return ship.wallEvadeRot = math.randDir() > 0 ? 1 : -1;
-  } else if (rot < normal) {
-    // evade to right
-    return ship.wallEvadeRot = -1;
-  } 
-  // evade to left
-  return ship.wallEvadeRot = 1;
-}
-
 type CastHit = { 
   normal: vec2;
   angle: number;
@@ -37,8 +11,8 @@ type CastHit = {
 function cast(front: vec2, direction: vec2, rot: number): Maybe<CastHit> {
   // angle to side of quadrant, if we split screen into four zones meeting at center
   const beta = rot % 90;
-  const deltaX = 50 * math.cosConvert(beta);
-  const deltaY = 50 * math.sinConvert(beta);
+  const deltaX = WALL_DIST * math.cosConvert(beta);
+  const deltaY = WALL_DIST * math.sinConvert(beta);
 
   const { x, y } = front;
   // direction x/y used for negative directions
@@ -106,13 +80,13 @@ export function detectWalls(ship: Ship) {
     if ((rot % 180) > 90) {
       // wants to turn right, so check if not wall on right
       const maybeRight = rot < 180
-        ? cast(position, { x: 0, y: -1}, 90)
+        ? cast(position, { x: 0, y: -1 }, 90)
         : cast(position, { x: 0, y: 1 }, 270);
       if (maybeRight.isSome) deltaRot = 100;
     } else {
       // wants to turn left, so check if not wall on left
       const maybeLeft = rot < 180
-        ? cast(position, { x: 0, y: -1}, 90)
+        ? cast(position, { x: 0, y: -1 }, 90)
         : cast(position, { x: 0, y: 1 }, 270);
       if (maybeLeft.isSome) deltaRot = -100;
     }
@@ -121,14 +95,14 @@ export function detectWalls(ship: Ship) {
     if ((rot % 180) < 90) {
       // wants to turn right, so check if not wall on right
       const maybeRight = rot < 180
-        ? cast(position, { x: 0, y: -1}, 90)
-        : cast(position, { x: 0, y: 1 }, 270);
+        ? cast(position, { x: -1, y: 0 }, 180)
+        : cast(position, { x: 1, y: 0 }, 0);
       if (maybeRight.isSome) deltaRot = 100;
     } else {
       // wants to turn left, so check if not wall on left
       const maybeLeft = rot < 180
-        ? cast(position, { x: 0, y: -1}, 90)
-        : cast(position, { x: 0, y: 1 }, 270);
+        ? cast(position, { x: -1, y: 0 }, 180)
+        : cast(position, { x: 1, y: 0 }, 0);
       if (maybeLeft.isSome) deltaRot = -100;
     }
   }
