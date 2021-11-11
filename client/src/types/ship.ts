@@ -14,11 +14,11 @@ export class Ship {
 		this.body = this.orientBody();
 	}
 
-	addRot(deltaRot: number): number {
+	private addRot(deltaRot: number): number {
 		return this.rot += deltaRot * Game.fixedDeltaTime;
 	}
 
-	moveForward(speed: number): vec2 {
+	private moveForward(speed: number): vec2 {
 		const { x, y } = this.back;
 		return (this.back = {
 			// left dot
@@ -33,17 +33,19 @@ export class Ship {
 		return this.orientBody();
 	} 
 
+	// TODO extract into math module, to be applicable to triangle arrays
 	private orientBody (): triangle {
+		const { x, y } = this.back;
 		return (this.body = {
 			// left dot
-			x1: this.back.x - this.width / 2 * math.sin(this.rot + 90),
-			y1: this.back.y - this.width / 2 * math.cos(this.rot + 90),
+			x1: x - this.width / 2 * math.sin(this.rot + 90),
+			y1: y - this.width / 2 * math.cos(this.rot + 90),
 			// front dot
-			x2: this.back.x + this.height * math.cos(this.rot + 90),
-			y2: this.back.y - this.height * math.sin(this.rot + 90),
+			x2: x + this.height * math.cos(this.rot + 90),
+			y2: y - this.height * math.sin(this.rot + 90),
 			// right dot
-			x3: this.back.x + this.width / 2 * math.sin(this.rot + 90),
-			y3: this.back.y + this.width / 2 * math.cos(this.rot + 90)
+			x3: x + this.width / 2 * math.sin(this.rot + 90),
+			y3: y + this.width / 2 * math.cos(this.rot + 90)
 		});
 	}
 }
