@@ -31,9 +31,10 @@ function evade(ship: Ship, rot: number, normal: number) {
 
 type CastHit = { 
   normal: vec2;
+  angle: number;
 }
 
-function castFront(front: vec2, direction: vec2, rot: number): Maybe<CastHit> {
+function cast(front: vec2, direction: vec2, rot: number): Maybe<CastHit> {
   // angle to side of quadrant, if we split screen into four zones meeting at center
   const beta = rot % 90;
   const deltaX = 50 * math.cosConvert(beta);
@@ -52,7 +53,8 @@ function castFront(front: vec2, direction: vec2, rot: number): Maybe<CastHit> {
       normal: {
         x: 1,
         y: 0
-      }
+      },
+      angle: 0
     })
   } else if (castPoint.x > window.innerWidth) {
     // found right wall
@@ -60,7 +62,8 @@ function castFront(front: vec2, direction: vec2, rot: number): Maybe<CastHit> {
       normal: {
         x: -1,
         y: 0
-      }
+      },
+      angle: 180
     })
   } else if (castPoint.y < 0) {
     // found top wall
@@ -68,15 +71,17 @@ function castFront(front: vec2, direction: vec2, rot: number): Maybe<CastHit> {
       normal: {
         x: 0,
         y: 1
-      }
+      },
+      angle: 270
     })
   } else if (castPoint.y > window.innerHeight) {
-    // found top wall
+    // found bottom wall
     return new Some({
       normal: {
         x: 0,
         y: -1
-      }
+      },
+      angle: 90
     })
   }
 
@@ -89,49 +94,45 @@ export function detectWalls(ship: Ship) {
   const { position, direction } = ship.transform;
   const rot = Math.floor(ship.transform.rot);
   
-  const maybeWall = castFront(position, direction, rot);
+  const maybeWall = cast(position, direction, rot);
   if (maybeWall.isNone) {
     ship.wallEvadeRot = 0;
     return;
   }
   
-  const { normal } = maybeWall.unwrapOr();
-  const angleToHit = 
-  // if ship moving mostly horizontally
-  // if (rot < 45 || rot > 315 || (rot > 135 && rot < 225)) {
-  //   if (y - width < WALL_DIST) {
-  //     // top
-  //     deltaRot = evade(ship, rot, 90);
-  //   } else if (y + width > window.innerHeight - WALL_DIST) {
-  //     // bottom
-  //     deltaRot = evade(ship, rot, 270);
-  //   } else if (x - height < WALL_DIST) {
-  //     // left
-  //     deltaRot = evade(ship, rot, 180);
-  //   } else if (x + height > window.innerWidth - WALL_DIST) {
-  //     // right
-  //     deltaRot = evadeRight(ship, rot);
-  //   }
-  // }
-  
-  // if ship moving mostly vertically, check for height
-  // if ((rot < 315 && rot > 225) || (rot > 45 && rot < 135)) {
-  //   if (y - width < WALL_DIST) {
-  //     // top
-  //     deltaRot = evadeTop(ship, rot);
-  //   } else if (y + width > window.innerHeight - WALL_DIST) {
-  //     // bottom
-  //     deltaRot = evade(ship, rot, 180);
-  //   } else if (x - height < WALL_DIST) {
-  //     // left
-  //     deltaRot = evade(ship, rot, 90);
-  //   } else if (x + height > window.innerWidth - WALL_DIST) {
-  //     // right
-  //     console.log(rot);
-  //     deltaRot = evade(ship, rot, 270);
-  //   }
-  // }
+  const { angle } = maybeWall.unwrap()!;
+  if (angle === 0 || angle === 180) {
+    // left or right
+    if ((rot % 180) > 90) {
+      // wants to turn right, so check if not wall on right
+      const maybeRight = rot < 180
+        ? cast(position, { x: 0, y: -1}, 90)
+        : cast(position, { x: 0, y: 1 }, 270);
+      if (maybeRight.isSome) deltaRot = 100;
+    } else {
+      // wants to turn left, so check if not wall on left
+      const maybeLeft = rot < 180
+        ? cast(position, { x: 0, y: -1}, 90)
+        : cast(position, { x: 0, y: 1 }, 270);
+      if (maybeLeft.isSome) deltaRot = -100;
+    }
+  } else {
+    // top or bottom
+    if ((rot % 180) < 90) {
+      // wants to turn right, so check if not wall on right
+      const maybeRight = rot < 180
+        ? cast(position, { x: 0, y: -1}, 90)
+        : cast(position, { x: 0, y: 1 }, 270);
+      if (maybeRight.isSome) deltaRot = 100;
+    } else {
+      // wants to turn left, so check if not wall on left
+      const maybeLeft = rot < 180
+        ? cast(position, { x: 0, y: -1}, 90)
+        : cast(position, { x: 0, y: 1 }, 270);
+      if (maybeLeft.isSome) deltaRot = -100;
+    }
+  }
 
-  // no wall to avoid
   return ship.addRot(deltaRot);
 }
+

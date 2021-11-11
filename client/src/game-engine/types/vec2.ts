@@ -1,5 +1,4 @@
-export type vec2 = {
-  // in pixels
-  x: number;
-  y: number;
+export class vec2 {
+	// in pixels
+	constructor (public x: number, public y: number) {}
 }

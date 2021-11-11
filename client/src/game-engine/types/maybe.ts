@@ -7,6 +7,10 @@ export abstract class Maybe<T> {
    */
   abstract unwrapOr(def: T): T;
   
+  /**
+   * Returns T is Some, or throws exception
+   * @returns T | void
+   */
   abstract unwrap(): T | void;
 
   abstract isSome: boolean;
