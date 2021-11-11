@@ -37,15 +37,15 @@ export class Ship {
 	// TODO extract into math module, to be applicable to triangle arrays
 		const { x, y } = this.front;
 		this.base.x = x - this.height * math.cos(this.rot);
-		this.base.y = y - this.height * math.sin(this.rot);
+		this.base.y = y + this.height * math.sin(this.rot);
 		const { x: bx, y: by } = this.base;
 		return (this.body = {
 			// left dot
 			x1: bx - this.width / 2 * math.sin(this.rot),
 			y1: by - this.width / 2 * math.cos(this.rot),
 			// front dot
-			x2: x + math.cos(this.rot),
-			y2: y - math.sin(this.rot),
+			x2: x,
+			y2: y,
 			// right dot
 			x3: bx + this.width / 2 * math.sin(this.rot),
 			y3: by + this.width / 2 * math.cos(this.rot)
