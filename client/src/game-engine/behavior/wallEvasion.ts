@@ -1,5 +1,5 @@
 import math from '../../math/index';
-import { Ship } from '../../types/index';
+import { Ship } from '../types/index';
 
 const WALL_DIST = 100; // px
 

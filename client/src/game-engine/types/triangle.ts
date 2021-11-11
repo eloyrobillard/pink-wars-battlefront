@@ -11,5 +11,4 @@ export type triangle = {
   x3: number;
   // y-coordinate of the third point
   y3: number;
-
 }

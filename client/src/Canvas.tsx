@@ -28,8 +28,13 @@ export default function Canvas () {
 			p5.noStroke();
 			Game.pool.map((ship, i) => {
 				const { body } = ship;
-				const { x1, y1, x2, y2, x3, y3 } = body;
-				p5.triangle(x1, y1, x2, y2, x3, y3);
+				p5.beginShape();
+				body.vertices.forEach(({ x, y }) => {
+					p5.vertex(x, y);
+				})
+				p5.endShape('close');
+				// const { x1, y1, x2, y2, x3, y3 } = body;
+				// p5.triangle(x1, y1, x2, y2, x3, y3);
 	
 				return ship;
 			});
