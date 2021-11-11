@@ -3,7 +3,7 @@ import { Ship } from '../../types/index';
 
 const WALL_DIST = 100; // px
 
-export function evadeTop(ship: Ship, rot: number) {
+export function evadeRight(ship: Ship, rot: number) {
   // if going straight towards wall
   if (rot === 0) {
     return ship.wallEvadeRot = math.randDir() > 0 ? 1 : -1;
@@ -31,43 +31,43 @@ function evade(ship: Ship, rot: number, normal: number) {
 
 export function detectWalls(ship: Ship) {
   let deltaRot = 0;
-  const { height, width, front: { x, y }} = ship;
-  const rot = Math.floor(ship.rot);
+  // const { height, width, front: { x, y }} = ship;
+  // const rot = Math.floor(ship.rot);
+  
+  // if ship moving mostly horizontally
+  // if (rot < 45 || rot > 315 || (rot > 135 && rot < 225)) {
+  //   if (y - width < WALL_DIST) {
+  //     // top
+  //     deltaRot = evade(ship, rot, 90);
+  //   } else if (y + width > window.innerHeight - WALL_DIST) {
+  //     // bottom
+  //     deltaRot = evade(ship, rot, 270);
+  //   } else if (x - height < WALL_DIST) {
+  //     // left
+  //     deltaRot = evade(ship, rot, 180);
+  //   } else if (x + height > window.innerWidth - WALL_DIST) {
+  //     // right
+  //     deltaRot = evadeRight(ship, rot);
+  //   }
+  // }
   
   // if ship moving mostly vertically, check for height
-  if (rot < 45 || rot > 315 || (rot > 135 && rot < 225)) {
-    if (y - height < WALL_DIST) {
-      // top
-      deltaRot = evadeTop(ship, rot);
-    } else if (y + height > window.innerHeight - WALL_DIST) {
-      // bottom
-      deltaRot = evade(ship, rot, 180);
-    } else if (x - width < WALL_DIST) {
-      // left
-      deltaRot = evade(ship, rot, 90);
-    } else if (x + width > window.innerWidth - WALL_DIST) {
-      // right
-      deltaRot = evade(ship, rot, 270);
-    }
-  }
-  
-  // if ship moving mostly horizontally, check for width
-  if ((rot < 315 && rot > 225) || (rot > 45 && rot < 135)) {
-    if (y - width < WALL_DIST) {
-      // top
-      deltaRot = evadeTop(ship, rot);
-    } else if (y + width > window.innerHeight - WALL_DIST) {
-      // bottom
-      deltaRot = evade(ship, rot, 180);
-    } else if (x - height < WALL_DIST) {
-      // left
-      deltaRot = evade(ship, rot, 90);
-    } else if (x + height > window.innerWidth - WALL_DIST) {
-      // right
-      // console.log(rot);
-      deltaRot = evade(ship, rot, 270);
-    }
-  }
+  // if ((rot < 315 && rot > 225) || (rot > 45 && rot < 135)) {
+  //   if (y - width < WALL_DIST) {
+  //     // top
+  //     deltaRot = evadeTop(ship, rot);
+  //   } else if (y + width > window.innerHeight - WALL_DIST) {
+  //     // bottom
+  //     deltaRot = evade(ship, rot, 180);
+  //   } else if (x - height < WALL_DIST) {
+  //     // left
+  //     deltaRot = evade(ship, rot, 90);
+  //   } else if (x + height > window.innerWidth - WALL_DIST) {
+  //     // right
+  //     console.log(rot);
+  //     deltaRot = evade(ship, rot, 270);
+  //   }
+  // }
 
   // no wall to avoid
   return ship.addRot(deltaRot);

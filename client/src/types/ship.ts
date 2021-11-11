@@ -1,18 +1,20 @@
 import { vec2, triangle } from './index';
+import { Transform2D } from '../game-engine/components/transform2D';
 import Game from '../game-engine/index'
 import math from '../math/index';
 
 export class Ship {
-	front: vec2;
-	base: vec2 = { x: 0, y: 0 };
+	transform: Transform2D = {
+		// in pixels
+		position: { x: 0, y: 0 },
+		height: 15,
+		width: 8,
+	};
 	body: triangle;
 	wallEvadeRot = 0;
-	// in pixels
-	height = 15;
-	width = 8;
 
 	constructor ({ x, y }: vec2, public rot: number = 0) {
-		this.front = { x, y };
+		this.transform.position = { x, y };
 		this.body = this.update();
 	}
 
@@ -25,8 +27,8 @@ export class Ship {
 	}
 
 	moveForward(speed: number = 100): vec2 {
-		const { x, y } = this.front;
-		return (this.front = {
+		const { x, y } = this.transform.position;
+		return (this.transform.position = {
 			// left dot
 			x: x + speed * math.cos(this.rot) * Game.fixedDeltaTime,
 			y: y - speed * math.sin(this.rot) * Game.fixedDeltaTime,
@@ -35,20 +37,19 @@ export class Ship {
 
 	update(): triangle {
 	// TODO extract into math module, to be applicable to triangle arrays
-		const { x, y } = this.front;
-		this.base.x = x - this.height * math.cos(this.rot);
-		this.base.y = y + this.height * math.sin(this.rot);
-		const { x: bx, y: by } = this.base;
+		const { x, y } = this.transform.position;
+		const bx = x - this.transform.height * math.cos(this.rot);
+		const by = y + this.transform.height * math.sin(this.rot);
 		return (this.body = {
 			// left dot
-			x1: bx - this.width / 2 * math.sin(this.rot),
-			y1: by - this.width / 2 * math.cos(this.rot),
-			// front dot
+			x1: bx - this.transform.width / 2 * math.sin(this.rot),
+			y1: by - this.transform.width / 2 * math.cos(this.rot),
+			// transform dot
 			x2: x,
 			y2: y,
 			// right dot
-			x3: bx + this.width / 2 * math.sin(this.rot),
-			y3: by + this.width / 2 * math.cos(this.rot)
+			x3: bx + this.transform.width / 2 * math.sin(this.rot),
+			y3: by + this.transform.width / 2 * math.cos(this.rot)
 		});
 	}
 }
