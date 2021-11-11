@@ -1,7 +1,7 @@
 import { Ship } from '../types/index';
 import math from '../../math/index';
 
-const pool = Array.from({ length: 10}, () => new Ship(math.randPos(), math.randRot()));
+const pool = Array.from({ length: 1}, () => new Ship(math.randPos(), math.randRot()));
 
 function insert() {
 

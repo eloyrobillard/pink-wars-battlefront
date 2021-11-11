@@ -1,10 +1,11 @@
-import { lerp } from './lerp';
 import { randRot, randPos, randDir } from './random';
+import { sinConvert, cosConvert } from './trigo';
+import { lerp } from './lerp';
 
 const math = { 
   lerp, 
-  cos: Math.cos, 
-  sin: Math.sin, 
+  cosConvert, 
+  sinConvert, 
   randRot, 
   randPos,
   randDir
