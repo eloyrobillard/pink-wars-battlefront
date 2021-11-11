@@ -7,9 +7,9 @@ export abstract class Maybe<T> {
    */
   abstract unwrapOr(def: T): T | null;
 
-  abstract isSome(): boolean;
+  abstract isSome: boolean;
 
-  abstract isNone(): boolean;
+  abstract isNone: boolean;
 }
 
 export class Some<T> extends Maybe<T> {
@@ -24,13 +24,8 @@ export class Some<T> extends Maybe<T> {
 		return this.contents;
 	}
 
-  isSome(): boolean {
-    return true;
-  }
-
-  isNone(): boolean {
-    return false;
-  }
+  isSome = true;
+  isNone = false;
 }
 
 export class None<T> extends Maybe<T> {
@@ -38,11 +33,6 @@ export class None<T> extends Maybe<T> {
     return def;
   }
 
-  isSome(): boolean {
-    return false;
-  }
-
-  isNone(): boolean {
-    return true;
-  }
+  isSome = false;
+  isNone = true;
 }

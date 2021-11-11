@@ -33,7 +33,7 @@ type CastHit = {
   normal: vec2;
 }
 
-function detectedFront(front: vec2, direction: vec2, rot: number): Maybe<CastHit> {
+function castFront(front: vec2, direction: vec2, rot: number): Maybe<CastHit> {
   // angle to side of quadrant, if we split screen into four zones meeting at center
   const beta = rot % 90;
   const deltaX = 50 * math.cosConvert(beta);
@@ -88,7 +88,11 @@ export function detectWalls(ship: Ship) {
 
   const { position, direction } = ship.transform;
   const rot = Math.floor(ship.transform.rot);
-  if (!detectedFront(position, direction, rot))
+  
+  const maybeWall = castFront(position, direction, rot);
+  if (maybeWall.isNone) {
+
+  }
   
   // if ship moving mostly horizontally
   // if (rot < 45 || rot > 315 || (rot > 135 && rot < 225)) {
