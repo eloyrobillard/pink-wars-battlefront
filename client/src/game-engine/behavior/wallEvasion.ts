@@ -1,7 +1,7 @@
 import math from '../../math/index';
 import { Ship } from '../../types/index';
 
-const WALL_DIST = 50; // px
+const WALL_DIST = 100; // px
 
 export function evadeTop(ship: Ship, rot: number) {
   // if going straight towards wall
@@ -29,7 +29,8 @@ function evade(ship: Ship, rot: number, normal: number) {
   return ship.wallEvadeRot = 1;
 }
 
-export function detectCloseWalls(ship: Ship) {
+export function detectWalls(ship: Ship) {
+  let deltaRot = 0;
   const { height, width, base: { x, y }} = ship;
   const rot = Math.floor(ship.rot);
   
@@ -37,21 +38,21 @@ export function detectCloseWalls(ship: Ship) {
   if (rot > 315 || rot < 45 || (rot > 135 && rot < 225)) {
     if (y - height < WALL_DIST) {
       // top
-      return evadeTop(ship, rot);
+      deltaRot = evadeTop(ship, rot);
     } else if (y + height > window.innerHeight - WALL_DIST) {
-      return evade(ship, rot, 180);
+      deltaRot = evade(ship, rot, 180);
     }
   }
   
   // if ship moving mostly horizontally, check for width
   if ((rot < 315 && rot > 225) || (rot > 45 && rot < 135)) {
     if (x - width < WALL_DIST) {
-      return evade(ship, rot, 90);
+      deltaRot = evade(ship, rot, 90);
     } else if (x + width > window.innerWidth - WALL_DIST) {
-      return evade(ship, rot, 270);
+      deltaRot = evade(ship, rot, 270);
     }
   }
 
   // no wall to avoid
-  return ship.wallEvadeRot = 0;
+  return ship.addRot(deltaRot);
 }

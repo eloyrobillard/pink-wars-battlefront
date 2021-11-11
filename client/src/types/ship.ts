@@ -12,15 +12,18 @@ export class Ship {
 
 	constructor ({ x, y }: vec2, public rot: number = 0) {
 		this.base = { x, y };
-		this.body = this.orientBody();
+		this.body = this.update();
 	}
 
-	private addRot(deltaRot: number): number {
-		// rot always > 0
+	addRot(deltaRot: number = 0): number {
+		if (!deltaRot) {
+			return this.rot;
+		}
+		// rot always >= 0
 		return this.rot = (((this.rot + deltaRot * Game.fixedDeltaTime) % 360) + 360) % 360;
 	}
 
-	private moveForward(speed: number): vec2 {
+	moveForward(speed: number = 100): vec2 {
 		const { x, y } = this.base;
 		return (this.base = {
 			// left dot
@@ -29,14 +32,8 @@ export class Ship {
 		});
 	}
 
-	move(deltaRot: number = 0, speed: number = 50): triangle {
-		this.moveForward(speed);
-		this.addRot(deltaRot);
-		return this.orientBody();
-	} 
-
+	update(): triangle {
 	// TODO extract into math module, to be applicable to triangle arrays
-	private orientBody (): triangle {
 		const { x, y } = this.base;
 		return (this.body = {
 			// left dot
