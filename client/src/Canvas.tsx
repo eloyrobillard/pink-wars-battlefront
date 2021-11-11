@@ -16,7 +16,6 @@ export default function Canvas () {
 	};
 
 	// redraw canvas on every browser update
-	// TODO only draw on fixedDeltaTime -> invoke game loop
 	const draw = (p5: p5Types) => {
 		if (Game.frameIsReady()) {
 			Game.update();

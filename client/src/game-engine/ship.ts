@@ -14,10 +14,7 @@ export class Ship {
 	rb: RigidBody2D = {
 		speed: 100
 	};
-	body: Model2D = {
-		vertices: Array.from({ length: 3 }),
-		offsets: [ { x: -15, y: -4 }, { x: 0, y: 0 }, { x: -15, y: 4 } ]
-	};
+	body = new Model2D(3, [ { x: -15, y: -4 }, { x: 0, y: 0 }, { x: -15, y: 4 } ]);
 	wallEvadeRot = 0;
 
 	constructor ({ x, y }: vec2, rot: number = 0) {
@@ -26,7 +23,6 @@ export class Ship {
 			position: { x, y },
 			rot
 		};
-		this.body = this.update();
 	}
 
 	addRot (deltaRot: number = 0): number {
@@ -35,7 +31,7 @@ export class Ship {
 			return this.transform.rot;
 		}
 		// rot always >= 0
-		return (this.transform.rot = (((this.transform.rot + deltaRot * Game.fixedDeltaTime) % 360) + 360) % 360);
+		return (this.transform.rot = ((this.transform.rot + deltaRot * Game.fixedDeltaTime) % 360 + 360) % 360);
 	}
 
 	moveForward (speed: number = 100): vec2 {
@@ -46,17 +42,7 @@ export class Ship {
 		});
 	}
 
-	update (): Model2D {
-		// TODO extract into model
-		const { rot, position: { x, y } } = this.transform;
-		for (let i = 0; i < this.body.vertices.length; i += 1) {
-			const { x: dx, y: dy } = this.body.offsets[i];
-			this.body.vertices[i] = {
-				// https://www.wikiwand.com/en/Rotation_matrix
-				x: x + dx * math.cosConvert(rot) - dy * math.sinConvert(rot),
-				y: y - dx * math.sinConvert(rot) - dy * math.cosConvert(rot)
-			};
-		}
-		return this.body;
+	update () {
+		this.body.update(this.transform);
 	}
 }
