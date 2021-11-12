@@ -9,7 +9,6 @@ export class Ship {
 		speed: 100
 	};
 	body = new Model2D(3, [ new vec2(-15, -4), new vec2(0, 0), new vec2(-15, 4) ]);
-	wallEvadeRot = 0;
 
 	constructor (position: vec2, rot: number) {
 		this.transform = new Transform2D(position, rot);

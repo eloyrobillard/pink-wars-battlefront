@@ -4,7 +4,7 @@ import { Ship } from '../ship';
 
 const FRONT_DIST = 100; // px
 const SIDES_DIST = 20; // px
-const TURN_SPD = 100;
+const TURN_SPD = 4;
 
 type CastHit = {
 	normal: vec2;
@@ -69,7 +69,6 @@ export function detectWalls (ship: Ship) {
 
 	// TODO consider checking side walls anyway
 	if (maybeWall.isNone) {
-		ship.wallEvadeRot = 0;
 		return;
 	}
 
