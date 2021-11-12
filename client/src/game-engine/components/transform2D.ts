@@ -35,6 +35,17 @@ export class Transform2D {
 		return this.deltaRot = deltaRot;
 	}
 
+  lerpRot(targetRot: number): number {
+    const absDiff = Math.abs(targetRot - this.rot);
+  // more than π means faster to turn right
+    if (absDiff > 180) {
+    // actual diff considering angles are periodic
+    const realDiff = 360 - absDiff;
+    return math.lerp(this.rot,  this.rot - realDiff, Game.fixedDeltaTime);
+    }
+    return this.addRot(math.lerp(this.rot, targetRot, Game.fixedDeltaTime) - this.rot);
+  }
+
   addWallRot(deltaRot: number) {
     return this.wallEvadeRot = deltaRot;
   }
