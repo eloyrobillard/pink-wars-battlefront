@@ -36,4 +36,8 @@ export class vec2 {
 		const { x: dx, y: dy } = this.vecTo(other);
 		return Math.sqrt(dx**2 + dy**2);
 	}
+
+	toDegrees() {
+		return Math.atan2(this.y, this.x) / Math.PI * 180;
+	}
 }
