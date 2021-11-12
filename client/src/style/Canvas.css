@@ -1,3 +1,7 @@
 #canvas {
   height: 100%;
 }
+#canvas div.react-p5 {
+  width: 0;
+  height: 0;
+}
