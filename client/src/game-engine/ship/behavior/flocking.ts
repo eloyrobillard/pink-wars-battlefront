@@ -3,14 +3,14 @@ import { Anchor } from '../../components/index';
 import math from '../../../math/index';
 import Game from '../../index';
 import { Ship } from '../ship';
-import Pool from '../pool';
+// import Pool from '../pool';
 
-export function getAnchor(follower: Ship) {
-  const anchor = closestFree(follower);
-  // console.log(anchor);
-  anchor.setFollower(follower);
-  return new Anchor(anchor);
-}
+// export function getAnchor(follower: Ship) {
+//   const anchor = closestFree(follower);
+//   // console.log(anchor);
+//   anchor.setFollower(follower);
+//   return new Anchor(anchor);
+// }
 
 /**
  * Manually sets anchor and follower for each argument.
@@ -23,26 +23,25 @@ export function setAnchor(follower: Ship, anchor: Ship) {
   return follower.anchor = new Some(new  Anchor(anchor));
 }
 
-function closestFree(origin: Ship): Ship {
-  const { position } = origin.transform;
-  let index = Infinity;
-  Pool.reduce<number>((acc, ship, i) => {
-    const dist = position.distance(ship.transform.position)
+// function closestFree(origin: Ship): Ship {
+//   const { position } = origin.transform;
+//   let index = Infinity;
+//   Pool.reduce<number>((acc, ship, i) => {
+//     const dist = position.distance(ship.transform.position)
     
-    if (dist > 0 && dist < acc && ship.follower.isNone) {
-      if (ship.anchor.isSome && ship.anchor.unwrap()!.anchor === origin) {
-        return acc;
-      }
-      index = i;
-      return dist;
-    }
-    return acc;
-  }, Infinity);
+//     if (dist > 0 && dist < acc && ship.follower.isNone) {
+//       if (ship.anchor.isSome && ship.anchor.unwrap()!.anchor === origin) {
+//         return acc;
+//       }
+//       index = i;
+//       return dist;
+//     }
+//     return acc;
+//   }, Infinity);
 
-  const anchor = Pool.get(index);
-  console.log(anchor.follower.isNone, anchor.anchor.isNone ? 'no anchor' : anchor.anchor.unwrap()!.anchor === origin ? 'self anchor' : 'whatever');
-  return anchor;
-}
+//   const anchor = Pool.get(index);
+//   return anchor;
+// }
 
 export function flock({ transform }: Ship, anchor: Ship) {
   const dest = anchor.transform.position;

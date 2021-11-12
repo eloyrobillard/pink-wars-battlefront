@@ -27,26 +27,30 @@ export default function Canvas () {
 			Game.update();
 			p5.background('#ffdbed');
 			p5.noStroke();
-			Game.Pool.map((ship) => {
-				const { body } = ship;
-				p5.beginShape();
-				const c = p5.color(body.color);
-				p5.fill(c);
-				body.vertices.forEach(({ x, y }) => {
-					p5.vertex(x, y);
-				})
-				p5.endShape('close');
+			Game.Pool.map((squad) => {
+				const { color } = squad;
+				squad.map((ship) => {
+					const { body } = ship;
+					p5.beginShape();
+					const c = p5.color(color);
+					p5.fill(c);
+					body.vertices.forEach(({ x, y }) => {
+						p5.vertex(x, y);
+					})
+					p5.endShape('close');
 
-				// DEBUG
-				if (ship.anchor.isSome) {
-					const { x, y } = ship.transform.position;
-					const anchor = ship.anchor.unwrap();
-					const { x: x2, y: y2 } = anchor!.anchor.transform.position;
-					p5.stroke(51);
-					p5.line(x, y, x2, y2);
-				}
-	
-				return ship;
+					// DEBUG
+					if (ship.anchor.isSome) {
+						const { x, y } = ship.transform.position;
+						const anchor = ship.anchor.unwrap();
+						const { x: x2, y: y2 } = anchor!.anchor.transform.position;
+						p5.stroke(51);
+						p5.line(x, y, x2, y2);
+					}
+		
+					return ship;
+				});
+				return squad;
 			});
 		}
 		

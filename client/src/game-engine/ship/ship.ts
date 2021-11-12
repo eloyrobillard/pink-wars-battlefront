@@ -1,5 +1,4 @@
 import { Transform2D, RigidBody2D, Model2D, Anchor } from '../components/index';
-import { getAnchor } from './behavior/flocking';
 import { vec2, Maybe, Some, None } from '../types/index';
 
 export class Ship {
@@ -28,7 +27,7 @@ export class Ship {
 	}
 
 	ready() {
-		if (!this.isSquadLeader) this.anchor = new Some(getAnchor(this));
+		// if (!this.isSquadLeader) this.anchor = new Some(getAnchor(this));
 	}
 
 	update () {
@@ -36,7 +35,7 @@ export class Ship {
 			anchor.update(this);
 			return anchor;
 		});
-		else if (!this.isSquadLeader) this.anchor = new Some(getAnchor(this));
+		// else if (!this.isSquadLeader) this.anchor = new Some(getAnchor(this));
 
 		this.transform.update(this.rb.speed);
 		this.body.update(this.transform);
