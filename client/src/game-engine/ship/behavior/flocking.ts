@@ -1,7 +1,7 @@
 import { Some } from '../../types/index';
 import { Anchor } from '../../components/index';
-import math from '../../../math/index';
-import Game from '../../index';
+// import math from '../../../math/index';
+// import Game from '../../index';
 import { Ship } from '../ship';
 // import Pool from '../pool';
 

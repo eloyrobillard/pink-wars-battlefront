@@ -58,47 +58,40 @@ function cast (front: vec2, rot: number, dist: number): Maybe<CastHit> {
 	return new None();
 }
 
-export function detectWalls (ship: Ship) {
-	let deltaRot = 0;
-
-	const { position } = ship.transform;
-	const rot = Math.floor(ship.transform.rot);
+export function detectWalls ({ transform }: Ship) {
+	const { position } = transform;
+	const rot = Math.floor(transform.rot);
 	// console.log(rot);
 
 	const maybeWall = cast(position, rot, FRONT_DIST);
 
-	// TODO consider checking side walls anyway
 	if (maybeWall.isNone) {
 		return;
 	}
 
-	const { angle } = maybeWall.unwrap()!;
-	if (angle === 0 || angle === 180) {
+	const castHit = maybeWall.unwrap()!;
+	if (castHit.angle === 0 || castHit.angle === 180) {
 		// left or right
-		// console.log('left or right');
 		if (rot % 180 < 90) {
 			// wants to turn left, so check if not wall on left
 			const maybeLeft = cast(position, rot + 90, SIDES_DIST);
-			deltaRot = maybeLeft.isSome ? -TURN_SPD : TURN_SPD;
+			return transform.lerpWallRot(maybeLeft.unwrapOr(castHit).angle);
+			// deltaRot = maybeLeft.isSome ? -TURN_SPD : TURN_SPD;
 		} else {
 			// wants to turn right, so check if not wall on right
 			const maybeRight = cast(position, rot - 90, SIDES_DIST);
-			deltaRot = maybeRight.isSome ? TURN_SPD : -TURN_SPD;
+			return transform.lerpWallRot(maybeRight.unwrapOr(castHit).angle);
 		}
 	} else {
 		// top or bottom
-		// console.log('top or bottom');
 		if (rot % 180 < 90) {
 			// wants to turn right, so check if not wall on right
 			const maybeRight = cast(position, rot - 90, SIDES_DIST);
-			deltaRot = maybeRight.isSome ? TURN_SPD : -TURN_SPD;
+			return transform.lerpWallRot(maybeRight.unwrapOr(castHit).angle);
 		} else {
 			// wants to turn left, so check if not wall on left
 			const maybeLeft = cast(position, rot + 90, SIDES_DIST);
-			deltaRot = maybeLeft.isSome ? -TURN_SPD : TURN_SPD;
+			return transform.lerpWallRot(maybeLeft.unwrapOr(castHit).angle);
 		}
 	}
-
-	// console.log(deltaRot > 0 ? 'go left' : 'go right');
-	return ship.transform.addWallRot(deltaRot);
 }

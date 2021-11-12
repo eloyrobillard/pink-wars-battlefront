@@ -38,7 +38,6 @@ export class vec2 {
 	}
 
 	/**
-	 * 
 	 * @returns rotation in degrees
 	 */
 	toRotation() {
