@@ -37,7 +37,11 @@ export class vec2 {
 		return Math.sqrt(dx**2 + dy**2);
 	}
 
-	toDegrees() {
+	/**
+	 * 
+	 * @returns rotation in degrees
+	 */
+	toRotation() {
 		return Math.atan2(this.y, this.x) / Math.PI * 180;
 	}
 }
