@@ -1,9 +1,9 @@
-import { Anchor } from '../types/index';
+import { Anchor } from '../components/index';
 import { Ship } from '../ship';
 import Pool from '../state/pool';
 
 export function getAnchor(follower: Ship) {
-  follower.anchor = new Anchor(closest(origin));
+  return new Anchor(closest(follower));
 }
 
 function closest(origin: Ship): Ship {

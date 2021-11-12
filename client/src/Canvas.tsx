@@ -27,7 +27,7 @@ export default function Canvas () {
 			Game.update();
 			p5.background('#ffdbed');
 			p5.noStroke();
-			Game.pool.map((ship) => {
+			Game.Pool.map((ship) => {
 				const { body } = ship;
 				p5.beginShape();
 				body.vertices.forEach(({ x, y }) => {

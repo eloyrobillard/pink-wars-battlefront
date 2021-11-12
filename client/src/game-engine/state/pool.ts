@@ -1,7 +1,6 @@
-import { Ship } from '../types/index';
-import math from '../../math/index';
+import { Ship } from '../ship';
 
-const pool: Ship[] = Array.from({ length: 50 }, () => new Ship(math.randPos(), math.randRot()));
+let pool: Ship[];
 
 /**
  * Variant of map that acts as an endofunctor (takes a ship, returns a ship and only a ship).
@@ -27,6 +26,10 @@ function get(index: number) {
   return pool[index];
 }
 
-const Pool = { map, reduce, get };
+function set(ships: Ship[]) {
+  return pool = ships;
+}
+
+const Pool = { map, reduce, get, set };
 
 export default Pool;
