@@ -1,3 +1,4 @@
+import { Some } from '../../types/index';
 import { Anchor } from '../../components/index';
 import math from '../../../math/index';
 import Game from '../../index';
@@ -11,9 +12,15 @@ export function getAnchor(follower: Ship) {
   return new Anchor(anchor);
 }
 
+/**
+ * Manually sets anchor and follower for each argument.
+ * @param follower 
+ * @param anchor 
+ * @returns Some(anchor)
+ */
 export function setAnchor(follower: Ship, anchor: Ship) {
   anchor.setFollower(follower);
-  return new Anchor(anchor);
+  return follower.anchor = new Some(new  Anchor(anchor));
 }
 
 function closestFree(origin: Ship): Ship {
