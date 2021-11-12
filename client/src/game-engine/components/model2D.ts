@@ -17,11 +17,11 @@ export class Model2D {
     const { rot, position: { x, y } } = transform;
 		for (let i = 0; i < this.vertices.length; i += 1) {
 			const { x: dx, y: dy } = this.offsets[i];
-			this.vertices[i] = {
+			this.vertices[i] = new vec2(
 				// https://www.wikiwand.com/en/Rotation_matrix
-				x: x + dx * math.cosConvert(rot) - dy * math.sinConvert(rot),
-				y: y - dx * math.sinConvert(rot) - dy * math.cosConvert(rot)
-			};
+				x + dx * math.cosConvert(rot) - dy * math.sinConvert(rot),
+				y - dx * math.sinConvert(rot) - dy * math.cosConvert(rot)
+      );
 		}
   }
 }

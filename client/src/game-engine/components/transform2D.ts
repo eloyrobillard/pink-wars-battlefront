@@ -19,10 +19,10 @@ export class Transform2D {
    * @returns vec2 of magnitude 1 (normalized)
    */
   private computeDirection(): vec2 {
-    return this.direction = {
-      x: math.cosConvert(this.rot),
-      y: math.sinConvert(this.rot),
-    }
+    return this.direction = new vec2(
+      math.cosConvert(this.rot),
+      math.sinConvert(this.rot),
+    )
   }
 
   update(speed: number) {

@@ -1,7 +1,7 @@
 import { Ship } from '../types/index';
 import math from '../../math/index';
 
-const pool = Array.from({ length: 50}, () => new Ship(math.randPos(), math.randRot()));
+const pool: Ship[] = Array.from({ length: 50}, () => new Ship(math.randPos(), math.randRot()));
 
 /**
  * Variant of map that acts as an endofunctor (takes a ship, returns a ship and only a ship).
