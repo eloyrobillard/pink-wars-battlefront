@@ -1,7 +1,7 @@
 import math from '../../math/index';
 import { vec2, Maybe, Some, None, Ship } from '../types/index';
 
-const FRONT_DIST = 50; // px
+const FRONT_DIST = 100; // px
 const SIDES_DIST = 20; // px
 const TURN_SPD = 150;
 
@@ -81,6 +81,7 @@ export function detectWalls(ship: Ship) {
   
   const maybeWall = cast(position, rot, FRONT_DIST);
 
+  // TODO consider checking side walls anyway
   if (maybeWall.isNone) {
     ship.wallEvadeRot = 0;
     return;

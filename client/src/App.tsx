@@ -1,5 +1,5 @@
 import Canvas from './Canvas';
-import './App.css';
+import './style/App.css';
 
 // TODO add ships global speed controller, pause button
 function NavBar () {

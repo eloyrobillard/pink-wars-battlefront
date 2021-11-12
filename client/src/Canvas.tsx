@@ -1,7 +1,7 @@
 import Game from './game-engine/index';
 import Sketch from 'react-p5';
 import p5Types from 'p5';
-import './Canvas.css' //Import this for typechecking and intellisense;
+import './style/Canvas.css' //Import this for typechecking and intellisense;
 
 // let start = performance.now();
 export default function Canvas () {
