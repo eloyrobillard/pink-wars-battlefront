@@ -30,7 +30,18 @@ export function flock({ transform, anchor }: Ship) {
   const dest = anchor!.anchor.transform.position;
   const vecTo = transform.position.vecTo(dest);
   const rotToDest = vecTo.toRotation();
-  const deltaRot = math.lerp(transform.rot, rotToDest, Game.fixedDeltaTime) - transform.rot;
+  const deltaRot = getRotLerp(transform.rot, rotToDest) - transform.rot;
   // console.log(transform.rot, rotToDest, deltaRot);
   return transform.addRot(deltaRot);
+}
+
+function getRotLerp(start: number, end: number) {
+  const absDiff = Math.abs(end - start);
+  // more than π means faster to turn right
+  if (absDiff > 180) {
+    // actual diff considering angles are periodic
+    const realDiff = 360 - absDiff;
+    return math.lerp(start,  start - realDiff, Game.fixedDeltaTime);
+  }
+  return math.lerp(start, end, Game.fixedDeltaTime);
 }

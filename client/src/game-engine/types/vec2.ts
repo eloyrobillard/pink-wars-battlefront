@@ -42,6 +42,6 @@ export class vec2 {
 	 * @returns rotation in degrees
 	 */
 	toRotation() {
-		return Math.atan2(-this.y, this.x) / Math.PI * 180;
+		return (((Math.atan2(-this.y, this.x) / Math.PI * 180) % 360) + 360) % 360;
 	}
 }
