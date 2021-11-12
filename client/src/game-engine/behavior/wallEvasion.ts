@@ -3,7 +3,7 @@ import { vec2, Maybe, Some, None, Ship } from '../types/index';
 
 const FRONT_DIST = 100; // px
 const SIDES_DIST = 20; // px
-const TURN_SPD = 150;
+const TURN_SPD = 100;
 
 type CastHit = {
 	normal: vec2;
