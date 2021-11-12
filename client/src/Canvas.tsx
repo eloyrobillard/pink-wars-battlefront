@@ -26,15 +26,16 @@ export default function Canvas () {
 		if (Game.frameIsReady()) {
 			Game.update();
 			p5.background('#ffdbed');
-			p5.noStroke();
+			// p5.noStroke();
 			Game.Pool.map((squad) => {
 				const { color } = squad;
 				squad.map((ship) => {
-					const { body } = ship;
+					// console.log(ship)
+					const { model } = ship;
 					p5.beginShape();
 					const c = p5.color(color);
 					p5.fill(c);
-					body.vertices.forEach(({ x, y }) => {
+					model.vertices.forEach(({ x, y }) => {
 						p5.vertex(x, y);
 					})
 					p5.endShape('close');
@@ -44,7 +45,7 @@ export default function Canvas () {
 						const { x, y } = ship.transform.position;
 						const anchor = ship.anchor.unwrap();
 						const { x: x2, y: y2 } = anchor!.anchor.transform.position;
-						p5.stroke(51);
+						// p5.stroke(51);
 						p5.line(x, y, x2, y2);
 					}
 		

@@ -7,7 +7,7 @@ export class Ship {
 	rb: RigidBody2D = {
 		speed: 100
 	};
-	body: Model2D;
+	model: Model2D;
 
 	isSquadLeader;
 	follower: Maybe<Ship> = new None();
@@ -15,7 +15,7 @@ export class Ship {
 	constructor (position: vec2, rot: number, isSquadLeader: boolean = false) {
 		this.transform = new Transform2D(position, rot);
 		this.isSquadLeader = isSquadLeader;
-		this.body = new Model2D(
+		this.model = new Model2D(
 			3, 
 			[ new vec2(-15, -4), new vec2(0, 0), new vec2(-15, 4) ],
 			!isSquadLeader ? 255 : 0
@@ -38,6 +38,6 @@ export class Ship {
 		// else if (!this.isSquadLeader) this.anchor = new Some(getAnchor(this));
 
 		this.transform.update(this.rb.speed);
-		this.body.update(this.transform);
+		this.model.update(this.transform);
 	}
 }
