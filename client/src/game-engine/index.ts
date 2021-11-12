@@ -2,7 +2,6 @@ import Behavior from './ship/behavior/index';
 import Pool from './ship/pool';
 import { Ship } from './ship/ship';
 import math from '../math/index'
-import { isJsxClosingFragment } from 'typescript';
 
 const FPS = 30; // NOTE p5.draw ~= 76 fps
 const fixedDeltaTime = 1 / FPS;
@@ -14,19 +13,14 @@ let frameStart = 0;
  */
 function ready() {
   Pool.set([new Ship(math.randPos(), math.randRot(), true), ...Array.from({ length: 50 }, () => new Ship(math.randPos(), math.randRot()))]);
+  const squadLeader = Pool.get(0);
   Pool.map((ship, i) => {
     // ship.ready();
-    if (Pool.get(i + 1)) {
-      const follower = Pool.get(i + 1);
-      Behavior.setAnchor(follower, ship);
-      console.log(follower);
+    if (i > 0) {
+      Behavior.setAnchor(ship, squadLeader);
     }
     return ship;
   });
-  Pool.map((ship) => {
-    if (ship.anchor.isNone) console.log('no anchor');
-    return ship;
-  })
 }
 
 function start () {
