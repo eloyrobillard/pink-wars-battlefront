@@ -12,7 +12,7 @@ let frameStart = 0;
  * Called once right after the Pool is loaded.
  */
 function ready() {
-  Pool.set( Array.from({ length: 50 }, () => new Ship(math.randPos(), math.randRot())));
+  Pool.set([new Ship(math.randPos(), math.randRot(), true), ...Array.from({ length: 50 }, () => new Ship(math.randPos(), math.randRot()))]);
   Pool.map((ship) => {
     ship.ready();
     return ship;

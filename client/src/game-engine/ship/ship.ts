@@ -10,16 +10,18 @@ export class Ship {
 	};
 	body = new Model2D(3, [ new vec2(-15, -4), new vec2(0, 0), new vec2(-15, 4) ]);
 
-	constructor (position: vec2, rot: number) {
+	constructor (position: vec2, rot: number, public isSquadLeader: boolean = false) {
 		this.transform = new Transform2D(position, rot);
 	}
 
 	ready() {
-		this.anchor = getAnchor(this);
+		if (!this.isSquadLeader) this.anchor = getAnchor(this);
 	}
 
 	update () {
 		if (this.anchor) this.anchor.update(this);
+		else if (!this.isSquadLeader) this.anchor = getAnchor(this);
+
 		this.transform.update(this.rb.speed);
 		this.body.update(this.transform);
 	}
