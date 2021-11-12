@@ -30,6 +30,8 @@ export default function Canvas () {
 			Game.Pool.map((ship) => {
 				const { body } = ship;
 				p5.beginShape();
+				const c = p5.color(body.color);
+				p5.fill(c);
 				body.vertices.forEach(({ x, y }) => {
 					p5.vertex(x, y);
 				})
