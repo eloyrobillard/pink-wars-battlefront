@@ -19,7 +19,7 @@ export class Ship {
 	}
 
 	update () {
-		this.anchor!.update(this);
+		if (this.anchor) this.anchor.update(this);
 		this.transform.update(this.rb.speed);
 		this.body.update(this.transform);
 	}
