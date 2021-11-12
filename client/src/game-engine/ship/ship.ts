@@ -1,8 +1,6 @@
 import { Transform2D, RigidBody2D, Model2D, Anchor } from '../components/index';
-import { getAnchor } from './behavior/flocking';
+import { getAnchor, flock } from './behavior/flocking';
 import { vec2 } from '../types/index';
-import Game from '../index';
-import math from '../../math/index';
 
 export class Ship {
 	anchor: Anchor | null = null;
@@ -22,6 +20,7 @@ export class Ship {
 	}
 
 	update () {
+		this.anchor!.update(this);
 		this.transform.update(this.rb.speed);
 		this.body.update(this.transform);
 	}

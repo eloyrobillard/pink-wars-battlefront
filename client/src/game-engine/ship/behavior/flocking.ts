@@ -24,7 +24,7 @@ function closest(origin: Ship): Ship {
   return Pool.get(index);
 }
 
-export function flock({ transform, anchor}: Ship) {
+export function flock({ transform, anchor }: Ship) {
   const dest = anchor!.anchor.transform.position;
   const rotToDest = transform.position.vecTo(dest).toRotation();
   const deltaRot = math.lerp(transform.rot, rotToDest, Game.fixedDeltaTime);
