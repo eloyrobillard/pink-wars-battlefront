@@ -1,5 +1,6 @@
 import math from '../../math/index';
-import { vec2, Maybe, Some, None, Ship } from '../types/index';
+import { vec2, Maybe, Some, None } from '../types/index';
+import { Ship } from '../ship';
 
 const FRONT_DIST = 100; // px
 const SIDES_DIST = 20; // px
