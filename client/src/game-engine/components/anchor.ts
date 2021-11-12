@@ -5,6 +5,6 @@ export class Anchor {
   constructor(public anchor: Ship) {}
 
   update(parent: Ship) {
-    flock(parent);
+    flock(parent, this.anchor);
   }
 }
