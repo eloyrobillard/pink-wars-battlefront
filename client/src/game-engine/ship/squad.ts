@@ -22,7 +22,7 @@ export class Squad {
   }
 
   start() {
-    this.members.map((ship) => {
+    this.squad.map((ship) => {
       ship.start();
       return ship;
     });
@@ -42,7 +42,7 @@ export class Squad {
    */
   map(cb: (ship: Ship, index: number) => Ship) {
     for (let i = 0; i < 6; i += 1) {
-      cb(this.squad[i], i);
+      this.squad[i] = cb(this.squad[i], i);
     }
     return [...this.squad];
   }
