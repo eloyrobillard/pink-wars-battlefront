@@ -18,7 +18,7 @@ export class vec2 {
 		return this.vecTo(pos).reverse();
 	}
 
-	 reverse(): vec2 {
+	reverse(): vec2 {
 		return new vec2(-this.x, -this.y)
 	}
 
@@ -30,5 +30,10 @@ export class vec2 {
 				x * dt + dx * time,
 				y * dt + dy * time
 			);
+	}
+
+	distance(other: vec2) {
+		const { x: dx, y: dy } = this.vecTo(other);
+		return Math.sqrt(dx**2 + dy**2);
 	}
 }
