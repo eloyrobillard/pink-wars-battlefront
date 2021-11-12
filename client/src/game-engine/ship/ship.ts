@@ -1,6 +1,6 @@
 import { Transform2D, RigidBody2D, Model2D, Anchor } from '../components/index';
 import { getAnchor } from './behavior/flocking';
-import { vec2 } from '../types/index';
+import { vec2, Maybe, Some, None } from '../types/index';
 
 export class Ship {
 	anchor: Anchor | null = null;
@@ -9,7 +9,9 @@ export class Ship {
 		speed: 100
 	};
 	body: Model2D;
+
 	isSquadLeader;
+	follower: Maybe<Ship> = new None();
 
 	constructor (position: vec2, rot: number, isSquadLeader: boolean = false) {
 		this.transform = new Transform2D(position, rot);
@@ -19,6 +21,10 @@ export class Ship {
 			[ new vec2(-15, -4), new vec2(0, 0), new vec2(-15, 4) ],
 			!isSquadLeader ? 255 : 0
 		);
+	}
+
+	setFollower(follower: Ship) {
+		this.follower = new Some(follower);
 	}
 
 	ready() {

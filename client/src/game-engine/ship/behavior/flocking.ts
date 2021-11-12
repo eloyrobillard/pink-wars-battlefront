@@ -5,18 +5,19 @@ import { Ship } from '../ship';
 import Pool from '../pool';
 
 export function getAnchor(follower: Ship) {
-  const anchor = closest(follower);
+  const anchor = closestFree(follower);
   // console.log(anchor);
+  anchor.setFollower(follower);
   return new Anchor(anchor);
 }
 
-function closest(origin: Ship): Ship {
+function closestFree(origin: Ship): Ship {
   const { position } = origin.transform;
   let index = Infinity;
   Pool.reduce<number>((acc, ship, i) => {
     const dist = position.distance(ship.transform.position)
     
-    if (dist > 0 && dist < acc) {
+    if (dist > 0 && dist < acc && ship.follower.isNone) {
       index = i;
       return dist;
     }
