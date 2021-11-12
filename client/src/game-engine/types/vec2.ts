@@ -18,7 +18,17 @@ export class vec2 {
 		return this.vecTo(pos).reverse();
 	}
 
-	private reverse(): vec2 {
+	 reverse(): vec2 {
 		return new vec2(-this.x, -this.y)
+	}
+
+	lerp(dest: vec2, time: number) {
+		const { x, y } = this;
+		const { x: dx, y: dy } = dest;
+		const dt = 1 - time;
+		return new vec2(
+				x * dt + dx * time,
+				y * dt + dy * time
+			);
 	}
 }
