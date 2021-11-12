@@ -11,6 +11,11 @@ export function getAnchor(follower: Ship) {
   return new Anchor(anchor);
 }
 
+export function setAnchor(follower: Ship, anchor: Ship) {
+  anchor.setFollower(follower);
+  return new Anchor(anchor);
+}
+
 function closestFree(origin: Ship): Ship {
   const { position } = origin.transform;
   let index = Infinity;
@@ -18,13 +23,18 @@ function closestFree(origin: Ship): Ship {
     const dist = position.distance(ship.transform.position)
     
     if (dist > 0 && dist < acc && ship.follower.isNone) {
+      if (ship.anchor.isSome && ship.anchor.unwrap()!.anchor === origin) {
+        return acc;
+      }
       index = i;
       return dist;
     }
     return acc;
   }, Infinity);
 
-  return Pool.get(index);
+  const anchor = Pool.get(index);
+  console.log(anchor.follower.isNone, anchor.anchor.isNone ? 'no anchor' : anchor.anchor.unwrap()!.anchor === origin ? 'self anchor' : 'whatever');
+  return anchor;
 }
 
 export function flock({ transform }: Ship, anchor: Ship) {

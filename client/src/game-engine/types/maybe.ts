@@ -54,7 +54,7 @@ export class None<T> extends Maybe<T> {
   }
 
   map() {
-    return;
+    throw new Error('Tried to map on None');
   }
 
   isSome = false;
