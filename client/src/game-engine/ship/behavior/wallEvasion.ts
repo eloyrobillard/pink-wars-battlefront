@@ -101,5 +101,5 @@ export function detectWalls (ship: Ship) {
 	}
 
 	// console.log(deltaRot > 0 ? 'go left' : 'go right');
-	return ship.transform.addRot(deltaRot);
+	return ship.transform.addWallRot(deltaRot);
 }

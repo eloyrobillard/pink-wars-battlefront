@@ -8,6 +8,7 @@ export class Transform2D {
   width: number = 8;
   rot: number;
   deltaRot = 0;
+  wallEvadeRot = 0;
   direction: vec2;
 
   constructor(position: vec2, rot: number) {
@@ -31,12 +32,22 @@ export class Transform2D {
     if (!deltaRot) {
       return this.deltaRot = 0;
     }
-		return this.deltaRot += deltaRot;
+		return this.deltaRot = deltaRot;
 	}
+
+  addWallRot(deltaRot: number) {
+    return this.wallEvadeRot = deltaRot;
+  }
 
   private changeRot() {
 		// rot always >= 0
-		return (this.rot = ((this.rot + this.deltaRot * Game.fixedDeltaTime) % 360 + 360) % 360);
+    // console.log(this.rot + this.deltaRot);
+    if (this.wallEvadeRot) {
+      return (this.rot = ((this.rot + this.wallEvadeRot) % 360 + 360) % 360);  
+    } else if (this.deltaRot) {
+      return (this.rot = ((this.rot + this.deltaRot) % 360 + 360) % 360);
+    }
+    return this.rot;
   }
 
   moveForward (speed: number = 100): vec2 {
@@ -47,8 +58,15 @@ export class Transform2D {
 		));
 	}
 
+  reset() {
+    this.wallEvadeRot = 0;
+    this.deltaRot = 0;
+  }
+
   update(speed: number) {
-    // this.moveForward(speed);
-    // this.computeDirection();
+    this.changeRot();
+    this.moveForward(speed);
+    this.computeDirection();
+    this.reset();
   }
 }

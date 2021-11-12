@@ -30,7 +30,7 @@ export function flock({ transform, anchor }: Ship) {
   const dest = anchor!.anchor.transform.position;
   const vecTo = transform.position.vecTo(dest);
   const rotToDest = vecTo.toRotation();
-  const deltaRot = math.lerp(transform.rot, rotToDest, Game.fixedDeltaTime);
+  const deltaRot = math.lerp(transform.rot, rotToDest, Game.fixedDeltaTime) - transform.rot;
   // console.log(transform.rot, rotToDest, deltaRot);
   return transform.addRot(deltaRot);
 }
