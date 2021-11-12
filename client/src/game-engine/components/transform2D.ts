@@ -7,6 +7,7 @@ export class Transform2D {
   height: number = 15;
   width: number = 8;
   rot: number;
+  deltaRot = 0;
   direction: vec2;
 
   constructor(position: vec2, rot: number) {
@@ -27,12 +28,16 @@ export class Transform2D {
   }
 
   addRot (deltaRot: number = 0): number {
-		if (!deltaRot) {
-			return this.rot;
-		}
-		// rot always >= 0
-		return (this.rot = ((this.rot + deltaRot * Game.fixedDeltaTime) % 360 + 360) % 360);
+    if (!deltaRot) {
+      return this.deltaRot = 0;
+    }
+		return this.deltaRot += deltaRot;
 	}
+
+  private changeRot() {
+		// rot always >= 0
+		return (this.rot = ((this.rot + this.deltaRot * Game.fixedDeltaTime) % 360 + 360) % 360);
+  }
 
   moveForward (speed: number = 100): vec2 {
 		const { rot, position: { x, y } } = this;
@@ -43,7 +48,7 @@ export class Transform2D {
 	}
 
   update(speed: number) {
-    this.moveForward(speed);
-    this.computeDirection();
+    // this.moveForward(speed);
+    // this.computeDirection();
   }
 }

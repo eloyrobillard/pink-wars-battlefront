@@ -1,5 +1,5 @@
 import { Transform2D, RigidBody2D, Model2D, Anchor } from '../components/index';
-import { getAnchor, flock } from './behavior/flocking';
+import { getAnchor } from './behavior/flocking';
 import { vec2 } from '../types/index';
 
 export class Ship {

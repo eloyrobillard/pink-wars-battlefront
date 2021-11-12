@@ -5,7 +5,9 @@ import { Ship } from '../ship';
 import Pool from '../pool';
 
 export function getAnchor(follower: Ship) {
-  return new Anchor(closest(follower));
+  const anchor = closest(follower);
+  // console.log(anchor);
+  return new Anchor(anchor);
 }
 
 function closest(origin: Ship): Ship {
@@ -26,8 +28,9 @@ function closest(origin: Ship): Ship {
 
 export function flock({ transform, anchor }: Ship) {
   const dest = anchor!.anchor.transform.position;
-  const rotToDest = transform.position.vecTo(dest).toRotation();
+  const vecTo = transform.position.vecTo(dest);
+  const rotToDest = vecTo.toRotation();
   const deltaRot = math.lerp(transform.rot, rotToDest, Game.fixedDeltaTime);
-
+  // console.log(transform.rot, rotToDest, deltaRot);
   return transform.addRot(deltaRot);
 }
