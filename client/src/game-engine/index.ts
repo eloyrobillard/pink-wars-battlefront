@@ -1,6 +1,6 @@
-import Behavior from './behavior/index';
-import Pool from './state/pool';
-import { Ship } from './ship';
+import Behavior from './ship/behavior/index';
+import Pool from './ship/pool';
+import { Ship } from './ship/ship';
 import math from '../math/index'
 
 const FPS = 30; // NOTE p5.draw ~= 76 fps

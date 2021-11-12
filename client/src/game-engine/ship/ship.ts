@@ -1,8 +1,8 @@
-import { Transform2D, RigidBody2D, Model2D, Anchor } from './components/index';
+import { Transform2D, RigidBody2D, Model2D, Anchor } from '../components/index';
 import { getAnchor } from './behavior/flocking';
-import { vec2 } from './types/index';
-import Game from './index';
-import math from '../math/index';
+import { vec2 } from '../types/index';
+import Game from '../index';
+import math from '../../math/index';
 
 export class Ship {
 	anchor: Anchor | null = null;
