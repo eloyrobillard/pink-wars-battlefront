@@ -1,5 +1,6 @@
-import math from '../../math';
 import { vec2 } from '../types/index';
+import Game from '../index';
+import math from '../../math';
 
 export class Transform2D {
   position: vec2;
@@ -25,7 +26,24 @@ export class Transform2D {
     )
   }
 
+  addRot (deltaRot: number = 0): number {
+		if (!deltaRot) {
+			return this.rot;
+		}
+		// rot always >= 0
+		return (this.rot = ((this.rot + deltaRot * Game.fixedDeltaTime) % 360 + 360) % 360);
+	}
+
+  moveForward (speed: number = 100): vec2 {
+		const { rot, position: { x, y } } = this;
+		return (this.position = new vec2(
+			x + speed * math.cosConvert(rot) * Game.fixedDeltaTime,
+			y - speed * math.sinConvert(rot) * Game.fixedDeltaTime
+		));
+	}
+
   update(speed: number) {
+    this.moveForward(speed);
     this.computeDirection();
   }
 }

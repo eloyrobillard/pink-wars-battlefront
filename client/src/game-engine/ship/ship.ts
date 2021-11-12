@@ -17,23 +17,6 @@ export class Ship {
 		this.transform = new Transform2D(position, rot);
 	}
 
-	addRot (deltaRot: number = 0): number {
-		// console.log(this.transform.rot);
-		if (!deltaRot) {
-			return this.transform.rot;
-		}
-		// rot always >= 0
-		return (this.transform.rot = ((this.transform.rot + deltaRot * Game.fixedDeltaTime) % 360 + 360) % 360);
-	}
-
-	moveForward (speed: number = 100): vec2 {
-		const { rot, position: { x, y } } = this.transform;
-		return (this.transform.position = new vec2(
-			x + speed * math.cosConvert(rot) * Game.fixedDeltaTime,
-			y - speed * math.sinConvert(rot) * Game.fixedDeltaTime
-		));
-	}
-
 	ready() {
 		this.anchor = getAnchor(this);
 	}

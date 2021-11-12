@@ -39,8 +39,6 @@ function frameIsReady() {
 function update() {
   Pool.map((ship) => {
     Behavior.detectWalls(ship);
-    ship.moveForward(100);
-		ship.addRot();
     ship.update();
     return ship;
   });

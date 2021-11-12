@@ -24,10 +24,10 @@ function closest(origin: Ship): Ship {
   return Pool.get(index);
 }
 
-export function flock(ship: Ship) {
-  const dest = ship.anchor!.anchor.transform.position;
-  const rotToDest = ship.transform.position.vecTo(dest).toRotation();
-  const deltaRot = math.lerp(ship.transform.rot, rotToDest, Game.fixedDeltaTime);
+export function flock({ transform, anchor}: Ship) {
+  const dest = anchor!.anchor.transform.position;
+  const rotToDest = transform.position.vecTo(dest).toRotation();
+  const deltaRot = math.lerp(transform.rot, rotToDest, Game.fixedDeltaTime);
 
-  return ship.addRot(deltaRot);
+  return transform.addRot(deltaRot);
 }
