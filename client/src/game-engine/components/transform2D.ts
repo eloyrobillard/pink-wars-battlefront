@@ -60,11 +60,10 @@ export class Transform2D {
 
   private changeRot() {
 		// rot always >= 0
-    // console.log(this.rot + this.deltaRot);
     if (this.wallEvadeRot) {
-      return (this.rot = ((this.rot + this.wallEvadeRot) % 360 + 360) % 360);  
+      return (this.rot = (((this.rot + this.wallEvadeRot) % 360) + 360) % 360);  
     } else if (this.deltaRot) {
-      return (this.rot = ((this.rot + this.deltaRot) % 360 + 360) % 360);
+      return (this.rot = (((this.rot + this.deltaRot) % 360) + 360) % 360);
     }
     return this.rot;
   }
