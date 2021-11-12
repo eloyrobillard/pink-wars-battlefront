@@ -13,6 +13,8 @@ export abstract class Maybe<T> {
    */
   abstract unwrap(): T | void;
 
+  abstract map(cb: (content: T) => T): T | void;
+
   abstract isSome: boolean;
 
   abstract isNone: boolean;
@@ -34,6 +36,10 @@ export class Some<T> extends Maybe<T> {
 		return this.contents;
 	}
 
+  map(cb: (content: T) => T) {
+    return cb(this.contents);
+  }
+
   isSome = true;
   isNone = false;
 }
@@ -45,6 +51,10 @@ export class None<T> extends Maybe<T> {
 
   unwrap () {
     throw new Error('Tried to unwrap None');
+  }
+
+  map() {
+    return;
   }
 
   isSome = false;

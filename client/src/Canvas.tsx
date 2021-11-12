@@ -36,6 +36,15 @@ export default function Canvas () {
 					p5.vertex(x, y);
 				})
 				p5.endShape('close');
+
+				// DEBUG
+				if (ship.anchor.isSome) {
+					const { x, y } = ship.transform.position;
+					const anchor = ship.anchor.unwrap();
+					const { x: x2, y: y2 } = anchor!.anchor.transform.position;
+					p5.stroke(51);
+					p5.line(x, y, x2, y2);
+				}
 	
 				return ship;
 			});

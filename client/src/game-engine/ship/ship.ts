@@ -3,7 +3,7 @@ import { getAnchor } from './behavior/flocking';
 import { vec2, Maybe, Some, None } from '../types/index';
 
 export class Ship {
-	anchor: Anchor | null = null;
+	anchor: Maybe<Anchor> = new None();
 	transform: Transform2D;
 	rb: RigidBody2D = {
 		speed: 100
@@ -28,12 +28,15 @@ export class Ship {
 	}
 
 	ready() {
-		if (!this.isSquadLeader) this.anchor = getAnchor(this);
+		if (!this.isSquadLeader) this.anchor = new Some(getAnchor(this));
 	}
 
 	update () {
-		if (this.anchor) this.anchor.update(this);
-		else if (!this.isSquadLeader) this.anchor = getAnchor(this);
+		if (this.anchor.isSome) this.anchor.map((anchor) => {
+			anchor.update(this);
+			return anchor;
+		});
+		else if (!this.isSquadLeader) this.anchor = new Some(getAnchor(this));
 
 		this.transform.update(this.rb.speed);
 		this.body.update(this.transform);
