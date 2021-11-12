@@ -13,12 +13,12 @@ export default function Canvas () {
 		const canvasDiv = document.getElementById('canvas') as HTMLDivElement;
 		const { width, height } = canvasDiv.getBoundingClientRect();
 		p5.createCanvas(width, height).parent(canvasParentRef);
+		Game.start();
 		// always fit canvas to view
 		window.addEventListener('resize', () => {
 			const { width, height } = canvasDiv.getBoundingClientRect();
 			p5.resizeCanvas(width, height)
 		});
-		Game.start();
 	};
 
 	// redraw canvas on every browser update

@@ -15,6 +15,18 @@ export class Model2D {
     this.color = color;
   }
 
+  start(transform: Transform2D) {
+    const { rot, position: { x, y } } = transform;
+		for (let i = 0; i < this.vertices.length; i += 1) {
+			const { x: dx, y: dy } = this.offsets[i];
+			this.vertices[i] = new vec2(
+				// https://www.wikiwand.com/en/Rotation_matrix
+				x + dx * math.cosConvert(rot) - dy * math.sinConvert(rot),
+				y - dx * math.sinConvert(rot) - dy * math.cosConvert(rot)
+      );
+		}
+  }
+
   update(transform: Transform2D) {
     const { rot, position: { x, y } } = transform;
 		for (let i = 0; i < this.vertices.length; i += 1) {

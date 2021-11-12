@@ -21,13 +21,29 @@ export class Squad {
     this.squad = [this.leader, ...this.members];
   }
 
-  update() {
-    this.members.map((ship) => Behavior.detectWalls(ship));
+  start() {
+    this.members.map((ship) => {
+      ship.start();
+      return ship;
+    });
   }
 
+  update() {
+    this.members.map((ship) => {
+      Behavior.detectWalls(ship)
+      ship.update();
+      return ship;
+    });
+  }
+
+  /**
+   * @param cb 
+   * @returns a shallow copy of the squad
+   */
   map(cb: (ship: Ship, index: number) => Ship) {
     for (let i = 0; i < 6; i += 1) {
       cb(this.squad[i], i);
     }
+    return [...this.squad];
   }
 }

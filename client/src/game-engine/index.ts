@@ -8,14 +8,12 @@ let frameStart = 0;
 
 function start () {
   frameStart = performance.now();
-  ready();
-}
 
-/**
- * Called once right after the Pool is loaded.
- */
-function ready() {
   Pool.set(Array.from({ length: 6 }, (_, i) => new Squad(i, 255 / (i + 1))));
+  Pool.map((squad) => {
+    squad.start();
+    return squad;
+  })
 }
 
 function frameIsReady() {
@@ -36,6 +34,6 @@ function update() {
   });
 }
 
-const Game = { FPS, fixedDeltaTime, start, frameIsReady, Pool, update, ready };
+const Game = { FPS, fixedDeltaTime, start, frameIsReady, Pool, update };
 
 export default Game;

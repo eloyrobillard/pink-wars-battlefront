@@ -26,8 +26,9 @@ export class Ship {
 		this.follower = new Some(follower);
 	}
 
-	ready() {
+	start() {
 		// if (!this.isSquadLeader) this.anchor = new Some(getAnchor(this));
+		this.model.start(this.transform);
 	}
 
 	update () {
