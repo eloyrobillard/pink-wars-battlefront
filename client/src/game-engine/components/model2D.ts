@@ -8,7 +8,7 @@ export class Model2D {
   // offsets from transform.position for each bound
   offsets: vec2[];
 
-  constructor(numVerts: number, offsets: vec2[]) {
+  constructor(numVerts: number, offsets: vec2[], color: number) {
     this.vertices = Array.from({ length: numVerts });
     this.offsets = offsets;
   }

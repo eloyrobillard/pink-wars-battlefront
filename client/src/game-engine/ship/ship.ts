@@ -8,7 +8,11 @@ export class Ship {
 	rb: RigidBody2D = {
 		speed: 100
 	};
-	body = new Model2D(3, [ new vec2(-15, -4), new vec2(0, 0), new vec2(-15, 4) ]);
+	body = new Model2D(
+		3, 
+		[ new vec2(-15, -4), new vec2(0, 0), new vec2(-15, 4) ],
+		!this.isSquadLeader ? 255 : 0
+	);
 
 	constructor (position: vec2, rot: number, public isSquadLeader: boolean = false) {
 		this.transform = new Transform2D(position, rot);
