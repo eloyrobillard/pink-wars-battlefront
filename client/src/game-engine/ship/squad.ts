@@ -5,7 +5,7 @@ import { Ship } from './ship';
 export class Squad {
   leader: Ship;
   members: Ship[];
-  squad: Ship[];
+  private squad: Ship[];
   id: number;
   color: number;
 
@@ -29,7 +29,7 @@ export class Squad {
   }
 
   update() {
-    this.members.map((ship) => {
+    this.squad.map((ship) => {
       Behavior.detectWalls(ship)
       ship.update();
       return ship;
