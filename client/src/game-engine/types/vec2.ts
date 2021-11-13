@@ -60,10 +60,18 @@ export class vec2 {
 		return (((Math.atan2(-this.y, this.x) / Math.PI * 180) % 360) + 360) % 360;
 	}
 
+	/**
+	 * Returns the product between the magnitude of other and the length of the projection of this on other.
+	 * @param other 
+	 * @returns Number
+	 */
 	dotProd(other: vec2) {
 		return (this.x * other.x + this.y * other.y);
 	}
 
+	/**
+	 * Returns the normal to the polygon formed by this and other, with a magnitude equal to the area of that polygon.
+	 */
 	crossProd(other: vec2) {
 		return (this.x * other.x - this.y * other.y);
 	}
