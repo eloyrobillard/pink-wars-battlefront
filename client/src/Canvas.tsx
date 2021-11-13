@@ -1,4 +1,5 @@
 import Game from './game-engine/index';
+import DebugApi from './DebugApi';
 import Sketch from 'react-p5';
 import p5Types from 'p5';
 import './style/Canvas.css' //Import this for typechecking and intellisense;
@@ -41,6 +42,7 @@ export default function Canvas () {
 					p5.endShape('close');
 
 					// DEBUG
+					DebugApi.forEach(p5);
 					// if (ship.anchor.isSome) {
 					// 	const { x, y } = ship.transform.position;
 					// 	const anchor = ship.anchor.unwrap();

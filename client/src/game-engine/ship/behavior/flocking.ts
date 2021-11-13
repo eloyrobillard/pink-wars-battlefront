@@ -1,5 +1,6 @@
 import { Some, vec2 } from '../../types/index';
 import { Anchor } from '../../components/index';
+import DebugApi from '../../../DebugApi'
 // import math from '../../../math/index';
 // import Game from '../../index';
 import { Ship } from '../ship';
@@ -22,6 +23,11 @@ export function flock({ transform }: Ship, anchor: Ship) {
     position.x - direction.x * 30,
     position.y - direction.y * 30,
   );
+  DebugApi.placeP5Call((p5) => {
+    p5.point(dest.x, dest.y);
+    p5.stroke('purple'); // Change the color
+    p5.strokeWeight(10);
+  });
   const vecTo = transform.position.vecTo(dest);
   const rotToDest = vecTo.toRotation();
   return transform.lerpRot(rotToDest);
