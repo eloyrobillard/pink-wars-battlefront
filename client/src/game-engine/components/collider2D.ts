@@ -16,11 +16,12 @@ export class Collider2D extends Trigger2D {
 	}
 
 	checkCollision () {
+    console.log('hi')
 		Game.Pool.map((squadron) => {
 			squadron.map((ship) => {
 				const { trigger } = ship;
         if (this.checkOverlap(trigger)) {
-
+          console.log('collision!');
         }
 				return ship;
 			});
@@ -40,7 +41,7 @@ function broadPhase (self: Trigger2D, other: Trigger2D): boolean {
 
   let sVecs = [];
   // NOTE self is line, single vector
-  if (sVrts.length > 2) {
+  if (sVrts.length !== 2) {
     throw new Error('Collider2D, broad phase: I thought self should always be a line?!');
   }
   sVecs.push(vec2.toVec(sVrts[0].x, sVrts[0].y, sVrts[1].x, sVrts[1].y))

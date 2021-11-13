@@ -24,12 +24,12 @@ export class Squadron {
 		];
 	}
 
-	start () {
-		this.squad.map((ship) => {
-			ship.start();
-			return ship;
-		});
-	}
+	// start () {
+	// 	this.squad.map((ship) => {
+	// 		ship.start();
+	// 		return ship;
+	// 	});
+	// }
 
 	update () {
 		this.squad.map((ship) => {

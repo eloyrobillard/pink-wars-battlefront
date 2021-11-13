@@ -22,18 +22,14 @@ export class Ship {
 		this.model = new Model2D(
 			3, 
 			[ new vec2(-15, -4), new vec2(0, 0), new vec2(-15, 4) ],
-			!rank ? 255 : 0
+			!rank ? 255 : 0,
+			this.transform
 		);
 		this.trigger = new Trigger2D(this.transform, this.model, this.onTrigger);
 	}
 
 	setFollower(follower: Ship) {
 		this.follower = new Some(follower);
-	}
-
-	start() {
-		// if (!this.isSquadLeader) this.anchor = new Some(getAnchor(this));
-		this.model.start(this.transform);
 	}
 
 	onTrigger(col: Trigger2D) {
