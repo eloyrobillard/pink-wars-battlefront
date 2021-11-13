@@ -22,6 +22,18 @@ export class vec2 {
 		return new vec2(-this.x, -this.y)
 	}
 
+	/**
+	 * Returns vector going from (x1, y1) to (x2, y2)
+	 * @param x1 X-coordinate of first point
+	 * @param y1 Y-coordinate of first point
+	 * @param x2 X-coordinate of second point
+	 * @param y2 Y-coordinate of second point
+	 * @returns Vector
+	 */
+	toVec(x1: number, y1: number, x2: number, y2: number): vec2 {
+		return new vec2(x2 - x1, y2 - y1);
+	}
+
 	lerp(dest: vec2, time: number) {
 		const { x, y } = this;
 		const { x: dx, y: dy } = dest;
