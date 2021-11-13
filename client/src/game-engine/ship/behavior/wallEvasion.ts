@@ -71,23 +71,23 @@ export function detectWalls ({ transform }: Ship) {
 		if (rot % 180 < 90) {
 			// wants to turn left, so check if not wall on left
 			const maybeLeft = cast(position, rot + 90, SIDES_DIST);
-			return transform.lerpWallRot(maybeLeft.unwrapOr(castHit).angle);
+			return transform.lerpRot(maybeLeft.unwrapOr(castHit).angle, true);
 			// deltaRot = maybeLeft.isSome ? -TURN_SPD : TURN_SPD;
 		} else {
 			// wants to turn right, so check if not wall on right
 			const maybeRight = cast(position, rot - 90, SIDES_DIST);
-			return transform.lerpWallRot(maybeRight.unwrapOr(castHit).angle);
+			return transform.lerpRot(maybeRight.unwrapOr(castHit).angle, true);
 		}
 	} else {
 		// top or bottom
 		if (rot % 180 < 90) {
 			// wants to turn right, so check if not wall on right
 			const maybeRight = cast(position, rot - 90, SIDES_DIST);
-			return transform.lerpWallRot(maybeRight.unwrapOr(castHit).angle);
+			return transform.lerpRot(maybeRight.unwrapOr(castHit).angle, true);
 		} else {
 			// wants to turn left, so check if not wall on left
 			const maybeLeft = cast(position, rot + 90, SIDES_DIST);
-			return transform.lerpWallRot(maybeLeft.unwrapOr(castHit).angle);
+			return transform.lerpRot(maybeLeft.unwrapOr(castHit).angle, true);
 		}
 	}
 }

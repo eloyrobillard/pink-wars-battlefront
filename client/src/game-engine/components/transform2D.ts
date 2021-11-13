@@ -32,26 +32,19 @@ export class Transform2D {
 		return this.deltaRot = deltaRot;
 	}
 
-  lerpRot(targetRot: number): number {
+  lerpRot(targetRot: number, forWallRot: boolean = false): number {
     const absDiff = Math.abs(targetRot - this.rot);
     // more than π means faster to turn right
     if (absDiff > 180) {
       // actual diff considering angles are periodic
       const realDiff = 360 - absDiff;
-      return this.addRot(math.lerp(this.rot,  this.rot - realDiff, Game.fixedDeltaTime) - this.rot);
+      return forWallRot 
+        ? this.wallEvadeRot = math.lerp(this.rot,  this.rot - realDiff, Game.fixedDeltaTime) - this.rot 
+        : this.deltaRot = math.lerp(this.rot,  this.rot - realDiff, Game.fixedDeltaTime) - this.rot;
     }
-    return this.addRot(math.lerp(this.rot, targetRot, Game.fixedDeltaTime) - this.rot);
-  }
-
-  lerpWallRot(targetRot: number): number {
-    const absDiff = Math.abs(targetRot - this.rot);
-    // more than π means faster to turn right
-    if (absDiff > 180) {
-      // actual diff considering angles are periodic
-      const realDiff = 360 - absDiff;
-      return this.wallEvadeRot = math.lerp(this.rot,  this.rot - realDiff, Game.fixedDeltaTime) - this.rot;
-    }
-    return this.wallEvadeRot = math.lerp(this.rot, targetRot, Game.fixedDeltaTime) - this.rot;
+    return forWallRot 
+      ? this.wallEvadeRot = math.lerp(this.rot, targetRot, Game.fixedDeltaTime) - this.rot
+      : this.deltaRot = math.lerp(this.rot, targetRot, Game.fixedDeltaTime) - this.rot
   }
 
   private changeRot() {
