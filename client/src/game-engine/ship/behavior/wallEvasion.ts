@@ -3,7 +3,7 @@ import { vec2, Maybe, Some, None } from '../../types/index';
 import { Ship } from '../ship';
 
 const FRONT_DIST = 100; // px
-const SIDES_DIST = 50; // px
+const SIDES_DIST = 100; // px
 
 type CastHit = {
 	normal: vec2;
@@ -78,18 +78,19 @@ export function detectWalls ({ transform }: Ship) {
 		// if (rot % 180 < 90) {
 			// wants to turn left, so check if not wall on left
 			const maybeLeft = cast(position, rot + 90, SIDES_DIST);
-			angle = maybeLeft.unwrapOrDef(def).angle;
+			angle = maybeLeft.unwrapOrDo(() => {
+				const maybeRight = cast(position, rot - 90, SIDES_DIST);
+				return maybeRight.unwrapOrDef(def);
+			}).angle;
 			if (angle !== rot) {
 				return transform.lerpRot(angle, true);
 			}
 			// deltaRot = maybeLeft.isSome ? -TURN_SPD : TURN_SPD;
 		// } else {
 			// wants to turn right, so check if not wall on right
-			const maybeRight = cast(position, rot - 90, SIDES_DIST);
-			angle = maybeRight.unwrapOrDef(def).angle;
-			if (angle !== rot) {
-				return transform.lerpRot(angle, true);
-			}
+			// if (angle !== rot) {
+			// 	return transform.lerpRot(angle, true);
+			// }
 			// return transform.lerpRot(maybeRight.unwrapOrDef(def).angle, true);
 		// }
 
