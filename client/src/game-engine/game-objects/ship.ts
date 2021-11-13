@@ -10,16 +10,16 @@ export class Ship {
 	model: Model2D;
 	trigger: Trigger2D;
 
-	isSquadLeader;
+	rank: number;
 	follower: Maybe<Ship> = new None();
 
-	constructor (position: vec2, rot: number, isSquadLeader: boolean = false) {
+	constructor (position: vec2, rot: number, rank: number = 0) {
 		this.transform = new Transform2D(position, rot);
-		this.isSquadLeader = isSquadLeader;
+		this.rank = rank;
 		this.model = new Model2D(
 			3, 
 			[ new vec2(-15, -4), new vec2(0, 0), new vec2(-15, 4) ],
-			!isSquadLeader ? 255 : 0
+			!rank ? 255 : 0
 		);
 		this.trigger = new Trigger2D(this.transform, this.model, this.onTrigger);
 	}

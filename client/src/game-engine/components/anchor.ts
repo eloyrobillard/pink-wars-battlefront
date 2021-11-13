@@ -1,5 +1,5 @@
-import { flock } from '../ship/behavior/flocking';
-import { Ship } from '../ship/ship';
+import { flock } from '../game-objects/behavior/flocking';
+import { Ship } from '../game-objects/ship';
 
 export class Anchor {
   constructor(public anchor: Ship) {}

@@ -1,5 +1,5 @@
-import Pool from './ship/pool';
-import { Squadron } from './ship/squadron';
+import Pool from './game-objects/pool';
+import { Squadron } from './game-objects/squadron';
 
 const FPS = 30; // NOTE p5.draw ~= 76 fps
 const fixedDeltaTime = 1 / FPS;

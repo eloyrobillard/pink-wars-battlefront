@@ -1,5 +1,5 @@
 import { vec2 } from '../types/index';
-import Game from '../index';
+import Game from '../gameLoop';
 import math from '../../math';
 
 export class Transform2D {

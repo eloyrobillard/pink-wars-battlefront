@@ -1,4 +1,4 @@
-import Game from './game-engine/index';
+import Game from './game-engine/gameLoop';
 import DebugApi from './DebugApi';
 import Sketch from 'react-p5';
 import p5Types from 'p5';

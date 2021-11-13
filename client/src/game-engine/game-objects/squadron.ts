@@ -12,9 +12,9 @@ export class Squadron {
 	constructor (id: number, color: number) {
 		this.id = id;
 		this.color = color;
-		this.leader = new Ship(math.randPos(), math.randRot(), true);
-		this.members = Array.from({ length: 5 }, () => {
-			const member = new Ship(math.randPos(), math.randRot());
+		this.leader = new Ship(math.randPos(), math.randRot(), 0);
+		this.members = Array.from({ length: 5 }, (_, i) => {
+			const member = new Ship(math.randPos(), math.randRot(), i + 1);
 			Behavior.setAnchor(member, this.leader);
 			return member;
 		});

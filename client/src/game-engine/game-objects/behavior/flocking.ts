@@ -17,7 +17,7 @@ export function setAnchor (follower: Ship, anchor: Ship) {
 	return (follower.anchor = new Some(new Anchor(anchor)));
 }
 
-export function flock ({ transform }: Ship, anchor: Ship) {
+export function flock ({ transform, rank }: Ship, anchor: Ship) {
 	const { position, direction } = anchor.transform;
 	const dest = new vec2(
 		position.x - direction.x * 30,
