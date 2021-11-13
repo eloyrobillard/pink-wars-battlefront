@@ -64,6 +64,10 @@ export class vec2 {
 		return (this.x * other.x + this.y * other.y);
 	}
 
+	crossProd(other: vec2) {
+		return (this.x * other.x - this.y * other.y);
+	}
+
 	/**
 	 * Returns projection of this along other, e.g. projecting along the x-axis is equal this x.
 	 * 
