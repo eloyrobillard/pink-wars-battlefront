@@ -17,10 +17,14 @@ export class Missile {
 			[ new vec2(-10, 0), new vec2(0, 0) ],
 			0
 		);
-    this.collider = new Collider2D(pos, this.onCollide);
+    this.collider = new Collider2D(this.transform, this.onCollide);
   }
 
   onCollide(col: Ship) {
 
+  }
+
+  update() {
+    this.collider.update();
   }
 }
