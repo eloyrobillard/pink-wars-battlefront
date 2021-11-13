@@ -5,7 +5,7 @@ export abstract class Maybe<T> {
    * @param  {T} def
    * @returns T
    */
-  abstract unwrapOr(def: T): T;
+  abstract unwrapOrDef(def: T): T;
   
   /**
    * Returns T is Some, or throws exception
@@ -32,7 +32,7 @@ export class Some<T> extends Maybe<T> {
     return this.contents;
   }
 
-	unwrapOr (): T {
+	unwrapOrDef (): T {
 		return this.contents;
 	}
 
@@ -45,7 +45,7 @@ export class Some<T> extends Maybe<T> {
 }
 
 export class None<T> extends Maybe<T> {
-  unwrapOr (def: T) {
+  unwrapOrDef (def: T) {
     return def;
   }
 
