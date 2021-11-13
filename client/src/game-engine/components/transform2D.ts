@@ -24,7 +24,7 @@ export class Transform2D {
   private computeDirection(): vec2 {
     return this.direction = new vec2(
       math.cosConvert(this.rot),
-      math.sinConvert(this.rot),
+      -math.sinConvert(this.rot),
     )
   }
 

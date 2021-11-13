@@ -23,11 +23,13 @@ export function flock({ transform }: Ship, anchor: Ship) {
     position.x - direction.x * 30,
     position.y - direction.y * 30,
   );
-  DebugApi.placeP5Call((p5) => {
-    p5.point(dest.x, dest.y);
-    p5.stroke('purple'); // Change the color
-    p5.strokeWeight(10);
-  });
+  // DebugApi.placeP5Call((p5) => {
+  //   p5.point(dest.x, dest.y);
+  //   // p5.point(position.x, position.y);
+  //   p5.line(position.x, position.y, position.x + direction.x * 15, position.y + direction.y * 15);
+  //   p5.stroke('purple'); // Change the color
+  //   // p5.strokeWeight(5);
+  // });
   const vecTo = transform.position.vecTo(dest);
   const rotToDest = vecTo.toRotation();
   return transform.lerpRot(rotToDest);
