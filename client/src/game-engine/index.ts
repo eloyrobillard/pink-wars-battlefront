@@ -1,5 +1,5 @@
 import Pool from './ship/pool';
-import { Squad } from './ship/squad';
+import { Squadron } from './ship/squadron';
 
 const FPS = 30; // NOTE p5.draw ~= 76 fps
 const fixedDeltaTime = 1 / FPS;
@@ -9,10 +9,10 @@ let frameStart = 0;
 function start () {
   frameStart = performance.now();
 
-  Pool.set(Array.from({ length: 6 }, (_, i) => new Squad(i, 255 / (i + 1))));
-  Pool.map((squad) => {
-    squad.start();
-    return squad;
+  Pool.set(Array.from({ length: 6 }, (_, i) => new Squadron(i, 255 / (i + 1))));
+  Pool.map((squadron) => {
+    squadron.start();
+    return squadron;
   })
 }
 
@@ -26,11 +26,11 @@ function frameIsReady() {
   return false;
 }
 
-// perform routine squad update
+// perform routine squadron update
 function update() {
-  Pool.map((squad) => {
-    squad.update();
-    return squad;
+  Pool.map((squadron) => {
+    squadron.update();
+    return squadron;
   });
 }
 

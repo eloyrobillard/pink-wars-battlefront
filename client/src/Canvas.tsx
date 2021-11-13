@@ -27,9 +27,9 @@ export default function Canvas () {
 			Game.update();
 			p5.background('#ffdbed');
 			// p5.noStroke();
-			Game.Pool.map((squad) => {
-				const { color } = squad;
-				squad.map((ship) => {
+			Game.Pool.map((squadron) => {
+				const { color } = squadron;
+				squadron.map((ship) => {
 					// console.log(ship)
 					const { model } = ship;
 					p5.beginShape();
@@ -51,7 +51,7 @@ export default function Canvas () {
 		
 					return ship;
 				});
-				return squad;
+				return squadron;
 			});
 		}
 		

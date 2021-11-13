@@ -2,7 +2,7 @@ import Behavior from './behavior/index';
 import math from '../../math/index';
 import { Ship } from './ship';
 
-export class Squad {
+export class Squadron {
   leader: Ship;
   members: Ship[];
   private squad: Ship[];

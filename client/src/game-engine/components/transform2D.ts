@@ -49,13 +49,9 @@ export class Transform2D {
     if (absDiff > 180) {
       // actual diff considering angles are periodic
       const realDiff = 360 - absDiff;
-      return this.addWallRot(math.lerp(this.rot,  this.rot - realDiff, Game.fixedDeltaTime) - this.rot);
+      return this.wallEvadeRot = math.lerp(this.rot,  this.rot - realDiff, Game.fixedDeltaTime) - this.rot;
     }
-    return this.addWallRot(math.lerp(this.rot, targetRot, Game.fixedDeltaTime) - this.rot);
-  }
-
-  private addWallRot(deltaRot: number) {
-    return this.wallEvadeRot = deltaRot;
+    return this.wallEvadeRot = math.lerp(this.rot, targetRot, Game.fixedDeltaTime) - this.rot;
   }
 
   private changeRot() {
