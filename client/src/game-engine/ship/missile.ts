@@ -17,7 +17,7 @@ export class Missile {
 			[ new vec2(-10, 0), new vec2(0, 0) ],
 			0
 		);
-    this.collider = new Collider2D(this.transform, this.onCollide);
+    this.collider = new Collider2D(this.transform, this.model, this.onCollide);
   }
 
   onCollide(col: Ship) {
