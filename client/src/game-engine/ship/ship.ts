@@ -32,7 +32,7 @@ export class Ship {
 	}
 
 	update () {
-		if (this.anchor.isSome) this.anchor.map((anchor) => {
+		this.anchor.map((anchor) => {
 			anchor.update(this);
 			return anchor;
 		});

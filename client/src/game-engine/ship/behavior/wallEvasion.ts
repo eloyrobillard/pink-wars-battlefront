@@ -67,44 +67,16 @@ export function detectWalls ({ transform }: Ship) {
 	const maybeWall = cast(position, rot, FRONT_DIST);
 
 	def = maybeWall.unwrapOrDef(def);
-	// if (maybeWall.isNone) {
-	// 	return;
-	// }
+	
+	let angle = rot;
+	const maybeLeft = cast(position, rot + 90, SIDES_DIST);
+	angle = maybeLeft.unwrapOrDo(() => {
+		const maybeRight = cast(position, rot - 90, SIDES_DIST);
+		return maybeRight.unwrapOrDef(def);
+	}).angle;
+	if (angle !== rot) {
+		return transform.lerpRot(angle, true);
+	}
 
-	// const castHit = maybeWall.unwrap()!;
-	// if (castHit.angle === 0 || castHit.angle === 180) {
-		// left or right
-		let angle = rot;
-		// if (rot % 180 < 90) {
-			// wants to turn left, so check if not wall on left
-			const maybeLeft = cast(position, rot + 90, SIDES_DIST);
-			angle = maybeLeft.unwrapOrDo(() => {
-				const maybeRight = cast(position, rot - 90, SIDES_DIST);
-				return maybeRight.unwrapOrDef(def);
-			}).angle;
-			if (angle !== rot) {
-				return transform.lerpRot(angle, true);
-			}
-			// deltaRot = maybeLeft.isSome ? -TURN_SPD : TURN_SPD;
-		// } else {
-			// wants to turn right, so check if not wall on right
-			// if (angle !== rot) {
-			// 	return transform.lerpRot(angle, true);
-			// }
-			// return transform.lerpRot(maybeRight.unwrapOrDef(def).angle, true);
-		// }
-
-		return rot;
-	// } else {
-	// 	// top or bottom
-	// 	if (rot % 180 < 90) {
-	// 		// wants to turn right, so check if not wall on right
-	// 		const maybeRight = cast(position, rot - 90, SIDES_DIST);
-	// 		return transform.lerpRot(maybeRight.unwrapOrDef(def).angle, true);
-	// 	} else {
-	// 		// wants to turn left, so check if not wall on left
-	// 		const maybeLeft = cast(position, rot + 90, SIDES_DIST);
-	// 		return transform.lerpRot(maybeLeft.unwrapOrDef(def).angle, true);
-	// 	}
-	// }
+	return rot;
 }
