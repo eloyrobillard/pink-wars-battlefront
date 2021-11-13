@@ -3,7 +3,7 @@ import { vec2, Maybe, Some, None } from '../../types/index';
 import { Ship } from '../ship';
 
 const FRONT_DIST = 100; // px
-const SIDES_DIST = 60; // px
+const SIDES_DIST = 50; // px
 
 type CastHit = {
 	normal: vec2;
@@ -56,38 +56,54 @@ function cast (front: vec2, rot: number, dist: number): Maybe<CastHit> {
 }
 
 export function detectWalls ({ transform }: Ship) {
-	const { position } = transform;
+	const { position, direction } = transform;
 	const rot = Math.floor(transform.rot);
 
+	let def = { 
+		normal: direction,
+		angle: rot,
+		target: direction
+	};
 	const maybeWall = cast(position, rot, FRONT_DIST);
 
-	if (maybeWall.isNone) {
-		return;
-	}
+	def = maybeWall.unwrapOrDef(def);
+	// if (maybeWall.isNone) {
+	// 	return;
+	// }
 
-	const castHit = maybeWall.unwrap()!;
-	if (castHit.angle === 0 || castHit.angle === 180) {
+	// const castHit = maybeWall.unwrap()!;
+	// if (castHit.angle === 0 || castHit.angle === 180) {
 		// left or right
-		if (rot % 180 < 90) {
+		let angle = rot;
+		// if (rot % 180 < 90) {
 			// wants to turn left, so check if not wall on left
 			const maybeLeft = cast(position, rot + 90, SIDES_DIST);
-			return transform.lerpRot(maybeLeft.unwrapOrDef(castHit).angle, true);
+			angle = maybeLeft.unwrapOrDef(def).angle;
+			if (angle !== rot) {
+				return transform.lerpRot(angle, true);
+			}
 			// deltaRot = maybeLeft.isSome ? -TURN_SPD : TURN_SPD;
-		} else {
+		// } else {
 			// wants to turn right, so check if not wall on right
 			const maybeRight = cast(position, rot - 90, SIDES_DIST);
-			return transform.lerpRot(maybeRight.unwrapOrDef(castHit).angle, true);
-		}
-	} else {
-		// top or bottom
-		if (rot % 180 < 90) {
-			// wants to turn right, so check if not wall on right
-			const maybeRight = cast(position, rot - 90, SIDES_DIST);
-			return transform.lerpRot(maybeRight.unwrapOrDef(castHit).angle, true);
-		} else {
-			// wants to turn left, so check if not wall on left
-			const maybeLeft = cast(position, rot + 90, SIDES_DIST);
-			return transform.lerpRot(maybeLeft.unwrapOrDef(castHit).angle, true);
-		}
-	}
+			angle = maybeRight.unwrapOrDef(def).angle;
+			if (angle !== rot) {
+				return transform.lerpRot(angle, true);
+			}
+			// return transform.lerpRot(maybeRight.unwrapOrDef(def).angle, true);
+		// }
+
+		return rot;
+	// } else {
+	// 	// top or bottom
+	// 	if (rot % 180 < 90) {
+	// 		// wants to turn right, so check if not wall on right
+	// 		const maybeRight = cast(position, rot - 90, SIDES_DIST);
+	// 		return transform.lerpRot(maybeRight.unwrapOrDef(def).angle, true);
+	// 	} else {
+	// 		// wants to turn left, so check if not wall on left
+	// 		const maybeLeft = cast(position, rot + 90, SIDES_DIST);
+	// 		return transform.lerpRot(maybeLeft.unwrapOrDef(def).angle, true);
+	// 	}
+	// }
 }
