@@ -30,7 +30,7 @@ export class vec2 {
 	 * @param y2 Y-coordinate of second point
 	 * @returns Vector
 	 */
-	toVec(x1: number, y1: number, x2: number, y2: number): vec2 {
+	static toVec(x1: number, y1: number, x2: number, y2: number): vec2 {
 		return new vec2(x2 - x1, y2 - y1);
 	}
 
@@ -58,5 +58,24 @@ export class vec2 {
 
 	dotProd(other: vec2) {
 		return (this.x * other.x + this.y * other.y);
+	}
+
+	/**
+	 * Returns projection of this along other, e.g. projecting along the x-axis is equal this x.
+	 * 
+	 * LINK https://www.wikiwand.com/en/Vector_projection
+	 * @returns 'length' of this along other
+	 */
+	project(other: vec2) {
+		const dotProd = this.dotProd(other);
+		return other.scalarMul(dotProd / (other.x**2 + other.y**2));
+	}
+
+	/**
+	 * Return a copy of this with its coordinates multiplied by some number. 
+	 * @param scalar Just a number.
+	 */
+	scalarMul(scalar: number) {
+		return new vec2(this.x * scalar, this.y * scalar);
 	}
 }
