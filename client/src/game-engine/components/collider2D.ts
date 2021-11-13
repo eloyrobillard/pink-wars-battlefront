@@ -1,14 +1,11 @@
-import { Transform2D, Model2D } from './index';
+import { Trigger2D } from './index';
 // import { vec2 } from '../types/index';
-import { Ship } from '../ship/ship';
+// import { Ship } from '../ship/ship';
 
-export class Collider2D {
-	constructor (public transform: Transform2D, public model: Model2D, public behavior: (col: Ship) => any) {}
-
-	trigger (collided: Ship) {
-		this.behavior(collided);
-	}
-
+/**
+ * Like Trigger2D, but checks for a collision on every frame.
+ */
+export class Collider2D extends Trigger2D {
 	/**
    * Checks whether a collision happened.
    * If so, triggers behavior in parent.

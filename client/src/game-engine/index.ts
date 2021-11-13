@@ -9,7 +9,7 @@ let frameStart = 0;
 function start () {
   frameStart = performance.now();
 
-  Pool.set(Array.from({ length: 6 }, (_, i) => new Squadron(i, 255 / (i + 1))));
+  Pool.set(Array.from({ length: 8 }, (_, i) => new Squadron(i, 255 / (i + 1))));
   Pool.map((squadron) => {
     squadron.start();
     return squadron;

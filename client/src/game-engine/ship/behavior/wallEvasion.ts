@@ -67,13 +67,14 @@ export function detectWalls ({ transform }: Ship) {
 	const maybeWall = cast(position, rot, FRONT_DIST);
 
 	def = maybeWall.unwrapOrDef(def);
-	
+
 	let angle = rot;
 	const maybeLeft = cast(position, rot + 90, SIDES_DIST);
 	angle = maybeLeft.unwrapOrDo(() => {
 		const maybeRight = cast(position, rot - 90, SIDES_DIST);
 		return maybeRight.unwrapOrDef(def);
 	}).angle;
+	
 	if (angle !== rot) {
 		return transform.lerpRot(angle, true);
 	}
