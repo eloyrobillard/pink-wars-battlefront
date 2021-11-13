@@ -1,16 +1,9 @@
-import { Some } from '../../types/index';
+import { Some, vec2 } from '../../types/index';
 import { Anchor } from '../../components/index';
 // import math from '../../../math/index';
 // import Game from '../../index';
 import { Ship } from '../ship';
 // import Pool from '../pool';
-
-// export function getAnchor(follower: Ship) {
-//   const anchor = closestFree(follower);
-//   // console.log(anchor);
-//   anchor.setFollower(follower);
-//   return new Anchor(anchor);
-// }
 
 /**
  * Manually sets anchor and follower for each argument.
@@ -20,9 +13,29 @@ import { Ship } from '../ship';
  */
 export function setAnchor(follower: Ship, anchor: Ship) {
   anchor.setFollower(follower);
-  return follower.anchor = new Some(new  Anchor(anchor));
+  return follower.anchor = new Some(new Anchor(anchor));
 }
 
+export function flock({ transform }: Ship, anchor: Ship) {
+  const { position, direction } = anchor.transform;
+  const dest = new vec2( 
+    position.x - direction.x * 30,
+    position.y - direction.y * 30,
+  );
+  const vecTo = transform.position.vecTo(dest);
+  const rotToDest = vecTo.toRotation();
+  return transform.lerpRot(rotToDest);
+}
+
+//! NOTE keep for randomized anchoring
+// export function getAnchor(follower: Ship) {
+//   const anchor = closestFree(follower);
+//   // console.log(anchor);
+//   anchor.setFollower(follower);
+//   return new Anchor(anchor);
+// }
+
+//! NOTE keep for randomized anchoring
 // function closestFree(origin: Ship): Ship {
 //   const { position } = origin.transform;
 //   let index = Infinity;
@@ -43,16 +56,7 @@ export function setAnchor(follower: Ship, anchor: Ship) {
 //   return anchor;
 // }
 
-export function flock({ transform }: Ship, anchor: Ship) {
-  const dest = anchor.transform.position;
-  const vecTo = transform.position.vecTo(dest);
-  const rotToDest = vecTo.toRotation();
-  return transform.lerpRot(rotToDest);
-  // const deltaRot = getRotLerp(transform.rot, rotToDest) - transform.rot;
-  // // console.log(transform.rot, rotToDest, deltaRot);
-  // return transform.addRot(deltaRot);
-}
-
+//! NOTE keep for randomized anchoring
 // function getRotLerp(start: number, end: number) {
 //   const absDiff = Math.abs(end - start);
 //   // more than π means faster to turn right
