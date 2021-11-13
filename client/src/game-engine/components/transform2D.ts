@@ -38,7 +38,8 @@ export class Transform2D {
     if (absDiff > 180) {
       // actual diff considering angles are periodic
       const realDiff = 360 - absDiff;
-      const deltaRot = math.lerp(this.rot,  this.rot - realDiff, Game.fixedDeltaTime) - this.rot;
+      const dir = this.rot + (this.rot > targetRot ? realDiff : -realDiff);
+      const deltaRot = math.lerp(this.rot, dir, Game.fixedDeltaTime) - this.rot;
       return forWallRot 
         ? this.wallEvadeRot = deltaRot
         : this.deltaRot = deltaRot;

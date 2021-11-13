@@ -2,8 +2,8 @@ import math from '../../../math/index';
 import { vec2, Maybe, Some, None } from '../../types/index';
 import { Ship } from '../ship';
 
-const FRONT_DIST = 50; // px
-const SIDES_DIST = 30; // px
+const FRONT_DIST = 100; // px
+const SIDES_DIST = 60; // px
 
 type CastHit = {
 	normal: vec2;
