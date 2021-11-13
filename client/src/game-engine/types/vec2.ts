@@ -43,4 +43,8 @@ export class vec2 {
 	toRotation() {
 		return (((Math.atan2(-this.y, this.x) / Math.PI * 180) % 360) + 360) % 360;
 	}
+
+	dotProd(other: vec2) {
+		return (this.x * other.x + this.y * other.y);
+	}
 }
