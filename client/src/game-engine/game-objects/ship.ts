@@ -41,21 +41,21 @@ export class Ship {
   }
 
 	/**
-	 * Updates counter and wraps it around at 15.
+	 * Shoots a missile per second.
 	 * @returns counter
 	 */
-	updateFireCounter() {
-		let counter = 0;
+	updateFireCounter = (() => {
+			let counter = 0;
 
-		return (() => {
-			if (counter + 1 < 15) {
-				return counter += 1;
-			}
-			const missile = Missile.fire(this.transform.position, this.transform.rot);
-			this.missiles.push(missile);
-			return counter = 0;
+			return () => {
+				if ((counter + 1) < 30) {
+					return counter += 1;
+				}
+				const missile = Missile.fire(this.transform.position, this.transform.rot);
+				this.missiles.push(missile);
+				return counter = 0;
+			};
 		})();
-	}
 
 	update () {
 		this.updateFireCounter();
