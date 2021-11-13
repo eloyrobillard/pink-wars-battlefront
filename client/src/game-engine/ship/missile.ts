@@ -1,5 +1,4 @@
-import { Transform2D, RigidBody2D, Model2D, Collider2D } from '../components/index';
-import { Ship } from './ship';
+import { Transform2D, RigidBody2D, Model2D, Collider2D, Trigger2D } from '../components/index';
 import { vec2 } from '../types/index';
 
 export class Missile {
@@ -20,7 +19,7 @@ export class Missile {
     this.collider = new Collider2D(this.transform, this.model, this.onCollide);
   }
 
-  onCollide(col: Ship) {
+  onCollide(col: Trigger2D) {
 
   }
 

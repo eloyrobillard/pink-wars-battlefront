@@ -1,4 +1,4 @@
-import { Transform2D, RigidBody2D, Model2D, Anchor } from '../components/index';
+import { Transform2D, RigidBody2D, Trigger2D, Model2D, Anchor } from '../components/index';
 import { vec2, Maybe, Some, None } from '../types/index';
 
 export class Ship {
@@ -8,6 +8,7 @@ export class Ship {
 		speed: 100
 	};
 	model: Model2D;
+	trigger: Trigger2D;
 
 	isSquadLeader;
 	follower: Maybe<Ship> = new None();
@@ -20,6 +21,7 @@ export class Ship {
 			[ new vec2(-15, -4), new vec2(0, 0), new vec2(-15, 4) ],
 			!isSquadLeader ? 255 : 0
 		);
+		this.trigger = new Trigger2D(this.transform, this.model, this.onTrigger);
 	}
 
 	setFollower(follower: Ship) {
@@ -30,6 +32,10 @@ export class Ship {
 		// if (!this.isSquadLeader) this.anchor = new Some(getAnchor(this));
 		this.model.start(this.transform);
 	}
+
+	onTrigger(col: Trigger2D) {
+
+  }
 
 	update () {
 		this.anchor.map((anchor) => {
