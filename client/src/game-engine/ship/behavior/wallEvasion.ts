@@ -75,9 +75,10 @@ export function detectWalls ({ transform }: Ship) {
 		return maybeRight.unwrapOrDef(def);
 	}).angle;
 	
-	if (angle !== rot) {
-		return transform.lerpRot(angle, true);
+	// most likely branch
+	if (angle === rot) {
+		return rot;
 	}
-
-	return rot;
+	
+	return transform.lerpRot(angle, true);
 }

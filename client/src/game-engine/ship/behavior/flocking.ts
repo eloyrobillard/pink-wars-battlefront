@@ -1,6 +1,6 @@
 import { Some, vec2 } from '../../types/index';
 import { Anchor } from '../../components/index';
-import DebugApi from '../../../DebugApi';
+// import DebugApi from '../../../DebugApi';
 // import math from '../../../math/index';
 // import Game from '../../index';
 import { Ship } from '../ship';
@@ -19,7 +19,10 @@ export function setAnchor (follower: Ship, anchor: Ship) {
 
 export function flock ({ transform }: Ship, anchor: Ship) {
 	const { position, direction } = anchor.transform;
-	const dest = new vec2(position.x - direction.x * 30, position.y - direction.y * 30);
+	const dest = new vec2(
+		position.x - direction.x * 30,
+		position.y - direction.y * 30
+	);
 	// DebugApi.placeP5Call((p5) => {
 	//   p5.point(dest.x, dest.y);
 	//   // p5.point(position.x, position.y);

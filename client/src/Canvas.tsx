@@ -7,9 +7,8 @@ import './style/Canvas.css'; //Import this for typechecking and intellisense;
 // let start = performance.now();
 export default function Canvas () {
 	const setup = (p5: p5Types, canvasParentRef: Element) => {
-		// use parent to render the canvas in this ref
-		// (without that p5 will render the canvas outside of your component)
-		// NOTE -1 on all width/height vals to prevent scroll bars
+		//* use parent to render the canvas in this ref
+		//* (without that p5 will render the canvas outside of your component)
 		const canvasDiv = document.getElementById('canvas') as HTMLDivElement;
 		const { width, height } = canvasDiv.getBoundingClientRect();
 		p5.createCanvas(width, height).parent(canvasParentRef);
@@ -21,7 +20,7 @@ export default function Canvas () {
 		});
 	};
 
-	// redraw canvas on every browser update
+	//* redraw canvas on every browser update
 	const draw = (p5: p5Types) => {
 		if (Game.frameIsReady()) {
 			Game.update();
@@ -56,9 +55,9 @@ export default function Canvas () {
 			});
 		}
 
-		// NOTE: Do not use setState in the draw function or in functions that are executed
-		// in the draw function...
-		// please use normal variables or class properties for these purposes
+		//* NOTE: Do not use setState in the draw function or in functions that are executed
+		//* in the draw function...
+		//* please use normal variables or class properties for these purposes
 	};
 
 	return (
