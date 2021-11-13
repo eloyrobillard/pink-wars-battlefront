@@ -21,7 +21,7 @@ export class Missile {
 	 * @param rot 
 	 */
 	static fire(pos: vec2, rot: number) {
-		new Missile(pos, rot);
+		return new Missile(pos, rot);
 	}
 
 	onCollide (col: Trigger2D) {}

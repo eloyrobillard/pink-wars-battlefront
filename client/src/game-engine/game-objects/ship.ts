@@ -14,6 +14,8 @@ export class Ship {
 	rank: number;
 	follower: Maybe<Ship> = new None();
 
+	missiles: Missile[] = [];
+
 	constructor (position: vec2, rot: number, rank: number = 0) {
 		this.transform = new Transform2D(position, rot);
 		this.rank = rank;
@@ -38,6 +40,10 @@ export class Ship {
 
   }
 
+	/**
+	 * Updates counter and wraps it around at 15.
+	 * @returns counter
+	 */
 	updateFireCounter() {
 		let counter = 0;
 
@@ -45,13 +51,15 @@ export class Ship {
 			if (counter + 1 < 15) {
 				return counter += 1;
 			}
-			Missile.fire(this.transform.position, this.transform.rot)
+			const missile = Missile.fire(this.transform.position, this.transform.rot);
+			this.missiles.push(missile);
 			return counter = 0;
-		})()
+		})();
 	}
 
 	update () {
 		this.updateFireCounter();
+		this.missiles.map((missile) => missile.update());
 
 		this.anchor.map((anchor) => {
 			anchor.update(this);
