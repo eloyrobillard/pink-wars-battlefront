@@ -4,7 +4,7 @@ import { vec2 } from '../types/index';
 export class Missile {
 	transform: Transform2D;
 	rb: RigidBody2D = {
-		speed: 200
+		speed: 800
 	};
 	model: Model2D;
 	collider: Collider2D;

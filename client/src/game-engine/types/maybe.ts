@@ -6,6 +6,7 @@ export abstract class Maybe<T> {
    * @returns T
    */
   abstract unwrapOrDef(def: T): T;
+
   abstract unwrapOrDo(cb: () => T): T;
   
   /**

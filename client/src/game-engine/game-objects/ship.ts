@@ -51,8 +51,9 @@ export class Ship {
 				if ((counter + 1) < 30) {
 					return counter += 1;
 				}
-				const missile = Missile.fire(this.transform.position, this.transform.rot);
-				this.missiles.push(missile);
+				const missile = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
+				delete this.missiles[0];
+				this.missiles[0] = missile;
 				return counter = 0;
 			};
 		})();
