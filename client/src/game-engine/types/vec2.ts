@@ -49,6 +49,10 @@ export class vec2 {
 		return Math.sqrt(dx**2 + dy**2);
 	}
 
+	magnitude() {
+		return Math.sqrt(this.x**2 + this.y**2);
+	}
+
 	/**
 	 * @returns rotation in degrees
 	 */
