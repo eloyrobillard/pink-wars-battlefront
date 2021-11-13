@@ -16,12 +16,11 @@ export class Collider2D extends Trigger2D {
 	}
 
 	checkCollision () {
-    console.log('hi')
 		Game.Pool.map((squadron) => {
 			squadron.map((ship) => {
 				const { trigger } = ship;
         if (this.checkOverlap(trigger)) {
-          console.log('collision!');
+          // console.log('collision!');
         }
 				return ship;
 			});
@@ -48,8 +47,8 @@ function broadPhase (self: Trigger2D, other: Trigger2D): boolean {
 
   let oVecs = [];
 	for (let i = 0; i < oVrts.length; i++) {
-    const curVert = sVrts[i];
-		const nextVert = sVrts[i + 1 > sVrts.length ? 0 : i + 1];
+    const curVert = oVrts[i];
+		const nextVert = oVrts[i + 1 === oVrts.length ? 0 : i + 1];
     oVecs.push(vec2.toVec(curVert.x, curVert.y, nextVert.x, nextVert.y));
 	}
 
