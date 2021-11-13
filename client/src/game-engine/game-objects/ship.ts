@@ -1,5 +1,6 @@
 import { Transform2D, RigidBody2D, Trigger2D, Model2D, Anchor } from '../components/index';
 import { vec2, Maybe, Some, None } from '../types/index';
+import { Missile } from './missile';
 
 export class Ship {
 	anchor: Maybe<Anchor> = new None();
@@ -37,7 +38,21 @@ export class Ship {
 
   }
 
+	updateFireCounter() {
+		let counter = 0;
+
+		return (() => {
+			if (counter + 1 < 15) {
+				return counter += 1;
+			}
+			Missile.fire(this.transform.position, this.transform.rot)
+			return counter = 0;
+		})()
+	}
+
 	update () {
+		this.updateFireCounter();
+
 		this.anchor.map((anchor) => {
 			anchor.update(this);
 			return anchor;

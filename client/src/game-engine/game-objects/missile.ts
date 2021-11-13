@@ -15,6 +15,15 @@ export class Missile {
 		this.collider = new Collider2D(this.transform, this.model, this.onCollide);
 	}
 
+	/**
+	 * Instantiates a missile with the given parameters.
+	 * @param pos position fired from
+	 * @param rot 
+	 */
+	static fire(pos: vec2, rot: number) {
+		new Missile(pos, rot);
+	}
+
 	onCollide (col: Trigger2D) {}
 
 	update () {
