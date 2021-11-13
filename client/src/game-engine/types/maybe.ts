@@ -6,6 +6,7 @@ export abstract class Maybe<T> {
    * @returns T
    */
   abstract unwrapOrDef(def: T): T;
+  abstract unwrapOrDo(cb: () => T): T;
   
   /**
    * Returns T is Some, or throws exception
@@ -36,6 +37,10 @@ export class Some<T> extends Maybe<T> {
 		return this.contents;
 	}
 
+  unwrapOrDo() {
+    return this.contents;
+  }
+
   map(cb: (content: T) => T) {
     return cb(this.contents);
   }
@@ -47,6 +52,10 @@ export class Some<T> extends Maybe<T> {
 export class None<T> extends Maybe<T> {
   unwrapOrDef (def: T) {
     return def;
+  }
+
+  unwrapOrDo(cb: () => T) {
+    return cb();
   }
 
   unwrap () {
