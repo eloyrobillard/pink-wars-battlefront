@@ -24,7 +24,7 @@ export class FightMaker {
   /**
    * Switch opponent on a timer, to keep squadrons from circling.
    */
-	private querySwitchOpponent = GameApi.setTimer(150, () => this.queryOpponent());
+	private querySwitchOpponent = GameApi.setTimer(GameApi.secToFPS(5), () => this.queryOpponent());
 
 	/**
    * Tells squadron to shoot.

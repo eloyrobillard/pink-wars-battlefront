@@ -1,3 +1,4 @@
+import Game from './gameLoop';
 import { Vec2 } from './types/index';
 
 /**
@@ -49,9 +50,14 @@ function enterBattlefield () {
 	return res;
 }
 
+function secToFPS(seconds: number) {
+	return Game.FPS * seconds;
+}
+
 const GameApi = {
 	setTimer,
-	enterBattlefield
+	enterBattlefield,
+	secToFPS
 };
 
 export default GameApi;

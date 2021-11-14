@@ -43,7 +43,7 @@ function removeSquadron(battalionId: number, squadId: number) {
 	Pool.replace(battalionId, squadId);
 }
 
-const addSquadronTimer = GameApi.setTimer(300, () => {
+const addSquadronTimer = GameApi.setTimer(GameApi.secToFPS(10), () => {
 	const rand = Math.floor(Math.random() * POOL_LEN);
 	Pool.enrollSquadron(rand);
 });
