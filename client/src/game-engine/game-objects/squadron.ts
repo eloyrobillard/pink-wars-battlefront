@@ -12,7 +12,7 @@ export class Squadron {
 	leader: Ship;
 	id: number;
 
-	constructor (id: number) {
+	constructor (public battalionId: number, id: number) {
 		this.id = id;
 
 		this.team = this.createTeam(GameApi.enterBattlefield());
@@ -82,7 +82,7 @@ export class Squadron {
 
 	onDestroy () {
 		this.fightMaker.onDestroy();
-		Game.removeSquadron(this.id);
+		Game.removeSquadron(this.battalionId, this.id);
 	}
 
 	/**

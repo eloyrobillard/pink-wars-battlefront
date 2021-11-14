@@ -13,9 +13,9 @@ function start () {
 	frameStart = performance.now();
 
 	Pool.set(Array.from({ length: POOL_LEN }, (_, i) => new Battalion(i, 255 / (i + 1))));
-	Pool.map((squadron) => {
-		squadron.start();
-		return squadron;
+	Pool.map((battalion) => {
+		battalion.start();
+		return battalion;
 	});
 }
 
@@ -33,14 +33,14 @@ function frameIsReady () {
 function update () {
 	addSquadronTimer();
 
-	Pool.map((squadron) => {
-		squadron.update();
-		return squadron;
+	Pool.map((battalion) => {
+		battalion.update();
+		return battalion;
 	});
 }
 
-function removeSquadron(squadId: number) {
-	Pool.replace(squadId);
+function removeSquadron(battalionId: number, squadId: number) {
+	Pool.replace(battalionId, squadId);
 }
 
 const addSquadronTimer = GameApi.setTimer(300, () => {
@@ -48,6 +48,7 @@ const addSquadronTimer = GameApi.setTimer(300, () => {
 	Pool.enrollSquadron(rand);
 });
 
+//TODO create set timer seconds fn in GameApi to replace hard coded FPS values
 const Game = { FPS, fixedDeltaTime, start, frameIsReady, Pool, update, removeSquadron };
 
 export default Game;

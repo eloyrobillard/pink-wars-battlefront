@@ -36,8 +36,8 @@ function set(ships: Battalion[]) {
 //   delete pool[index];
 // }
 
-function replace(index: number) {
-  pool[index] = new Battalion(index, 255 / index);
+function replace(battalion: number, squadron: number) {
+  pool[battalion].squadrons[squadron] = new Some(new Squadron(battalion, squadron));
 }
 
 function findSquadron(cb: (squadron: Maybe<Squadron>) => boolean): Maybe<Squadron> {

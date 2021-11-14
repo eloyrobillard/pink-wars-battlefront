@@ -16,13 +16,13 @@ export class Battalion {
   private getSquadrons(): Maybe<Squadron>[] {
     const squadrons: Maybe<Squadron>[] = Array.from({ length: 3}, () => new None());
     for (let i = 0; i < squadrons.length; i += 1) {
-      squadrons[i] = new Some(new Squadron(i))
+      squadrons[i] = new Some(new Squadron(this.battalionId, i))
     }
     return squadrons;
   }
 
   enrollSquadron() {
-    this.squadrons.push(new Some(new Squadron(this.squadrons.length)));
+    this.squadrons.push(new Some(new Squadron(this.battalionId, this.squadrons.length)));
   }
 
   mapShips(cb: (ship: Ship) => Ship) {
