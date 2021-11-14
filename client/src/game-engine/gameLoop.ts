@@ -2,9 +2,6 @@ import { Battalion } from './game-objects/battalion';
 import Pool from './game-objects/pool';
 import GameApi from './GameApi';
 
-const FPS = 30; // NOTE p5.draw ~= 76 fps
-const fixedDeltaTime = 1 / FPS;
-const fixedDeltaMsec = 1000 / FPS;
 let frameStart = 0;
 
 const POOL_LEN = 3;
@@ -22,7 +19,7 @@ function start () {
 function frameIsReady () {
 	const now = performance.now();
 	const delta = now - frameStart;
-	if (delta >= fixedDeltaMsec) {
+	if (delta >= GameApi.fixedDeltaMsec) {
 		frameStart = performance.now();
 		return true;
 	}
@@ -49,6 +46,6 @@ const addSquadronTimer = GameApi.setTimer(GameApi.secToFPS(10), () => {
 });
 
 //TODO create set timer seconds fn in GameApi to replace hard coded FPS values
-const Game = { FPS, fixedDeltaTime, start, frameIsReady, Pool, update, removeSquadron };
+const Game = { start, frameIsReady, Pool, update, removeSquadron };
 
 export default Game;

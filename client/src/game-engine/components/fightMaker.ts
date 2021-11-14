@@ -1,5 +1,5 @@
 import { Squadron } from '../game-objects/squadron';
-import { Maybe, Some, None } from '../types/index';
+import { Maybe, None } from '../types/index';
 import Behavior from '../game-objects/behavior';
 import { Ship } from '../game-objects/ship';
 import GameApi from '../GameApi';

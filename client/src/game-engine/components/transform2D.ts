@@ -1,5 +1,5 @@
 import { Vec2 } from '../types/index';
-import Game from '../gameLoop';
+import GameApi from '../GameApi';
 import math from '../../math';
 
 export class Transform2D {
@@ -39,14 +39,14 @@ export class Transform2D {
 			// actual diff considering angles are periodic
 			const realDiff = 360 - absDiff;
 			const dir = this.rot + (this.rot > targetRot ? realDiff : -realDiff);
-			const deltaRot = math.lerp(this.rot, dir, Game.fixedDeltaTime) - this.rot;
+			const deltaRot = math.lerp(this.rot, dir, GameApi.fixedDeltaTime) - this.rot;
 			return forWallRot
 				? (this.wallEvadeRot = deltaRot)
 				: (this.deltaRot = deltaRot);
 		}
 
 		const deltaRot =
-			math.lerp(this.rot, targetRot, Game.fixedDeltaTime) - this.rot;
+			math.lerp(this.rot, targetRot, GameApi.fixedDeltaTime) - this.rot;
 		return forWallRot
 			? (this.wallEvadeRot = deltaRot)
 			: (this.deltaRot = deltaRot);
@@ -65,8 +65,8 @@ export class Transform2D {
 	moveForward (speed: number = 100): Vec2 {
 		const { rot, position: { x, y } } = this;
 		return (this.position = new Vec2(
-			x + speed * math.cosConvert(rot) * Game.fixedDeltaTime,
-			y - speed * math.sinConvert(rot) * Game.fixedDeltaTime
+			x + speed * math.cosConvert(rot) * GameApi.fixedDeltaTime,
+			y - speed * math.sinConvert(rot) * GameApi.fixedDeltaTime
 		));
 	}
 

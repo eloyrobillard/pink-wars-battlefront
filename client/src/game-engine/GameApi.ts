@@ -1,6 +1,10 @@
 import Game from './gameLoop';
 import { Vec2 } from './types/index';
 
+
+const FPS = 30; // NOTE p5.draw ~= 76 fps
+const fixedDeltaTime = 1 / FPS;
+const fixedDeltaMsec = 1000 / FPS;
 /**
  * Sets a callback on a timer (in FPS).
  */
@@ -51,13 +55,15 @@ function enterBattlefield () {
 }
 
 function secToFPS(seconds: number) {
-	return Game.FPS * seconds;
+	return FPS * seconds;
 }
 
 const GameApi = {
 	setTimer,
 	enterBattlefield,
-	secToFPS
+	secToFPS,
+	fixedDeltaTime,
+	fixedDeltaMsec
 };
 
 export default GameApi;
