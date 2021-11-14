@@ -7,6 +7,7 @@ import {
 	Missiles
 } from '../components/index';
 import { Vec2, Maybe, Some, None } from '../types/index';
+import { Squadron } from './squadron';
 // import { Missile } from './missile';
 // import GameApi from '../GameApi';
 
@@ -20,15 +21,15 @@ export class Ship {
 	trigger: Trigger2D;
 
 	rank: number;
-	squadId: number;
 	follower: Maybe<Ship> = new None();
+	squadId: number;
 
 	missiles: Missiles;
 
-	constructor (position: Vec2, rot: number, squadId: number, rank: number = 0) {
+	constructor (position: Vec2, rot: number, private squadron: Squadron, rank: number = 0) {
 		this.transform = new Transform2D(position, rot);
 		this.rank = rank;
-		this.squadId = squadId;
+		this.squadId = squadron.id;
 		this.model = new Model2D(
 			3,
 			[
@@ -40,11 +41,14 @@ export class Ship {
 			this.transform
 		);
 		this.trigger = new Trigger2D(this, this.transform, this.model);
-		this.missiles = new Missiles(this.squadId, this.transform);
+		this.missiles = new Missiles(this.squadron.id, this.transform);
 	}
 
-	onCollide() {
-		
+	// NOTE keep empty
+	onCollide (col: Trigger2D) {
+		if (col.object.squadId !== this.squadId) {
+			this.squadron.onCasualty(this.rank);
+		}
 	}
 
 	setFollower (follower: Ship) {

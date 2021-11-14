@@ -23,7 +23,6 @@ export class Collider2D extends Trigger2D {
 				const { trigger } = ship;
         if (this.checkOverlap(trigger)) {
 					this.object.onCollide(trigger);
-					squadron.onCasualty(ship.rank);
         }
 				return ship;
 			});

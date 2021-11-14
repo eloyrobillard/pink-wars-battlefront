@@ -25,7 +25,7 @@ export class Squadron {
 	
 	private createTeam({ pos, rot }: { pos: Vec2, rot: number }) {
 		for (let i = 0; i < this.team.length; i += 1) {
-			this.team[i] = new Some(new Ship(new Vec2(pos.x, pos.y), rot, i));
+			this.team[i] = new Some(new Ship(new Vec2(pos.x, pos.y), rot, this, i));
 		}
 	}
 	

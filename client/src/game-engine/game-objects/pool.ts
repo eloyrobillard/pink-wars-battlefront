@@ -31,9 +31,9 @@ function set(ships: Squadron[]) {
   return pool = ships;
 }
 
-function remove(index: number) {
-  delete pool[index];
-}
+// function remove(index: number) {
+//   delete pool[index];
+// }
 
 function replace(index: number) {
   pool[index] = new Squadron(index, 255 / index);
@@ -62,6 +62,6 @@ function getRand(except: number): Squadron {
 
 const push = () => pool.push(new Squadron(pool.length, 255 / pool.length));
 
-const Pool = { map, reduce, get, set, remove, findSquadron, getRand, replace, push };
+const Pool = { map, reduce, get, set, findSquadron, getRand, replace, push };
 
 export default Pool;

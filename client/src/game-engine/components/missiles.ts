@@ -17,7 +17,6 @@ export class Missiles {
       this.squadId,
       this.curr, /* this.type */
     );
-    // delete this.missiles[0];
     this.insert(missile);
   });
 
@@ -30,7 +29,6 @@ export class Missiles {
         this.squadId,
         this.curr, /* this.type */
       );
-      // delete this.missiles[0];
       this.insert(missile);
     });
   }
