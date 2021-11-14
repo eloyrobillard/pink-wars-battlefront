@@ -27,6 +27,13 @@ export class FightMaker {
 
   }
 
+  onDestroy() {
+    this.opponent.map((opponent) => {
+      opponent.fightMaker.onDestroyOpponent();
+      return opponent;
+    });
+  }
+
   onDestroyOpponent() {
     this.queryOpponent();
   }

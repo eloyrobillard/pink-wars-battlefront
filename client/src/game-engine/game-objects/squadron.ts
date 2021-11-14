@@ -20,7 +20,7 @@ export class Squadron {
 			return member;
 		});
 		this.welcomeLeader(0);
-		
+
 		this.fightMaker = new FightMaker(this.id, this.leader);
 	}
 
@@ -63,6 +63,7 @@ export class Squadron {
 
 	onDestroy() {
 		Game.removeSquadron(this.id);
+		this.fightMaker.onDestroy();
 	}
 
 	/**

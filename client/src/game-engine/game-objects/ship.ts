@@ -14,7 +14,7 @@ export class Ship {
 	anchor: Maybe<Anchor> = new None();
 	transform: Transform2D;
 	rb: RigidBody2D = {
-		speed: 100
+		speed: 200
 	};
 	model: Model2D;
 	trigger: Trigger2D;
