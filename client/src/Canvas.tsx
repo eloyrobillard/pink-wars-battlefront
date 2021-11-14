@@ -39,7 +39,7 @@ export default function Canvas () {
 					});
 					p5.endShape('close');
 
-					ship.missiles.forEach((missile) => {
+					ship.missiles.missiles.forEach((missile) => {
 						const { vertices } = missile.model;
 						const pos0 = vertices[0];
 						const pos1 = vertices[1];

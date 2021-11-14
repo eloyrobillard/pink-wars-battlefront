@@ -6,3 +6,4 @@ export { Trigger2D } from './trigger2D';
 export { Collider2D } from './collider2D';
 
 export { Anchor } from './anchor';
+export { Missiles } from './missiles';

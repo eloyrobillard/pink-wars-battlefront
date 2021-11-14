@@ -1,7 +1,14 @@
-import { Transform2D, RigidBody2D, Trigger2D, Model2D, Anchor } from '../components/index';
+import {
+	Transform2D,
+	RigidBody2D,
+	Trigger2D,
+	Model2D,
+	Anchor,
+	Missiles
+} from '../components/index';
 import { Vec2, Maybe, Some, None } from '../types/index';
 import { Missile } from './missile';
-import GameApi from '../GameApi';
+// import GameApi from '../GameApi';
 
 export class Ship {
 	anchor: Maybe<Anchor> = new None();
@@ -15,49 +22,35 @@ export class Ship {
 	rank: number;
 	follower: Maybe<Ship> = new None();
 
-	missiles: Missile[] = [];
+	missiles: Missiles;
 
 	constructor (position: Vec2, rot: number, rank: number = 0) {
 		this.transform = new Transform2D(position, rot);
 		this.rank = rank;
 		this.model = new Model2D(
-			3, 
-			[ new Vec2(-15, -4), new Vec2(0, 0), new Vec2(-15, 4) ],
+			3,
+			[
+				new Vec2(-15, -4),
+				new Vec2(0, 0),
+				new Vec2(-15, 4)
+			],
 			255,
 			this.transform
 		);
-		this.trigger = new Trigger2D(this.transform, this.model, () => {return});
+		this.trigger = new Trigger2D(this.transform, this.model, () => {
+			return;
+		});
+		this.missiles = new Missiles(this.transform);
 	}
 
-	setFollower(follower: Ship) {
+	setFollower (follower: Ship) {
 		this.follower = new Some(follower);
 	}
 
-	start() {
-		this.missiles[0] = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
-	}
-
-	updateFireCounter = (() => {
-		let timer = Math.floor(Math.random() * 40);
-
-		return GameApi.setTimer(45 - timer, () => {
-			timer = Math.floor(Math.random() * 40);
-			const missile = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
-			// delete this.missiles[0];
-			this.missiles.push(missile);
-		});
-	})();
-
-	resetMissiles = GameApi.setTimer(60, () => {
-		for (let i = 0; i < this.missiles.length / 2; i += 1) {
-			delete this.missiles[i];
-		}
-	});
+	start () {}
 
 	update () {
-		this.updateFireCounter();
-		this.resetMissiles();
-		this.missiles.map((missile) => missile.update());
+		this.missiles.update();
 
 		this.anchor.map((anchor) => {
 			anchor.update(this);
