@@ -45,7 +45,7 @@ const addSquadronTimer = GameApi.setTimer(GameApi.secToFPS(10), () => {
 	Pool.enrollSquadron(rand);
 });
 
-//TODO create set timer seconds fn in GameApi to replace hard coded FPS values
+
 const Game = { start, frameIsReady, Pool, update, removeSquadron };
 
 export default Game;
