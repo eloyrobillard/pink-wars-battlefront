@@ -4,6 +4,8 @@ import Game from '../gameLoop';
 export class FightMaker {
   inCombat = false;
 
+  constructor(public squadronId: number) {}
+
   update(leader: Ship) {
     if (this.inCombat) {
 
@@ -17,6 +19,9 @@ export class FightMaker {
   }
 
   queryOpponent() {
-    const maybeOpponent = Game.findSquadron((squadron) => !squadron.inCombat);
+    const maybeOpponent = Game.Pool.findSquadron((squadron) => !squadron.inCombat);
+    const opponent = maybeOpponent.unwrapOrDo(() => {
+      return Game.Pool.getRand(this.squadronId);
+    });
   }
 }

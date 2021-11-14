@@ -6,7 +6,7 @@ import { Ship } from './ship';
 import Game from '../gameLoop';
 
 export class Squadron {
-	fightMaker: FightMaker = new FightMaker();
+	fightMaker: FightMaker;
 	inCombat = false;
 	team: Maybe<Ship>[];
 	leader!: Ship;
@@ -15,6 +15,7 @@ export class Squadron {
 
 	constructor (id: number, color: number) {
 		this.id = id;
+		this.fightMaker = new FightMaker(this.id);
 		this.color = color;
 		this.team = Array.from({ length: 6 }, (_, i) => {
 			const member = new Some(new Ship(math.randPos(), math.randRot(), i));

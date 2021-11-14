@@ -1,5 +1,4 @@
 import { Squadron } from './game-objects/squadron';
-import { Maybe, Some, None } from './types/index';
 import Pool from './game-objects/pool';
 
 const FPS = 30; // NOTE p5.draw ~= 76 fps
@@ -41,16 +40,6 @@ function removeSquadron(squadId: number) {
 	Pool.remove(squadId);
 }
 
-function findSquadron(cb: (squadron: Squadron) => boolean): Maybe<Squadron> {
-	for (let i = 0; i < POOL_LEN; i += 1) {
-		const current = Pool.get(i);
-		if (cb(current)) {
-			return new Some(current);
-		}
-	}
-	return new None();
-}
-
-const Game = { FPS, fixedDeltaTime, start, frameIsReady, Pool, update, removeSquadron, findSquadron };
+const Game = { FPS, fixedDeltaTime, start, frameIsReady, Pool, update, removeSquadron };
 
 export default Game;

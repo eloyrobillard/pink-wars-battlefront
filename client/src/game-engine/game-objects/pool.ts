@@ -1,3 +1,4 @@
+import { Maybe, Some, None } from '../types/index';
 import { Squadron } from './squadron';
 
 let pool: Squadron[];
@@ -35,6 +36,16 @@ function remove(index: number) {
   delete pool[index];
 }
 
-const Pool = { map, reduce, get, set, remove };
+function findSquadron(cb: (squadron: Squadron) => boolean): Maybe<Squadron> {
+	for (let i = 0; i < pool.length; i += 1) {
+		const current = Pool.get(i);
+		if (cb(current)) {
+			return new Some(current);
+		}
+	}
+	return new None();
+}
+
+const Pool = { map, reduce, get, set, remove, findSquadron };
 
 export default Pool;
