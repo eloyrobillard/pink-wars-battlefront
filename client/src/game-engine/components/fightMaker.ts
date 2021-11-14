@@ -1,27 +1,43 @@
+import { Squadron } from '../game-objects/squadron';
+import { Maybe, Some, None } from '../types/index';
+import Behavior from '../game-objects/behavior';
 import { Ship } from '../game-objects/ship';
 import Game from '../gameLoop';
 
 export class FightMaker {
   inCombat = false;
+  opponent: Maybe<Squadron> = new None();
 
-  constructor(public squadronId: number) {}
+  constructor(public squadronId: number, private leader: Ship) {}
 
   update(leader: Ship) {
-    if (this.inCombat) {
-
+    this.leader = leader;
+    if (this.opponent.isSome) {
+      this.updateFight(this.opponent.unwrap()!);
+      this.fireNow();
     } else {
       this.queryOpponent();
     }
   }
 
+  /**
+   * Tells squadron to shoot.
+   */
   fireNow() {
 
   }
 
+  onDestroyOpponent() {
+    this.queryOpponent();
+  }
+
+  updateFight(opponent: Squadron) {
+    Behavior.setAnchor(this.leader, opponent.leader);
+  }
+
   queryOpponent() {
-    const maybeOpponent = Game.Pool.findSquadron((squadron) => !squadron.inCombat);
-    const opponent = maybeOpponent.unwrapOrDo(() => {
-      return Game.Pool.getRand(this.squadronId);
-    });
+    const opponent = Game.Pool.getRand(this.squadronId);
+    this.opponent = new Some(opponent);
+    this.updateFight(opponent);
   }
 }
