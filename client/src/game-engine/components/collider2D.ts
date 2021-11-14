@@ -20,7 +20,6 @@ export class Collider2D extends Trigger2D {
 			squadron.map((ship) => {
 				const { trigger } = ship;
         if (this.checkOverlap(trigger)) {
-          // FIXME verts are calculated from (0, 0), not actual position
           console.log('collision!');
         }
 				return ship;

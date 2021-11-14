@@ -34,6 +34,8 @@ function update () {
 	});
 }
 
+
+
 const Game = { FPS, fixedDeltaTime, start, frameIsReady, Pool, update };
 
 export default Game;

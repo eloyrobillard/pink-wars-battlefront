@@ -51,9 +51,9 @@ export class Ship {
 				if ((counter + 1) < 30) {
 					return counter += 1;
 				}
-				const missile = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
+				// const missile = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
 				delete this.missiles[0];
-				this.missiles[0] = missile;
+				// this.missiles[0] = missile;
 				return counter = 0;
 			};
 		})();
@@ -66,7 +66,6 @@ export class Ship {
 			anchor.update(this);
 			return anchor;
 		});
-		// else if (!this.isSquadLeader) this.anchor = new Some(getAnchor(this));
 
 		this.transform.update(this.rb.speed);
 		this.model.update(this.transform);
