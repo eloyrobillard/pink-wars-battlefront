@@ -1,6 +1,7 @@
 import { Model2D, Transform2D } from './index';
 import { Vec2 } from '../types/index';
 import math from '../../math';
+import DebugApi from '../../DebugApi';
 
 export class HitBox2D {
 	vertices: Vec2[];
@@ -13,14 +14,14 @@ export class HitBox2D {
 
 	private scaleHitBox (): Vec2[] {
 		const { offsets } = this.model;
-		return offsets.map((vec) => new Vec2(vec.x * 2, vec.y * 2));
+		return offsets.map((vec) => new Vec2(vec.x * 3, vec.y * 3));
 	}
 
 	private placeHitBox () {
 		const { direction, position, rot } = this.transform;
 		const { x, y } = new Vec2(
-			position.x + direction.x * 5,
-			position.y + direction.y * 5
+			position.x + direction.x * 16,
+			position.y + direction.y * 16
 		);
 
 		return Array.from({ length: this.offsets.length }, (_, i) => {
@@ -37,5 +38,12 @@ export class HitBox2D {
 
 	update () {
     this.vertices = this.placeHitBox();
+    this.debug();
+  }
+
+  private debug() {
+    DebugApi.placeP5Call((p5) => {
+      this.vertices.forEach((vertex) => p5.point(vertex.x, vertex.y));
+    });
   }
 }
