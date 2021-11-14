@@ -11,11 +11,9 @@ export class Squadron {
 	team: Maybe<Ship>[];
 	leader: Ship;
 	id: number;
-	color: number;
 
-	constructor (id: number, color: number) {
+	constructor (id: number) {
 		this.id = id;
-		this.color = color;
 
 		this.team = this.createTeam(GameApi.enterBattlefield());
 
