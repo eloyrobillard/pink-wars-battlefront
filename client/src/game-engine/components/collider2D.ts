@@ -34,7 +34,7 @@ export class Collider2D extends Trigger2D {
 
 	checkOverlap (other: Trigger2D) {
 		const { position } = this.transform;
-		const { vertices } = other.model;
+		const { vertices } = other.hitbox!;
 
 		// LINK https://www.gamedev.net/forums/topic.asp?topic_id=295943
 		// LINK (japanese) http://www.thothchildren.com/chapter/5b267a436298160664e80763

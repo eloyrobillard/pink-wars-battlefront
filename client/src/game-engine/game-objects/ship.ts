@@ -43,7 +43,7 @@ export class Ship {
 			this.transform
 		);
 		this.hitbox = new HitBox2D(this.model, this.transform);
-		this.trigger = new Trigger2D(this, this.transform, this.model);
+		this.trigger = new Trigger2D(this, this.transform, this.hitbox);
 		this.missiles = new Missiles(this.squadron.id, this.transform);
 	}
 

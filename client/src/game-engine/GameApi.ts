@@ -1,4 +1,4 @@
-import Game from './gameLoop';
+// import Game from './gameLoop';
 import { Vec2 } from './types/index';
 
 
