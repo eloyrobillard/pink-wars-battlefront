@@ -46,6 +46,17 @@ function findSquadron(cb: (squadron: Squadron) => boolean): Maybe<Squadron> {
 	return new None();
 }
 
-const Pool = { map, reduce, get, set, remove, findSquadron };
+/**
+ * Returns rand from pool, excluding own squadron.
+ */
+function getRand(except: number): Squadron {
+  const rand = Math.floor(Math.random() * pool.length);
+  if (rand !== except) {
+    return pool[rand];
+  }
+  return pool[except + 1];
+}
+
+const Pool = { map, reduce, get, set, remove, findSquadron, getRand };
 
 export default Pool;
