@@ -9,14 +9,14 @@ export class Missile {
 	model: Model2D;
 	collider: Collider2D;
 
-	constructor (private missiles: Missiles, pos: Vec2, rot: number, public squadId: number, private id: number) {
+	constructor (private missiles: Missiles, pos: Vec2, rot: number, public battalionId: number, private id: number) {
 		this.transform = new Transform2D(pos, rot);
 		this.model = new Model2D(2, [ new Vec2(-10, 0), new Vec2(0, 0) ], 0, this.transform);
 		this.collider = new Collider2D(this, this.transform);
 	}
 
 	onCollide (col: Trigger2D) {
-		if (col.object.squadId !== this.squadId) {
+		if (col.object.battalionId !== this.battalionId) {
 			this.missiles.destroy(this.id);
 		}
 	}

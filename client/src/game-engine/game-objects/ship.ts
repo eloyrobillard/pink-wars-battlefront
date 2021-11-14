@@ -28,7 +28,7 @@ export class Ship {
 
 	missiles: Missiles;
 
-	constructor (position: Vec2, rot: number, private squadron: Squadron, rank: number = 0) {
+	constructor (position: Vec2, rot: number, public battalionId: number, private squadron: Squadron, rank: number = 0) {
 		this.transform = new Transform2D(position, rot);
 		this.rank = rank;
 		this.squadId = squadron.id;
@@ -49,7 +49,7 @@ export class Ship {
 
 	// NOTE keep empty
 	onCollide (col: Trigger2D) {
-		if (col.object.squadId !== this.squadId) {
+		if (col.object.battalionId !== this.battalionId) {
 			this.squadron.onCasualty(this.rank);
 		}
 	}

@@ -17,7 +17,7 @@ export class Collider2D extends Trigger2D {
 		this.checkCollision();
 	}
 
-	checkCollision = GameApi.setTimer(2, () => {
+	checkCollision = GameApi.setTimer(1, () => {
 		Game.Pool.map((battalion) => {
 			battalion.mapShips((ship) => {
 				const { trigger } = ship;

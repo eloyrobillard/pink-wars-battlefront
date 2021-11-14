@@ -7,7 +7,7 @@ export class Missiles {
 	curr = 0;
 	missiles: Maybe<Missile>[] = Array.from({ length: 10 }, () => new None());
 
-	constructor (public squadId: number, public transform: Transform2D) {}
+	constructor (public battalionId: number, public transform: Transform2D) {}
 
 	private fireCounter = GameApi.setTimer(
 		GameApi.secToFPS(1.6) - Math.floor(Math.random() * GameApi.secToFPS(1.3)),
@@ -16,7 +16,7 @@ export class Missiles {
 				this,
 				this.transform.position,
 				this.transform.rot,
-				this.squadId,
+				this.battalionId,
 				this.curr /* this.type */
 			);
 			this.insert(missile);
@@ -31,7 +31,7 @@ export class Missiles {
 					this,
 					this.transform.position,
 					this.transform.rot,
-					this.squadId,
+					this.battalionId,
 					this.curr /* this.type */
 				);
 				this.insert(missile);
