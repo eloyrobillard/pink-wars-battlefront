@@ -42,12 +42,20 @@ export class Squadron {
 		});
 	}
 
+	private findHighestRankingOfficer() {
+		return this.team.findIndex((ship) => ship.isSome);
+	}
+
 	onCasualty(rank: number) {
-		if (rank) {
-			this.team[rank] = new None();
-		} else {
-			
-		}
+		this.team[rank] = new None();
+		
+		const highestRankingOfficer = this.findHighestRankingOfficer();
+		const officer = this.team[highestRankingOfficer].unwrap()!;
+		officer.anchor = new None();
+		this.team.slice(highestRankingOfficer + 1).map((member) => member.map((self) => {
+			Behavior.setAnchor(self, officer);
+			return self;
+		}));
 	}
 
 	/**
