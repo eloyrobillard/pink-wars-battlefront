@@ -37,11 +37,16 @@ export class Ship {
 		this.missiles[0] = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
 	}
 
-	updateFireCounter = GameApi.setTimer(30, () => {
-		const missile = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
-		delete this.missiles[0];
-		this.missiles[0] = missile;
-	});
+	updateFireCounter = (() => {
+		let timer = Math.floor(Math.random() * 40);
+
+		return GameApi.setTimer(45 - timer, () => {
+			timer = Math.floor(Math.random() * 40);
+			const missile = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
+			delete this.missiles[0];
+			this.missiles[0] = missile;
+		});
+	})();
 
 	update () {
 		this.updateFireCounter();
