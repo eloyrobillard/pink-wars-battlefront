@@ -3,36 +3,29 @@ import math from '../../math/index';
 import { Ship } from './ship';
 
 export class Squadron {
-	leader: Ship;
-	members: Ship[];
-	private squad: Ship[];
+	team: Ship[];
 	id: number;
 	color: number;
 
 	constructor (id: number, color: number) {
 		this.id = id;
 		this.color = color;
-		this.leader = new Ship(math.randPos(), math.randRot(), 0);
-		this.members = Array.from({ length: 5 }, (_, i) => {
-			const member = new Ship(math.randPos(), math.randRot(), i + 1);
-			Behavior.setAnchor(member, this.leader);
+		this.team = Array.from({ length: 6 }, (_, i) => {
+			const member = new Ship(math.randPos(), math.randRot(), i);
 			return member;
 		});
-		this.squad = [
-			this.leader,
-			...this.members
-		];
+		this.team.slice(1).forEach((member) => Behavior.setAnchor(member, this.team[0]));
 	}
 
 	start () {
-		this.squad.map((ship) => {
+		this.team.map((ship) => {
 			ship.start();
 			return ship;
 		});
 	}
 
 	update () {
-		this.squad.map((ship) => {
+		this.team.map((ship) => {
 			Behavior.detectWalls(ship);
 			ship.update();
 			return ship;
@@ -41,14 +34,14 @@ export class Squadron {
 
 	/**
    * @param cb 
-   * @returns a shallow copy of the squad
+   * @returns a shallow copy of the team
    */
 	map (cb: (ship: Ship, index: number) => Ship) {
 		for (let i = 0; i < 6; i += 1) {
-			this.squad[i] = cb(this.squad[i], i);
+			this.team[i] = cb(this.team[i], i);
 		}
 		return [
-			...this.squad
+			...this.team
 		];
 	}
 }

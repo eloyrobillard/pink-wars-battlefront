@@ -17,11 +17,12 @@ export class Collider2D extends Trigger2D {
    */
 	update () {
 		this.checkCollision();
-		hits.forEach((hit) => {
-			DebugApi.placeP5Call((p5) => {
-				p5.point(hit.x, hit.y)
-			});
-		})
+		// hits.forEach((hit) => {
+		// 	DebugApi.placeP5Call((p5) => {
+		// 		p5.strokeWeight(2);
+		// 		p5.point(hit.x, hit.y)
+		// 	});
+		// })
 	}
 
 	checkCollision = GameApi.setTimer(1, () => {
@@ -29,7 +30,7 @@ export class Collider2D extends Trigger2D {
 			squadron.map((ship) => {
 				const { trigger } = ship;
         if (this.checkOverlap(trigger)) {
-					hits.push(new Vec2(this.transform.position.x, this.transform.position.y));
+					// hits.push(new Vec2(this.transform.position.x, this.transform.position.y));
         }
 				return ship;
 			});

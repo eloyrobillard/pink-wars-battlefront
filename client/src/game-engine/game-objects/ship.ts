@@ -34,7 +34,9 @@ export class Ship {
 	}
 
 	onTrigger(col: Trigger2D) {
-
+		if (this.rank > 0) {
+			
+		}
   }
 
 	start() {
