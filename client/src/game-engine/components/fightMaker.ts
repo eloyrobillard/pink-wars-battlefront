@@ -8,7 +8,7 @@ import Game from '../gameLoop';
 export class FightMaker {
 	opponent: Maybe<Squadron> = new None();
 
-	constructor (public squadronId: number, private leader: Ship) {}
+	constructor (public battalionId: number, private leader: Ship) {}
 
 	update (leader: Ship) {
 		this.leader = leader;
@@ -49,8 +49,10 @@ export class FightMaker {
 	}
 
 	queryOpponent () {
-		const opponent = Game.Pool.getRand(this.squadronId);
-		this.opponent = new Some(opponent);
-		this.updateFight(opponent);
+		let maybeOpponent: Maybe<Squadron>;
+		while ((maybeOpponent = Game.Pool.getRand(this.battalionId)).isNone) {}
+
+		this.opponent = maybeOpponent;
+		this.updateFight(maybeOpponent.unwrap()!);
 	}
 }

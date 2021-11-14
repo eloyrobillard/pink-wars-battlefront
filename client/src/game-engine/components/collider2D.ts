@@ -18,8 +18,8 @@ export class Collider2D extends Trigger2D {
 	}
 
 	checkCollision = GameApi.setTimer(2, () => {
-		Game.Pool.map((squadron) => {
-			squadron.map((ship) => {
+		Game.Pool.map((battalion) => {
+			battalion.mapShips((ship) => {
 				const { trigger } = ship;
         if (this.checkOverlap(trigger)) {
 					this.object.onCollide(trigger);
@@ -28,7 +28,7 @@ export class Collider2D extends Trigger2D {
 				return ship;
 			});
 
-			return squadron;
+			return battalion;
 		});
 	});
 

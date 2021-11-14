@@ -21,6 +21,10 @@ export class Battalion {
     return squadrons;
   }
 
+  enrollSquadron() {
+    this.squadrons.push(new Some(new Squadron(this.squadrons.length)));
+  }
+
   mapShips(cb: (ship: Ship) => Ship) {
     this.squadrons.map((maybeSquadron) => {
       maybeSquadron.map((squadron) => {

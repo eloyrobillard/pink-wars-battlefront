@@ -1,21 +1,22 @@
 import { Maybe, Some, None } from '../types/index';
+import { Battalion } from './battalion';
 import { Squadron } from './squadron';
 
-let pool: Squadron[];
+let pool: Battalion[];
 
 /**
  * Variant of map that acts as an endofunctor (takes a ship, returns a ship and only a ship).
  * @param {(Ship, number) => Ship} cb the usual map callback
  * @returns {Ship[]}
  */
-function map(cb: (squad: Squadron, index: number) => Squadron): Squadron[] {
+function map(cb: (battalion: Battalion, index: number) => Battalion): Battalion[] {
   for (let i = 0; i < pool.length; i += 1) {
     pool[i] = cb(pool[i], i);
   }
   return [...pool];
 }
 
-function reduce<T>(cb: (acc: T, squad: Squadron, index: number) => T, first: T): T {
+function reduce<T>(cb: (acc: T, battalion: Battalion, index: number) => T, first: T): T {
   let acc = first;
   for (let i = first ? 0 : 1; i < pool.length; i += 1) {
     acc = cb(acc, pool[i], i);
@@ -27,7 +28,7 @@ function get(index: number) {
   return pool[index];
 }
 
-function set(ships: Squadron[]) {
+function set(ships: Battalion[]) {
   return pool = ships;
 }
 
@@ -36,15 +37,17 @@ function set(ships: Squadron[]) {
 // }
 
 function replace(index: number) {
-  pool[index] = new Squadron(index, 255 / index);
+  pool[index] = new Battalion(index, 255 / index);
 }
 
-function findSquadron(cb: (squadron: Squadron) => boolean): Maybe<Squadron> {
+function findSquadron(cb: (squadron: Maybe<Squadron>) => boolean): Maybe<Squadron> {
 	for (let i = 0; i < pool.length; i += 1) {
 		const current = Pool.get(i);
-		if (cb(current)) {
-			return new Some(current);
-		}
+		for (let j = 0; j < current.squadrons.length; j += 1) {
+      if (cb(current.squadrons[j])) {
+        return current.squadrons[j];
+      }
+    }
 	}
 	return new None();
 }
@@ -52,16 +55,23 @@ function findSquadron(cb: (squadron: Squadron) => boolean): Maybe<Squadron> {
 /**
  * Returns rand from pool, excluding own squadron.
  */
-function getRand(except: number): Squadron {
+function getRand(except: number): Maybe<Squadron> {
   const rand = Math.floor(Math.random() * pool.length);
   if (rand !== except) {
-    return pool[rand];
+    const randSquad = Math.floor(Math.random() * pool[rand].squadrons.length);
+    return pool[rand].squadrons[randSquad];
   }
-  return pool[(except + 1) % pool.length];
+  const adjustedRand = (except + 1) % pool.length;
+  const randSquad = Math.floor(Math.random() * pool[adjustedRand].squadrons.length);
+  return pool[adjustedRand].squadrons[randSquad];
 }
 
-const push = () => pool.push(new Squadron(pool.length, 255 / pool.length));
+function enrollSquadron(battalionId: number) {
+  pool[battalionId].enrollSquadron();
+}
 
-const Pool = { map, reduce, get, set, findSquadron, getRand, replace, push };
+const push = () => pool.push(new Battalion(pool.length, 255 / pool.length));
+
+const Pool = { map, reduce, get, set, findSquadron, getRand, replace, push, enrollSquadron };
 
 export default Pool;
