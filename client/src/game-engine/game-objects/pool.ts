@@ -32,8 +32,11 @@ function set(ships: Squadron[]) {
 }
 
 function remove(index: number) {
-  console.log('destroyed');
   delete pool[index];
+}
+
+function replace(index: number) {
+  pool[index] = new Squadron(index, 255 / index);
 }
 
 function findSquadron(cb: (squadron: Squadron) => boolean): Maybe<Squadron> {
@@ -57,6 +60,6 @@ function getRand(except: number): Squadron {
   return pool[except + 1];
 }
 
-const Pool = { map, reduce, get, set, remove, findSquadron, getRand };
+const Pool = { map, reduce, get, set, remove, findSquadron, getRand, replace };
 
 export default Pool;

@@ -37,7 +37,7 @@ function update () {
 }
 
 function removeSquadron(squadId: number) {
-	Pool.remove(squadId);
+	Pool.replace(squadId);
 }
 
 const Game = { FPS, fixedDeltaTime, start, frameIsReady, Pool, update, removeSquadron };
