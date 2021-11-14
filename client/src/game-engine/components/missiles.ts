@@ -1,9 +1,11 @@
-import { Transform2D } from './index';
+import { Maybe, Some, None } from '../types/index';
 import { Missile } from '../game-objects/missile';
+import { Transform2D } from './index';
 import GameApi from '../GameApi';
 
 export class Missiles {
-	missiles: Missile[] = [];
+  curr = 0;
+	missiles: Maybe<Missile>[] = Array.from({ length: 20 });
 
 	constructor (public transform: Transform2D) {}
 
@@ -14,23 +16,33 @@ export class Missiles {
 			timer = Math.floor(Math.random() * 40);
 			const missile = Missile.fire(
 				this.transform.position,
-				this.transform.rot /* this.type */
+				this.transform.rot, 
+        this.destroy /* this.type */
 			);
 			// delete this.missiles[0];
-			this.missiles.push(missile);
+			this.insert(missile);
 		});
 	})();
 
-	resetMissiles = GameApi.setTimer(60, () => {
-		for (let i = 0; i < this.missiles.length / 2; i += 1) {
-			delete this.missiles[i];
-		}
-	});
+  private insert(missile: Missile) {
+    this.missiles[this.curr] = new Some(missile);
+    if (this.curr + 1 < this.missiles.length) {
+      this.curr += 1;
+    } else {
+      this.curr = 0;
+    }
+  }
+
+  destroy() {
+
+  }
 
 	update () {
 		this.updateFireCounter();
-		this.resetMissiles();
 
-		this.missiles.map((missile) => missile.update());
+		this.missiles.map((missile) => missile.map((self) => {
+      self.update();
+      return self;
+    }));
 	}
 }
