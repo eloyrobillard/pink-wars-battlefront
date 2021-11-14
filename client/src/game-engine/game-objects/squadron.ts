@@ -1,15 +1,15 @@
 import { Maybe, Some, None, Vec2 } from '../types/index';
 import { FightMaker } from '../components/index';
 import Behavior from './behavior/index';
-// import math from '../../math/index';
+import math from '../../math/index';
 import GameApi from '../GameApi';
 import Game from '../gameLoop';
 import { Ship } from './ship';
 
 export class Squadron {
-	fightMaker!: FightMaker;
-	team: Maybe<Ship>[] = Array.from({ length: 6}, () => new None());
-	leader!: Ship;
+	fightMaker: FightMaker;
+	team: Maybe<Ship>[];
+	leader: Ship;
 	id: number;
 	color: number;
 
@@ -17,18 +17,30 @@ export class Squadron {
 		this.id = id;
 		this.color = color;
 
-		this.createTeam(GameApi.enterBattlefield());
-		
-		this.welcomeLeader(0);
+		this.team = this.createTeam(GameApi.enterBattlefield());
+
+		this.leader = this.welcomeLeader(0);
 		this.fightMaker = new FightMaker(this.id, this.leader);
 	}
-	
-	private createTeam({ pos, rot }: { pos: Vec2, rot: number }) {
-		for (let i = 0; i < this.team.length; i += 1) {
-			this.team[i] = new Some(new Ship(new Vec2(pos.x, pos.y), rot, this, i));
+
+	private createTeam ({ pos, rot }: { pos: Vec2; rot: number }) {
+		const team: Maybe<Ship>[] = Array.from({ length: 6 }, () => new None());
+		for (let i = 0; i < team.length; i += 1) {
+			team[i] = new Some(
+				new Ship(
+					new Vec2(
+						pos.x - 10 * math.cosConvert(rot) * i,
+						pos.y - 10 * math.cosConvert(rot) * i
+					),
+					rot,
+					this,
+					i
+				)
+			);
 		}
+		return team;
 	}
-	
+
 	start () {
 		this.team.map((ship) => {
 			ship.map((self) => {
@@ -39,34 +51,38 @@ export class Squadron {
 		});
 	}
 
-	private findHighestRankingOfficer() {
+	private findHighestRankingOfficer () {
 		return this.team.findIndex((ship) => ship.isSome);
 	}
 
-	onCasualty(rank: number) {
+	onCasualty (rank: number) {
 		this.team[rank] = new None();
 		if (rank > 0) return;
 
 		const highestRankingOfficer = this.findHighestRankingOfficer();
 		if (highestRankingOfficer > -1) {
-			this.welcomeLeader(highestRankingOfficer);
+			this.leader = this.welcomeLeader(highestRankingOfficer);
 		} else {
 			// NOTE squadron decimated
 			this.onDestroy();
 		}
 	}
 
-	welcomeLeader(rank: number) {
-		this.leader = this.team[rank].unwrap()!;
-		this.leader.rank = 0;
-		this.leader.anchor = new None();
-		this.team.slice(rank + 1).map((member) => member.map((self) => {
-			Behavior.setAnchor(self, this.leader);
-			return self;
-		}));
+	welcomeLeader (rank: number) {
+		const leader = this.team[rank].unwrap()!;
+		leader.rank = 0;
+		leader.anchor = new None();
+		this.team.slice(rank + 1).map((member) =>
+			member.map((self) => {
+				Behavior.setAnchor(self, leader);
+				return self;
+			})
+		);
+
+		return leader;
 	}
 
-	onDestroy() {
+	onDestroy () {
 		Game.removeSquadron(this.id);
 		this.fightMaker.onDestroy();
 	}
