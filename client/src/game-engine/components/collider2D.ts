@@ -39,13 +39,20 @@ function broadPhase (missile: Trigger2D, other: Trigger2D): boolean {
 	const { position } = missile.transform;
 	const { vertices } = other.model;
 
-  const vec0 = Vec2.toVec(vertices[0].x, vertices[0].y, position.x, position.y);
-  const vec1 = Vec2.toVec(vertices[1].x, vertices[1].y, position.x, position.y);
-	const vec2 = Vec2.toVec(vertices[2].x, vertices[2].y, position.x, position.y);
+  const vecP0 = Vec2.toVec(vertices[0].x, vertices[0].y, position.x, position.y);
+  const vecP1 = Vec2.toVec(vertices[1].x, vertices[1].y, position.x, position.y);
+	const vecP2 = Vec2.toVec(vertices[2].x, vertices[2].y, position.x, position.y);
+
+	const vec0 = Vec2.toVec(vertices[1].y, vertices[0].x, vertices[0].y, vertices[1].x);
+	const vec1 = Vec2.toVec(vertices[2].y, vertices[1].x, vertices[1].y, vertices[2].x);
+	const vec2 = Vec2.toVec(vertices[2].y, vertices[0].x, vertices[0].y, vertices[2].x);
 	
 	// LINK https://www.gamedev.net/forums/topic.asp?topic_id=295943
+	const b0 = vecP0.crossProd(vec0) > 0;
+	const b1 = vecP1.crossProd(vec1) > 0;
+	const b2 = vecP2.crossProd(vec2) > 0;
 
-	
+	return b0 === b1 && b1 === b2;
 }
 
 // function checkPointInTriangle() {
