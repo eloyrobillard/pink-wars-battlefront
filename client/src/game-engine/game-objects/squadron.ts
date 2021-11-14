@@ -16,6 +16,11 @@ export class Squadron {
 	constructor (id: number, color: number) {
 		this.id = id;
 		this.color = color;
+
+		this.createTeam(GameApi.enterBattlefield());
+		
+		this.welcomeLeader(0);
+		this.fightMaker = new FightMaker(this.id, this.leader);
 	}
 	
 	private createTeam({ pos, rot }: { pos: Vec2, rot: number }) {
@@ -25,8 +30,6 @@ export class Squadron {
 	}
 	
 	start () {
-		this.createTeam(GameApi.enterBattlefield());
-		
 		this.team.map((ship) => {
 			ship.map((self) => {
 				self.start();
@@ -34,9 +37,6 @@ export class Squadron {
 			});
 			return ship;
 		});
-
-		this.welcomeLeader(0);
-		this.fightMaker = new FightMaker(this.id, this.leader);
 	}
 
 	private findHighestRankingOfficer() {
