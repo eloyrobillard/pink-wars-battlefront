@@ -39,11 +39,13 @@ export class FightMaker {
 	}
 
 	onDestroyOpponent () {
-		this.queryOpponent();
+		this.opponent = new None();
 	}
 
 	updateFight (opponent: Squadron) {
-		Behavior.setAnchor(this.leader, opponent.leader);
+    if (this.leader.anchor.isNone || this.leader.anchor.unwrap()!.anchor !== opponent.leader) {
+      Behavior.setAnchor(this.leader, opponent.leader);
+    }
 	}
 
 	queryOpponent () {

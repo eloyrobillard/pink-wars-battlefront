@@ -57,7 +57,7 @@ function getRand(except: number): Squadron {
   if (rand !== except) {
     return pool[rand];
   }
-  return pool[except + 1];
+  return pool[(except + 1) % pool.length];
 }
 
 const Pool = { map, reduce, get, set, remove, findSquadron, getRand, replace };
