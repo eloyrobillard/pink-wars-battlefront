@@ -32,6 +32,7 @@ export class Squadron {
 					),
 					rot,
 					this,
+					this.battalionId,
 					i
 				)
 			);
