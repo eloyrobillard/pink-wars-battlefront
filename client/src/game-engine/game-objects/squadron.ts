@@ -83,8 +83,8 @@ export class Squadron {
 	}
 
 	onDestroy () {
-		Game.removeSquadron(this.id);
 		this.fightMaker.onDestroy();
+		Game.removeSquadron(this.id);
 	}
 
 	/**
