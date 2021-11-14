@@ -3,6 +3,7 @@ import {
 	RigidBody2D,
 	Trigger2D,
 	Model2D,
+	HitBox2D,
 	Anchor,
 	Missiles
 } from '../components/index';
@@ -18,6 +19,7 @@ export class Ship {
 		speed: 200
 	};
 	model: Model2D;
+	hitbox: HitBox2D;
 	trigger: Trigger2D;
 
 	rank: number;
@@ -40,6 +42,7 @@ export class Ship {
 			255,
 			this.transform
 		);
+		this.hitbox = new HitBox2D(this.model, this.transform);
 		this.trigger = new Trigger2D(this, this.transform, this.model);
 		this.missiles = new Missiles(this.squadron.id, this.transform);
 	}
