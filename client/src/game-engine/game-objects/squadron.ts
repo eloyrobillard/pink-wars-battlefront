@@ -1,9 +1,10 @@
-import { Maybe, Some, None } from '../types/index';
+import { Maybe, Some, None, Vec2 } from '../types/index';
 import { FightMaker } from '../components/index';
 import Behavior from './behavior/index';
 import math from '../../math/index';
-import { Ship } from './ship';
 import Game from '../gameLoop';
+import GameApi from '../GameApi';
+import { Ship } from './ship';
 
 export class Squadron {
 	fightMaker: FightMaker;
@@ -15,13 +16,17 @@ export class Squadron {
 	constructor (id: number, color: number) {
 		this.id = id;
 		this.color = color;
-		this.team = Array.from({ length: 6 }, (_, i) => {
-			const member = new Some(new Ship(math.randPos(), math.randRot(), i));
-			return member;
-		});
+		this.team = this.createTeam(GameApi.enterBattlefield());
 		this.welcomeLeader(0);
 
 		this.fightMaker = new FightMaker(this.id, this.leader);
+	}
+
+	private createTeam({ pos, rot }: { pos: Vec2, rot: number }): Maybe<Ship>[] {
+		return Array.from({ length: 6 }, (_, i) => {
+			const member = new Some(new Ship(new Vec2(pos.x, pos.y), rot, i));
+			return member;
+		});
 	}
 
 	start () {
