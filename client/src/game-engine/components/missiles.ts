@@ -5,7 +5,7 @@ import GameApi from '../GameApi';
 
 export class Missiles {
   curr = 0;
-	missiles: Maybe<Missile>[] = Array.from({ length: 20 });
+	missiles: Maybe<Missile>[] = Array.from({ length: 20 }, () => new None());
 
 	constructor (public transform: Transform2D) {}
 
@@ -16,7 +16,8 @@ export class Missiles {
 			timer = Math.floor(Math.random() * 40);
 			const missile = Missile.fire(
 				this.transform.position,
-				this.transform.rot, 
+				this.transform.rot,
+        this.curr,
         this.destroy /* this.type */
 			);
 			// delete this.missiles[0];
@@ -33,8 +34,8 @@ export class Missiles {
     }
   }
 
-  destroy() {
-
+  destroy(id: number) {
+    this.missiles[id] = new None();
   }
 
 	update () {

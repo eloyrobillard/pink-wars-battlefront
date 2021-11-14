@@ -9,7 +9,7 @@ export class Missile {
 	model: Model2D;
 	collider: Collider2D;
 
-	constructor (pos: Vec2, rot: number, private destroy: () => void) {
+	constructor (pos: Vec2, rot: number, private id: number, private destroy: (id: number) => void) {
 		this.transform = new Transform2D(pos, rot);
 		this.model = new Model2D(2, [ new Vec2(-10, 0), new Vec2(0, 0) ], 0, this.transform);
 		this.collider = new Collider2D(this.transform, this.model, this.onCollide);
@@ -20,12 +20,12 @@ export class Missile {
 	 * @param pos position fired from
 	 * @param rot 
 	 */
-	static fire(pos: Vec2, rot: number, destroy: () => void) {
-		return new Missile(pos, rot, destroy);
+	static fire(pos: Vec2, rot: number, id: number, destroy: (id: number) => void) {
+		return new Missile(pos, rot, id, destroy);
 	}
 
 	onCollide () {
-		this.destroy();
+		this.destroy(this.id);
 	}
 
 	update () {
