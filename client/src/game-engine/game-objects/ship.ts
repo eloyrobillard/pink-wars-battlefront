@@ -1,6 +1,7 @@
 import { Transform2D, RigidBody2D, Trigger2D, Model2D, Anchor } from '../components/index';
 import { Vec2, Maybe, Some, None } from '../types/index';
 import { Missile } from './missile';
+import GameApi from '../GameApi';
 
 export class Ship {
 	anchor: Maybe<Anchor> = new None();
@@ -40,23 +41,11 @@ export class Ship {
 		this.missiles[0] = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
 	}
 
-	/**
-	 * Shoots a missile per second.
-	 * @returns counter
-	 */
-	updateFireCounter = (() => {
-			let counter = 0;
-
-			return () => {
-				if ((counter + 1) < 30) {
-					return counter += 1;
-				}
-				// const missile = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
-				delete this.missiles[0];
-				// this.missiles[0] = missile;
-				return counter = 0;
-			};
-		})();
+	updateFireCounter = GameApi.setTimer(30, () => {
+		// const missile = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
+		delete this.missiles[0];
+		// this.missiles[0] = missile;
+	});
 
 	update () {
 		this.updateFireCounter();
