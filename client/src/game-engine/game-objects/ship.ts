@@ -26,18 +26,12 @@ export class Ship {
 			255,
 			this.transform
 		);
-		this.trigger = new Trigger2D(this.transform, this.model, this.onTrigger);
+		this.trigger = new Trigger2D(this.transform, this.model, () => {return});
 	}
 
 	setFollower(follower: Ship) {
 		this.follower = new Some(follower);
 	}
-
-	onTrigger(col: Trigger2D) {
-		if (this.rank > 0) {
-
-		}
-  }
 
 	start() {
 		this.missiles[0] = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
