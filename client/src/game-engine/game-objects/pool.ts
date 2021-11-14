@@ -60,6 +60,8 @@ function getRand(except: number): Squadron {
   return pool[(except + 1) % pool.length];
 }
 
-const Pool = { map, reduce, get, set, remove, findSquadron, getRand, replace };
+const push = () => pool.push(new Squadron(pool.length, 255 / pool.length));
+
+const Pool = { map, reduce, get, set, remove, findSquadron, getRand, replace, push };
 
 export default Pool;
