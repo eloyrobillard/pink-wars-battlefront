@@ -42,9 +42,9 @@ export class Ship {
 	}
 
 	updateFireCounter = GameApi.setTimer(30, () => {
-		// const missile = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
+		const missile = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
 		delete this.missiles[0];
-		// this.missiles[0] = missile;
+		this.missiles[0] = missile;
 	});
 
 	update () {
