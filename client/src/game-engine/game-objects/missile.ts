@@ -30,7 +30,7 @@ export class Missile {
 
 	update () {
 		this.collider.update();
-
+		
 		this.transform.update(this.rb.speed);
 		this.model.update(this.transform);
 	}

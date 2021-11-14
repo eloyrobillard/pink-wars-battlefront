@@ -5,25 +5,33 @@ import GameApi from '../GameApi';
 
 export class Missiles {
   curr = 0;
-	missiles: Maybe<Missile>[] = Array.from({ length: 20 }, () => new None());
+	missiles: Maybe<Missile>[] = Array.from({ length: 10 }, () => new None());
 
 	constructor (public transform: Transform2D) {}
 
-	updateFireCounter = (() => {
-		let timer = Math.floor(Math.random() * 40);
+	private fireCounter = GameApi.setTimer(50 - Math.floor(Math.random() * 40), () => {
+    const missile = Missile.fire(
+      this.transform.position,
+      this.transform.rot,
+      this.curr,
+      this.destroy /* this.type */
+    );
+    // delete this.missiles[0];
+    this.insert(missile);
+  });
 
-		return GameApi.setTimer(45 - timer, () => {
-			timer = Math.floor(Math.random() * 40);
-			const missile = Missile.fire(
-				this.transform.position,
-				this.transform.rot,
+  private updateFireCounter() {
+    this.fireCounter = GameApi.setTimer(50 - Math.floor(Math.random() * 40), () => {
+      const missile = Missile.fire(
+        this.transform.position,
+        this.transform.rot,
         this.curr,
         this.destroy /* this.type */
-			);
-			// delete this.missiles[0];
-			this.insert(missile);
-		});
-	})();
+      );
+      // delete this.missiles[0];
+      this.insert(missile);
+    });
+  }
 
   private insert(missile: Missile) {
     this.missiles[this.curr] = new Some(missile);
@@ -39,7 +47,9 @@ export class Missiles {
   }
 
 	update () {
-		this.updateFireCounter();
+		if (this.fireCounter() === 0) {
+      this.updateFireCounter();
+    }
 
 		this.missiles.map((missile) => missile.map((self) => {
       self.update();
