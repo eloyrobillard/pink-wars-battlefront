@@ -23,7 +23,7 @@ export class Ship {
 		this.model = new Model2D(
 			3, 
 			[ new Vec2(-15, -4), new Vec2(0, 0), new Vec2(-15, 4) ],
-			!rank ? 255 : 0,
+			255,
 			this.transform
 		);
 		this.trigger = new Trigger2D(this.transform, this.model, this.onTrigger);
@@ -35,7 +35,7 @@ export class Ship {
 
 	onTrigger(col: Trigger2D) {
 		if (this.rank > 0) {
-			
+
 		}
   }
 

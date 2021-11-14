@@ -6,6 +6,7 @@ import Game from '../gameLoop';
 
 export class Squadron {
 	team: Maybe<Ship>[];
+	leader!: Ship;
 	id: number;
 	color: number;
 
@@ -16,10 +17,7 @@ export class Squadron {
 			const member = new Some(new Ship(math.randPos(), math.randRot(), i));
 			return member;
 		});
-		this.team.slice(1).map((member) => member.map((self) => {
-			Behavior.setAnchor(self, this.team[0].unwrap()!)
-			return self;
-		}));
+		this.welcomeLeader(0);
 	}
 
 	start () {
@@ -52,16 +50,21 @@ export class Squadron {
 
 		const highestRankingOfficer = this.findHighestRankingOfficer();
 		if (highestRankingOfficer > -1) {
-			const officer = this.team[highestRankingOfficer].unwrap()!;
-			officer.anchor = new None();
-			this.team.slice(highestRankingOfficer + 1).map((member) => member.map((self) => {
-				Behavior.setAnchor(self, officer);
-				return self;
-			}));
+			this.welcomeLeader(highestRankingOfficer);
+			
 		} else {
 			// NOTE squadron decimated
 			this.onDestroy();
 		}
+	}
+
+	welcomeLeader(rank: number) {
+		this.leader = this.team[rank].unwrap()!;
+		this.leader.anchor = new None();
+		this.team.slice(rank + 1).map((member) => member.map((self) => {
+			Behavior.setAnchor(self, this.leader);
+			return self;
+		}));
 	}
 
 	onDestroy() {
