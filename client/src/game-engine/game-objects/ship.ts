@@ -70,5 +70,6 @@ export class Ship {
 
 		this.transform.update(this.rb.speed);
 		this.model.update(this.transform);
+		this.hitbox.update();
 	}
 }

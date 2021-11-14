@@ -33,9 +33,9 @@ export class HitBox2D {
 		});
 	}
 
-	// TODO start and update
-	// TODO change collider2D to use hitbox
 	start () {}
 
-	update () {}
+	update () {
+    this.vertices = this.placeHitBox();
+  }
 }
