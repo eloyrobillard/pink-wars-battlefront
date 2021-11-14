@@ -35,7 +35,9 @@ const entrySpots = [
 ];
 
 function enterBattlefield() {
-	return entrySpots[Math.random() * entrySpots.length];
+	const index = Math.floor(Math.random() * entrySpots.length);
+	const res = entrySpots[index];
+	return res;
 }
 
 const GameApi = {

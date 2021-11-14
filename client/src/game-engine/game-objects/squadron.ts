@@ -1,14 +1,14 @@
 import { Maybe, Some, None, Vec2 } from '../types/index';
 import { FightMaker } from '../components/index';
 import Behavior from './behavior/index';
-import math from '../../math/index';
-import Game from '../gameLoop';
+// import math from '../../math/index';
 import GameApi from '../GameApi';
+import Game from '../gameLoop';
 import { Ship } from './ship';
 
 export class Squadron {
-	fightMaker: FightMaker;
-	team: Maybe<Ship>[];
+	fightMaker!: FightMaker;
+	team: Maybe<Ship>[] = Array.from({ length: 6}, () => new None());
 	leader!: Ship;
 	id: number;
 	color: number;
@@ -16,20 +16,17 @@ export class Squadron {
 	constructor (id: number, color: number) {
 		this.id = id;
 		this.color = color;
-		this.team = this.createTeam(GameApi.enterBattlefield());
-		this.welcomeLeader(0);
-
-		this.fightMaker = new FightMaker(this.id, this.leader);
 	}
-
-	private createTeam({ pos, rot }: { pos: Vec2, rot: number }): Maybe<Ship>[] {
-		return Array.from({ length: 6 }, (_, i) => {
-			const member = new Some(new Ship(new Vec2(pos.x, pos.y), rot, i));
-			return member;
-		});
+	
+	private createTeam({ pos, rot }: { pos: Vec2, rot: number }) {
+		for (let i = 0; i < this.team.length; i += 1) {
+			this.team[i] = new Some(new Ship(new Vec2(pos.x, pos.y), rot, i));
+		}
 	}
-
+	
 	start () {
+		this.createTeam(GameApi.enterBattlefield());
+		
 		this.team.map((ship) => {
 			ship.map((self) => {
 				self.start();
@@ -37,6 +34,9 @@ export class Squadron {
 			});
 			return ship;
 		});
+
+		this.welcomeLeader(0);
+		this.fightMaker = new FightMaker(this.id, this.leader);
 	}
 
 	private findHighestRankingOfficer() {
