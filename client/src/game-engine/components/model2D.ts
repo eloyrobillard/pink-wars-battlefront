@@ -1,17 +1,17 @@
-import { vec2 } from '../types/index';
+import { Vec2 } from '../types/index';
 import math from '../../math/index';
 import { Transform2D } from './index';
 
 export class Model2D {
 	// bounds of polygon to print in p5.draw
-	vertices: vec2[];
+	vertices: Vec2[];
 	// offsets from transform.position for each bound
-	offsets: vec2[];
+	offsets: Vec2[];
 	color: number;
 
 	constructor (
 		numVerts: number,
-		offsets: vec2[],
+		offsets: Vec2[],
 		color: number,
 		transform: Transform2D
 	) {
@@ -26,7 +26,7 @@ export class Model2D {
 		for (let i = 0; i < numVerts; i += 1) {
 			const { x: dx, y: dy } = this.offsets[i];
 			verts.push(
-				new vec2(
+				new Vec2(
 					// https://www.wikiwand.com/en/Rotation_matrix
 					x + dx * math.cosConvert(rot) - dy * math.sinConvert(rot),
 					y - dx * math.sinConvert(rot) - dy * math.cosConvert(rot)
@@ -40,7 +40,7 @@ export class Model2D {
 		const { rot, position: { x, y } } = transform;
 		for (let i = 0; i < this.vertices.length; i += 1) {
 			const { x: dx, y: dy } = this.offsets[i];
-			this.vertices[i] = new vec2(
+			this.vertices[i] = new Vec2(
 				// https://www.wikiwand.com/en/Rotation_matrix
 				x + dx * math.cosConvert(rot) - dy * math.sinConvert(rot),
 				y - dx * math.sinConvert(rot) - dy * math.cosConvert(rot)

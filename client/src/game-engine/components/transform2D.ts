@@ -1,17 +1,17 @@
-import { vec2 } from '../types/index';
+import { Vec2 } from '../types/index';
 import Game from '../gameLoop';
 import math from '../../math';
 
 export class Transform2D {
-	position: vec2;
+	position: Vec2;
 	height: number = 15;
 	width: number = 8;
 	rot: number;
 	deltaRot = 0;
 	wallEvadeRot = 0;
-	direction: vec2;
+	direction: Vec2;
 
-	constructor (position: vec2, rot: number) {
+	constructor (position: Vec2, rot: number) {
 		this.position = position;
 		this.rot = rot;
 		this.direction = this.computeDirection();
@@ -19,10 +19,10 @@ export class Transform2D {
 
 	/**
    * Computes direction of transform by applying sin/cos to rotation.
-   * @returns vec2 of magnitude 1 (normalized)
+   * @returns Vec2 of magnitude 1 (normalized)
    */
-	private computeDirection (): vec2 {
-		return (this.direction = new vec2(
+	private computeDirection (): Vec2 {
+		return (this.direction = new Vec2(
 			math.cosConvert(this.rot),
 			-math.sinConvert(this.rot)
 		));
@@ -62,9 +62,9 @@ export class Transform2D {
 		return this.rot;
 	}
 
-	moveForward (speed: number = 100): vec2 {
+	moveForward (speed: number = 100): Vec2 {
 		const { rot, position: { x, y } } = this;
-		return (this.position = new vec2(
+		return (this.position = new Vec2(
 			x + speed * math.cosConvert(rot) * Game.fixedDeltaTime,
 			y - speed * math.sinConvert(rot) * Game.fixedDeltaTime
 		));

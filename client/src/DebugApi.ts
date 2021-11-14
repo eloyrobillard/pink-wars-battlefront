@@ -9,6 +9,7 @@ function placeP5Call (cb: (p5: p5Types) => void) {
 function forEach (p5: p5Types) {
 	let cb: undefined | ((p5: p5Types) => void);
 	while ((cb = stack.pop())) {
+		// init and reset settings to allow diff stroke values, colors, etc
 		cb(p5);
 	}
 }

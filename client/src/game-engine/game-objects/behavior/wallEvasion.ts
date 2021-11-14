@@ -1,23 +1,23 @@
 import math from '../../../math/index';
-import { vec2, Maybe, Some, None } from '../../types/index';
+import { Vec2, Maybe, Some, None } from '../../types/index';
 import { Ship } from '../ship';
 
 const FRONT_DIST = 100; // px
 const SIDES_DIST = 100; // px
 
 type CastHit = {
-	normal: vec2;
+	normal: Vec2;
 	angle: number;
-	target: vec2;
+	target: Vec2;
 };
 
-function cast (front: vec2, rot: number, dist: number): Maybe<CastHit> {
+function cast (front: Vec2, rot: number, dist: number): Maybe<CastHit> {
 	const deltaX = dist * math.cosConvert(rot);
 	const deltaY = dist * math.sinConvert(rot);
 
 	const { x, y } = front;
 
-	const target = new vec2(
+	const target = new Vec2(
 		x + deltaX, 
 		y - deltaY
 	);
@@ -25,28 +25,28 @@ function cast (front: vec2, rot: number, dist: number): Maybe<CastHit> {
 	if (target.x < 0) {
 		// found left wall
 		return new Some({
-			normal: new vec2(1, 0),
+			normal: new Vec2(1, 0),
 			angle: 0,
 			target
 		});
 	} else if (target.x > window.innerWidth) {
 		// found right wall
 		return new Some({
-			normal: new vec2(-1, 0),
+			normal: new Vec2(-1, 0),
 			angle: 180,
 			target
 		});
 	} else if (target.y < 0) {
 		// found top wall
 		return new Some({
-			normal: new vec2(0, 1),
+			normal: new Vec2(0, 1),
 			angle: 270,
 			target
 		});
 	} else if (target.y > window.innerHeight) {
 		// found bottom wall
 		return new Some({
-			normal: new vec2(0, -1),
+			normal: new Vec2(0, -1),
 			angle: 90,
 			target
 		});

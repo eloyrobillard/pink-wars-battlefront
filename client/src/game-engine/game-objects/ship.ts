@@ -1,5 +1,5 @@
 import { Transform2D, RigidBody2D, Trigger2D, Model2D, Anchor } from '../components/index';
-import { vec2, Maybe, Some, None } from '../types/index';
+import { Vec2, Maybe, Some, None } from '../types/index';
 import { Missile } from './missile';
 
 export class Ship {
@@ -16,12 +16,12 @@ export class Ship {
 
 	missiles: Missile[] = [];
 
-	constructor (position: vec2, rot: number, rank: number = 0) {
+	constructor (position: Vec2, rot: number, rank: number = 0) {
 		this.transform = new Transform2D(position, rot);
 		this.rank = rank;
 		this.model = new Model2D(
 			3, 
-			[ new vec2(-15, -4), new vec2(0, 0), new vec2(-15, 4) ],
+			[ new Vec2(-15, -4), new Vec2(0, 0), new Vec2(-15, 4) ],
 			!rank ? 255 : 0,
 			this.transform
 		);
@@ -35,6 +35,10 @@ export class Ship {
 	onTrigger(col: Trigger2D) {
 
   }
+
+	start() {
+		this.missiles[0] = Missile.fire(this.transform.position, this.transform.rot, /* this.type */);
+	}
 
 	/**
 	 * Shoots a missile per second.

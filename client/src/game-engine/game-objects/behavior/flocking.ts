@@ -1,4 +1,4 @@
-import { Some, vec2 } from '../../types/index';
+import { Some, Vec2 } from '../../types/index';
 import { Anchor } from '../../components/index';
 import DebugApi from '../../../DebugApi';
 // import math from '../../../math/index';
@@ -19,16 +19,16 @@ export function setAnchor (follower: Ship, anchor: Ship) {
 
 export function flock ({ transform, rank }: Ship, anchor: Ship) {
 	const { position, direction } = anchor.transform;
-	const dest = new vec2(
+	const dest = new Vec2(
 		position.x - direction.x * 20 * rank,
 		position.y - direction.y * 20
 	);
 	DebugApi.placeP5Call((p5) => {
-	  p5.point(dest.x, dest.y);
+		p5.point(dest.x, dest.y);
 	  // p5.point(position.x, position.y);
-	  p5.line(position.x, position.y, position.x + direction.x * 15, position.y + direction.y * 15);
+	  // p5.line(position.x, position.y, position.x + direction.x * 15, position.y + direction.y * 15);
+		
 	  p5.stroke('purple'); // Change the color
-	  // p5.strokeWeight(5);
 	});
 	const vecTo = transform.position.vecTo(dest);
 	const rotToDest = vecTo.toRotation();

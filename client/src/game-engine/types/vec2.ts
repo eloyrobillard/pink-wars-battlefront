@@ -1,4 +1,4 @@
-export class vec2 {
+export class Vec2 {
 	// in pixels
 	constructor (public x: number, public y: number) {}
 
@@ -6,20 +6,20 @@ export class vec2 {
 	 * Returns direction towards pos, to use with lerp.
 	 * @param pos position to move towards
 	 */
-	vecTo({ x, y }: vec2): vec2 {
-		return new vec2(x - this.x, y - this.y);
+	vecTo({ x, y }: Vec2): Vec2 {
+		return new Vec2(x - this.x, y - this.y);
 	}
 
 	/**
 	 * Returns a vector pointing away from pos, to use with lerp.
 	 * @param pos position to move away from
 	 */
-	vecAwayFrom(pos: vec2): vec2 {
+	vecAwayFrom(pos: Vec2): Vec2 {
 		return this.vecTo(pos).reverse();
 	}
 
-	reverse(): vec2 {
-		return new vec2(-this.x, -this.y)
+	reverse(): Vec2 {
+		return new Vec2(-this.x, -this.y)
 	}
 
 	/**
@@ -30,21 +30,21 @@ export class vec2 {
 	 * @param y2 Y-coordinate of second point
 	 * @returns Vector
 	 */
-	static toVec(x1: number, y1: number, x2: number, y2: number): vec2 {
-		return new vec2(x2 - x1, y2 - y1);
+	static toVec(x1: number, y1: number, x2: number, y2: number): Vec2 {
+		return new Vec2(x2 - x1, y2 - y1);
 	}
 
-	lerp(dest: vec2, time: number) {
+	lerp(dest: Vec2, time: number) {
 		const { x, y } = this;
 		const { x: dx, y: dy } = dest;
 		const dt = 1 - time;
-		return new vec2(
+		return new Vec2(
 				x * dt + dx * time,
 				y * dt + dy * time
 			);
 	}
 
-	distance(other: vec2) {
+	distance(other: Vec2) {
 		const { x: dx, y: dy } = this.vecTo(other);
 		return Math.sqrt(dx**2 + dy**2);
 	}
@@ -65,14 +65,14 @@ export class vec2 {
 	 * @param other 
 	 * @returns Number
 	 */
-	dotProd(other: vec2) {
+	dotProd(other: Vec2) {
 		return (this.x * other.x + this.y * other.y);
 	}
 
 	/**
 	 * Returns the normal to the polygon formed by this and other, with a magnitude equal to the area of that polygon.
 	 */
-	crossProd(other: vec2) {
+	crossProd(other: Vec2) {
 		return (this.x * other.x - this.y * other.y);
 	}
 
@@ -82,7 +82,7 @@ export class vec2 {
 	 * LINK https://www.wikiwand.com/en/Vector_projection
 	 * @returns 'length' of this along other
 	 */
-	project(other: vec2) {
+	project(other: Vec2) {
 		const dotProd = this.dotProd(other);
 		return other.scalarMul(dotProd / (other.x**2 + other.y**2));
 	}
@@ -92,6 +92,6 @@ export class vec2 {
 	 * @param scalar Just a number.
 	 */
 	scalarMul(scalar: number) {
-		return new vec2(this.x * scalar, this.y * scalar);
+		return new Vec2(this.x * scalar, this.y * scalar);
 	}
 }
