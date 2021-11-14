@@ -30,7 +30,7 @@ export class Collider2D extends Trigger2D {
 			squadron.map((ship) => {
 				const { trigger } = ship;
         if (this.checkOverlap(trigger)) {
-					// hits.push(new Vec2(this.transform.position.x, this.transform.position.y));
+					squadron.onCasualty(ship.rank);
         }
 				return ship;
 			});

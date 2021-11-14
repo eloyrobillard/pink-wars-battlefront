@@ -30,6 +30,11 @@ function set(ships: Squadron[]) {
   return pool = ships;
 }
 
-const Pool = { map, reduce, get, set };
+function remove(index: number) {
+  console.log('destroyed');
+  delete pool[index];
+}
+
+const Pool = { map, reduce, get, set, remove };
 
 export default Pool;

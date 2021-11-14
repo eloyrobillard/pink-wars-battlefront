@@ -34,8 +34,10 @@ function update () {
 	});
 }
 
+function removeSquadron(squadId: number) {
+	Pool.remove(squadId);
+}
 
-
-const Game = { FPS, fixedDeltaTime, start, frameIsReady, Pool, update };
+const Game = { FPS, fixedDeltaTime, start, frameIsReady, Pool, update, removeSquadron };
 
 export default Game;

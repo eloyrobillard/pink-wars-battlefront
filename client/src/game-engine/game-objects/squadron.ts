@@ -2,6 +2,7 @@ import { Maybe, Some, None } from '../types/index';
 import Behavior from './behavior/index';
 import math from '../../math/index';
 import { Ship } from './ship';
+import Game from '../gameLoop';
 
 export class Squadron {
 	team: Maybe<Ship>[];
@@ -48,14 +49,23 @@ export class Squadron {
 
 	onCasualty(rank: number) {
 		this.team[rank] = new None();
-		
+
 		const highestRankingOfficer = this.findHighestRankingOfficer();
-		const officer = this.team[highestRankingOfficer].unwrap()!;
-		officer.anchor = new None();
-		this.team.slice(highestRankingOfficer + 1).map((member) => member.map((self) => {
-			Behavior.setAnchor(self, officer);
-			return self;
-		}));
+		if (highestRankingOfficer > -1) {
+			const officer = this.team[highestRankingOfficer].unwrap()!;
+			officer.anchor = new None();
+			this.team.slice(highestRankingOfficer + 1).map((member) => member.map((self) => {
+				Behavior.setAnchor(self, officer);
+				return self;
+			}));
+		} else {
+			// NOTE squadron decimated
+			this.onDestroy();
+		}
+	}
+
+	onDestroy() {
+		Game.removeSquadron(this.id);
 	}
 
 	/**
