@@ -47,11 +47,11 @@ export class Squadron {
 
 	onCasualty(rank: number) {
 		this.team[rank] = new None();
+		if (rank > 0) return;
 
 		const highestRankingOfficer = this.findHighestRankingOfficer();
 		if (highestRankingOfficer > -1) {
 			this.welcomeLeader(highestRankingOfficer);
-			
 		} else {
 			// NOTE squadron decimated
 			this.onDestroy();
@@ -60,6 +60,7 @@ export class Squadron {
 
 	welcomeLeader(rank: number) {
 		this.leader = this.team[rank].unwrap()!;
+		this.leader.rank = 0;
 		this.leader.anchor = new None();
 		this.team.slice(rank + 1).map((member) => member.map((self) => {
 			Behavior.setAnchor(self, this.leader);
