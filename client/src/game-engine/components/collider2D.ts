@@ -17,11 +17,12 @@ export class Collider2D extends Trigger2D {
 		this.checkCollision();
 	}
 
-	checkCollision = GameApi.setTimer(1, () => {
+	checkCollision = GameApi.setTimer(2, () => {
 		Game.Pool.map((squadron) => {
 			squadron.map((ship) => {
 				const { trigger } = ship;
         if (this.checkOverlap(trigger)) {
+					this.object.onCollide(trigger);
 					squadron.onCasualty(ship.rank);
         }
 				return ship;

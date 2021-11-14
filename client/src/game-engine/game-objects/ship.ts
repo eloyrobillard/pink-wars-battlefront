@@ -20,13 +20,15 @@ export class Ship {
 	trigger: Trigger2D;
 
 	rank: number;
+	squadId: number;
 	follower: Maybe<Ship> = new None();
 
 	missiles: Missiles;
 
-	constructor (position: Vec2, rot: number, rank: number = 0) {
+	constructor (position: Vec2, rot: number, squadId: number, rank: number = 0) {
 		this.transform = new Transform2D(position, rot);
 		this.rank = rank;
+		this.squadId = squadId;
 		this.model = new Model2D(
 			3,
 			[
@@ -37,10 +39,12 @@ export class Ship {
 			255,
 			this.transform
 		);
-		this.trigger = new Trigger2D(this.transform, this.model, () => {
-			return;
-		});
-		this.missiles = new Missiles(this.transform);
+		this.trigger = new Trigger2D(this, this.transform, this.model);
+		this.missiles = new Missiles(this.squadId, this.transform);
+	}
+
+	onCollide() {
+		
 	}
 
 	setFollower (follower: Ship) {

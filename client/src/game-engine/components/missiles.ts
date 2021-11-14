@@ -7,14 +7,15 @@ export class Missiles {
   curr = 0;
 	missiles: Maybe<Missile>[] = Array.from({ length: 10 }, () => new None());
 
-	constructor (public transform: Transform2D) {}
+	constructor (public squadId: number, public transform: Transform2D) {}
 
 	private fireCounter = GameApi.setTimer(50 - Math.floor(Math.random() * 40), () => {
-    const missile = Missile.fire(
+    const missile = new Missile(
+      this,
       this.transform.position,
       this.transform.rot,
-      this.curr,
-      this.destroy /* this.type */
+      this.squadId,
+      this.curr, /* this.type */
     );
     // delete this.missiles[0];
     this.insert(missile);
@@ -22,11 +23,12 @@ export class Missiles {
 
   private updateFireCounter() {
     this.fireCounter = GameApi.setTimer(50 - Math.floor(Math.random() * 40), () => {
-      const missile = Missile.fire(
+      const missile = new Missile(
+        this,
         this.transform.position,
         this.transform.rot,
-        this.curr,
-        this.destroy /* this.type */
+        this.squadId,
+        this.curr, /* this.type */
       );
       // delete this.missiles[0];
       this.insert(missile);

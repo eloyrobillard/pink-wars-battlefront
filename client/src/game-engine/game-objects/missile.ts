@@ -1,4 +1,4 @@
-import { Transform2D, RigidBody2D, Model2D, Collider2D } from '../components/index';
+import { Transform2D, RigidBody2D, Model2D, Collider2D, Trigger2D, Missiles } from '../components/index';
 import { Vec2 } from '../types/index';
 
 export class Missile {
@@ -9,23 +9,16 @@ export class Missile {
 	model: Model2D;
 	collider: Collider2D;
 
-	constructor (pos: Vec2, rot: number, private id: number, private destroy: (id: number) => void) {
+	constructor (private missiles: Missiles, pos: Vec2, rot: number, public squadId: number, private id: number) {
 		this.transform = new Transform2D(pos, rot);
 		this.model = new Model2D(2, [ new Vec2(-10, 0), new Vec2(0, 0) ], 0, this.transform);
-		this.collider = new Collider2D(this.transform, this.model, this.onCollide);
+		this.collider = new Collider2D(this, this.transform, this.model);
 	}
 
-	/**
-	 * Instantiates a missile with the given parameters.
-	 * @param pos position fired from
-	 * @param rot 
-	 */
-	static fire(pos: Vec2, rot: number, id: number, destroy: (id: number) => void) {
-		return new Missile(pos, rot, id, destroy);
-	}
-
-	onCollide () {
-		this.destroy(this.id);
+	onCollide (col: Trigger2D) {
+		if (col.object.squadId !== this.squadId) {
+			this.missiles.destroy(this.id);
+		}
 	}
 
 	update () {
