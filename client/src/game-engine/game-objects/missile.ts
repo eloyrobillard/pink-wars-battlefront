@@ -1,4 +1,4 @@
-import { Transform2D, RigidBody2D, Model2D, Collider2D, Trigger2D } from '../components/index';
+import { Transform2D, RigidBody2D, Model2D, Collider2D } from '../components/index';
 import { Vec2 } from '../types/index';
 
 export class Missile {

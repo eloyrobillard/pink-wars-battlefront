@@ -1,10 +1,13 @@
 import { Maybe, Some, None } from '../types/index';
+import { FightMaker } from '../components/index';
 import Behavior from './behavior/index';
 import math from '../../math/index';
 import { Ship } from './ship';
 import Game from '../gameLoop';
 
 export class Squadron {
+	fightMaker: FightMaker = new FightMaker();
+	inCombat = false;
 	team: Maybe<Ship>[];
 	leader!: Ship;
 	id: number;
@@ -24,17 +27,6 @@ export class Squadron {
 		this.team.map((ship) => {
 			ship.map((self) => {
 				self.start();
-				return self;
-			});
-			return ship;
-		});
-	}
-
-	update () {
-		this.team.map((ship) => {
-			ship.map((self) => {
-				Behavior.detectWalls(self);
-				self.update();
 				return self;
 			});
 			return ship;
@@ -83,5 +75,18 @@ export class Squadron {
 		return [
 			...this.team
 		];
+	}
+
+	update () {
+		this.fightMaker.update(this.leader);
+
+		this.team.map((ship) => {
+			ship.map((self) => {
+				Behavior.detectWalls(self);
+				self.update();
+				return self;
+			});
+			return ship;
+		});
 	}
 }

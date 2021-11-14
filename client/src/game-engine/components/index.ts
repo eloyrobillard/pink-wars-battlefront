@@ -7,3 +7,4 @@ export { Collider2D } from './collider2D';
 
 export { Anchor } from './anchor';
 export { Missiles } from './missiles';
+export { FightMaker } from './fightMaker';
