@@ -48,7 +48,7 @@ export default function Canvas () {
 						}
 					})
 					// DEBUG
-					// DebugApi.forEach(p5);
+					DebugApi.forEach(p5);
 					// if (ship.anchor.isSome) {
 					// 	const { x, y } = ship.transform.position;
 					// 	const anchor = ship.anchor.unwrap();
