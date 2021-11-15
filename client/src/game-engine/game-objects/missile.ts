@@ -11,7 +11,7 @@ export class Missile {
 
 	constructor (private missiles: Missiles, pos: Vec2, rot: number, public battalionId: number, private id: number) {
 		this.transform = new Transform2D(pos, rot);
-		this.model = new Model2D([ new Vec2(-10, 0), new Vec2(0, 0) ], 0, this.transform);
+		this.model = new Model2D([ new Vec2(-5, 0), new Vec2(0, 0) ], 0, this.transform);
 		this.collider = new Collider2D(this, this.transform);
 	}
 

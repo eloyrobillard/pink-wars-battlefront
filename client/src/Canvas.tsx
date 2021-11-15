@@ -30,6 +30,7 @@ export default function Canvas () {
 				const { color } = battalion;
 				battalion.mapShips((ship) => {
 					const { model } = ship;
+					p5.noStroke()
 					p5.beginShape();
 					const c = p5.color(color);
 					p5.fill(c);
@@ -38,6 +39,7 @@ export default function Canvas () {
 					});
 					p5.endShape('close');
 
+					p5.stroke('blue');
 					ship.missiles.missiles.forEach((maybeMissile) => {
 						if (maybeMissile.isSome) {
 							const missile = maybeMissile.unwrap();
@@ -48,7 +50,7 @@ export default function Canvas () {
 						}
 					})
 					// DEBUG
-					DebugApi.forEach(p5);
+					// DebugApi.forEach(p5);
 					// if (ship.anchor.isSome) {
 					// 	const { x, y } = ship.transform.position;
 					// 	const anchor = ship.anchor.unwrap();
