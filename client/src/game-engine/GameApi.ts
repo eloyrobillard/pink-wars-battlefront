@@ -54,6 +54,16 @@ function enterBattlefield () {
 	return res;
 }
 
+function giveBattalionSpots() {
+	const randSide = Math.floor(Math.random() * 4);
+	const middle = Math.floor(entrySpots[randSide].length / 2);
+	return [
+		entrySpots[randSide][middle-1],
+		entrySpots[randSide][middle],
+		entrySpots[randSide][middle+1],
+	];
+}
+
 function secToFPS(seconds: number) {
 	return FPS * seconds;
 }
@@ -63,7 +73,8 @@ const GameApi = {
 	enterBattlefield,
 	secToFPS,
 	fixedDeltaTime,
-	fixedDeltaMsec
+	fixedDeltaMsec,
+	giveBattalionSpots
 };
 
 export default GameApi;

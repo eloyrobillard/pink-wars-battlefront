@@ -1,6 +1,7 @@
 import { Maybe, Some, None } from '../types/index';
-import { Ship } from './ship';
 import { Squadron } from './squadron';
+import GameApi from '../GameApi';
+import { Ship } from './ship';
 
 export class Battalion {
   squadrons: Maybe<Squadron>[];
@@ -15,8 +16,9 @@ export class Battalion {
 
   private getSquadrons(): Maybe<Squadron>[] {
     const squadrons: Maybe<Squadron>[] = Array.from({ length: 3}, () => new None());
+    const spots = GameApi.giveBattalionSpots();
     for (let i = 0; i < squadrons.length; i += 1) {
-      squadrons[i] = new Some(new Squadron(this.battalionId, i))
+      squadrons[i] = new Some(new Squadron(this.battalionId, i, spots[i]))
     }
     return squadrons;
   }

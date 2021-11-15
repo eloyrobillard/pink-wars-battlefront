@@ -12,10 +12,10 @@ export class Squadron {
 	leader: Ship;
 	id: number;
 
-	constructor (public battalionId: number, id: number) {
+	constructor (public battalionId: number, id: number, private spot = GameApi.enterBattlefield()) {
 		this.id = id;
 
-		this.team = this.createTeam(GameApi.enterBattlefield());
+		this.team = this.createTeam(spot);
 
 		this.leader = this.welcomeLeader(0);
 		this.fightMaker = new FightMaker(this.id, this.leader);
