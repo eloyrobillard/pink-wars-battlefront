@@ -9,9 +9,9 @@ import {
 	Missiles
 } from '../components/index';
 import { Vec2, Maybe, Some, None } from '../types/index';
-import { Squadron } from './squadron';
-import { xWing } from './xWing';
+import { xWing } from './ship-model/xWing';
 // import { Missile } from './missile';
+import { Squadron } from './squadron';
 // import GameApi from '../GameApi';
 
 export class Ship {
@@ -40,7 +40,7 @@ export class Ship {
 		this.transform = new Transform2D(position, rot);
 		this.rank = rank;
 		this.squadId = squadron.id;
-		this.model = new Model2D(xWing, 255, this.transform);
+		this.model = new Model2D(xWing.model, 255, this.transform);
 		this.hitbox = new HitBox2D(
 			[
 				new Vec2(-25, -4),
@@ -50,10 +50,7 @@ export class Ship {
 			this.transform
 		);
 		this.trigger = new Trigger2D(this, this.transform, this.hitbox);
-		this.missiles = new Missiles(this.battalionId, this.transform, [
-			new Vec2(0, -5.625),
-			new Vec2(0, 5.625)
-		]);
+		this.missiles = new Missiles(this.battalionId, this.transform);
 	}
 
 	// NOTE keep empty

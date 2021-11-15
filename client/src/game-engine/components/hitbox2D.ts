@@ -1,4 +1,4 @@
-import { Model2D, Transform2D } from './index';
+import { Transform2D } from './index';
 import { Vec2 } from '../types/index';
 import math from '../../math';
 import DebugApi from '../../DebugApi';

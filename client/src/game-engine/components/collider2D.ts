@@ -1,9 +1,9 @@
-import { Vec2 } from '../types/index';
-import { Trigger2D, Transform2D } from './index';
-import GameApi from '../GameApi';
-// import DebugApi from '../../DebugApi';
-import Game from '../gameLoop';
 import { Missile } from '../game-objects/missile';
+import { Trigger2D, Transform2D } from './index';
+// import DebugApi from '../../DebugApi';
+import { Vec2 } from '../types/index';
+import GameApi from '../GameApi';
+import Game from '../gameLoop';
 
 /**
  * Like Trigger2D, but checks for a collision on every frame.
@@ -44,6 +44,7 @@ export class Collider2D {
 
 		// LINK https://www.gamedev.net/forums/topic.asp?topic_id=295943
 		// LINK (japanese) http://www.thothchildren.com/chapter/5b267a436298160664e80763
+		// LINK for rectangles (japanese) https://blog.logicky.com/2011/09/06/blog-post_06/
 		return isPointInTri(position, vertices[0], vertices[1], vertices[2]);
 	}
 }

@@ -6,7 +6,7 @@ import math from '../../math/index';
 
 export class Missiles {
 	curr = 0;
-	missiles: Maybe<Missile>[] = Array.from({ length: 10 }, () => new None());
+	missiles: Maybe<Missile>[] = Array.from({ length: 6 }, () => new None());
 
 	constructor (
 		public battalionId: number,
