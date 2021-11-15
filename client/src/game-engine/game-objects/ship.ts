@@ -2,6 +2,7 @@ import {
 	Transform2D,
 	RigidBody2D,
 	Trigger2D,
+	Collider2D,
 	Model2D,
 	HitBox2D,
 	Anchor,
@@ -49,7 +50,7 @@ export class Ship {
 	}
 
 	// NOTE keep empty
-	onCollide (col: Trigger2D) {
+	onCollide (col: Collider2D) {
 		if (col.object.battalionId !== this.battalionId) {
 			this.squadron.onCasualty(this.rank);
 		}

@@ -1,14 +1,20 @@
 import { Vec2 } from '../types/index';
-import { Trigger2D } from './index';
+import { Trigger2D, Transform2D } from './index';
 import GameApi from '../GameApi';
 // import DebugApi from '../../DebugApi';
 import Game from '../gameLoop';
-// import { Ship } from '../ship/ship';
+import { Missile } from '../game-objects/missile';
 
 /**
  * Like Trigger2D, but checks for a collision on every frame.
  */
-export class Collider2D extends Trigger2D {
+export class Collider2D {
+	constructor (public object: Missile, public transform: Transform2D) {}
+
+	trigger (collided: Trigger2D) {
+		this.object.onCollide(collided);
+	}
+
 	/**
    * Checks whether a collision happened.
    * If so, triggers behavior in parent.
