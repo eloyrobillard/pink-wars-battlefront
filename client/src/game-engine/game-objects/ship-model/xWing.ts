@@ -7,9 +7,9 @@ export const xWing: ShipModel = {
 		new Vec2(0, 5.625)
 	],
 	hitboxOffsets: [
-		new Vec2(-25, -4),
-		new Vec2(-10, 0),
-		new Vec2(-25, 4)
+		new Vec2(-25, -8),
+		new Vec2(10, 0),
+		new Vec2(-25, 8)
 	],
 	model: [
 		new Vec2(0, 1 / 4),
