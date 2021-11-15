@@ -30,7 +30,8 @@ export default function Canvas () {
 				const { color } = battalion;
 				battalion.mapShips((ship) => {
 					const { model } = ship;
-					p5.noStroke()
+					// p5.noStroke()
+					p5.stroke('black')
 					p5.beginShape();
 					const c = p5.color(color);
 					p5.fill(c);

@@ -57,6 +57,9 @@ function enterBattlefield () {
 const battleStartSpots = (() => {
 	const availableSpots = [ 0, 1, 2, 3 ];
 	return () => {
+		if (availableSpots.length === 0) {
+			availableSpots.push(0, 1, 2, 3);
+		}
 		const randSide = Math.floor(Math.random() * availableSpots.length);
 		const side = availableSpots.splice(randSide, 1)[0];
 		const middle = Math.floor(entrySpots[side].length / 2);

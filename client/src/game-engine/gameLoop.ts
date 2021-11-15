@@ -1,4 +1,4 @@
-import { Battalion } from './game-objects/battalion';
+// import { Battalion } from './game-objects/battalion';
 import Pool from './game-objects/pool';
 import GameApi from './GameApi';
 
@@ -9,7 +9,6 @@ const POOL_LEN = 3;
 function start () {
 	frameStart = performance.now();
 
-	Pool.set(Array.from({ length: POOL_LEN }, (_, i) => new Battalion(i, 255 / (i + 1))));
 	Pool.map((battalion) => {
 		battalion.start();
 		return battalion;

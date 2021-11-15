@@ -2,7 +2,7 @@ import { Maybe, Some, None } from '../types/index';
 import { Battalion } from './battalion';
 import { Squadron } from './squadron';
 
-let pool: Battalion[];
+let pool: Battalion[] = Array.from({ length: 3 }, (_, i) => new Battalion(i, 255 / (i + 1)));
 
 /**
  * Variant of map that acts as an endofunctor (takes a ship, returns a ship and only a ship).
