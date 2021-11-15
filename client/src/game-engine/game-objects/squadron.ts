@@ -5,7 +5,7 @@ import { Battalion } from './battalion';
 import Behavior from './behavior/index';
 import math from '../../math/index';
 import GameApi from '../GameApi';
-import Game from '../gameLoop';
+// import Game from '../gameLoop';
 import { Ship } from './ship';
 
 export class Squadron {

@@ -8,20 +8,18 @@ export class HitBox2D {
 	offsets: Vec2[];
 
 	constructor (modelOffsets: Vec2[], private transform: Transform2D) {
-		this.offsets = this.scaleHitBox(modelOffsets);
+		this.offsets = modelOffsets;
 		this.vertices = this.placeHitBox();
 	}
 
-	private scaleHitBox (offsets: Vec2[]): Vec2[] {
-		return offsets.map((vec) => new Vec2(vec.x, vec.y));
-	}
+	// private scaleHitBox (offsets: Vec2[]): Vec2[] {
+	// 	return offsets.map((vec) => new Vec2(vec.x, vec.y));
+	// }
 
 	private placeHitBox () {
 		const { direction, position, rot } = this.transform;
-		const { x, y } = new Vec2(
-			position.x + direction.x * 16,
-			position.y + direction.y * 16
-		);
+		const x = position.x + direction.x;
+		const y = position.y + direction.y;
 
 		return Array.from({ length: this.offsets.length }, (_, i) => {
 			const { x: dx, y: dy } = this.offsets[i];

@@ -1,4 +1,4 @@
-import { Maybe, Some, None } from '../types/index';
+import { Maybe, None } from '../types/index';
 import { Battalion } from './battalion';
 import { Squadron } from './squadron';
 
