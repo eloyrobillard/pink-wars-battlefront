@@ -2,7 +2,11 @@ import { Maybe, Some, None } from '../types/index';
 import { Battalion } from './battalion';
 import { Squadron } from './squadron';
 
-let pool: Battalion[] = Array.from({ length: 3 }, (_, i) => new Battalion(i, 255 / (i + 1)));
+const pool: Battalion[] = [
+  new Battalion(0, 255, 'x-wing'),
+  new Battalion(1, 120),
+  new Battalion(2, 0)
+];
 
 /**
  * Variant of map that acts as an endofunctor (takes a ship, returns a ship and only a ship).
@@ -28,16 +32,16 @@ function get(index: number) {
   return pool[index];
 }
 
-function set(ships: Battalion[]) {
-  return pool = ships;
-}
+// function set(ships: Battalion[]) {
+//   return pool = ships;
+// }
 
 // function remove(index: number) {
 //   delete pool[index];
 // }
 
 function replace(battalion: number, squadron: number) {
-  pool[battalion].squadrons[squadron] = new Some(new Squadron(battalion, squadron));
+  pool[battalion].squadrons[squadron] = new Some(new Squadron(battalion, squadron, undefined, pool[battalion].allegiance));
 }
 
 function findSquadron(cb: (squadron: Maybe<Squadron>) => boolean): Maybe<Squadron> {
@@ -70,8 +74,8 @@ function enrollSquadron(battalionId: number) {
   pool[battalionId].enrollSquadron();
 }
 
-const push = () => pool.push(new Battalion(pool.length, 255 / pool.length));
+// const push = () => pool.push(new Battalion(pool.length, 255 / pool.length));
 
-const Pool = { map, reduce, get, set, findSquadron, getRand, replace, push, enrollSquadron };
+const Pool = { map, reduce, get, findSquadron, getRand, replace, enrollSquadron };
 
 export default Pool;

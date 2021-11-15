@@ -4,56 +4,74 @@ import GameApi from '../GameApi';
 import { Ship } from './ship';
 
 export class Battalion {
-  squadrons: Maybe<Squadron>[];
-  battalionId: number;
-  color: number;
+	squadrons: Maybe<Squadron>[];
+	battalionId: number;
+	color: number;
 
-  constructor(id: number, color: number, allegiance: string = 'triangle') {
-    this.battalionId = id;
-    this.color = color;
-    this.squadrons = this.getSquadrons();
-  }
+	constructor (
+		id: number,
+		color: number,
+		public allegiance: string = 'triangle'
+	) {
+		this.battalionId = id;
+		this.color = color;
+		this.squadrons = this.getSquadrons();
+	}
 
-  private getSquadrons(): Maybe<Squadron>[] {
-    const squadrons: Maybe<Squadron>[] = Array.from({ length: 3}, () => new None());
-    const spots = GameApi.battleStartSpots();
-    for (let i = 0; i < squadrons.length; i += 1) {
-      squadrons[i] = new Some(new Squadron(this.battalionId, i, spots[i]))
-    }
-    return squadrons;
-  }
+	private getSquadrons (): Maybe<Squadron>[] {
+		const squadrons: Maybe<Squadron>[] = Array.from(
+			{ length: 3 },
+			() => new None()
+		);
+		const spots = GameApi.battleStartSpots();
+		for (let i = 0; i < squadrons.length; i += 1) {
+			squadrons[i] = new Some(
+				new Squadron(this.battalionId, i, spots[i], this.allegiance)
+			);
+		}
+		return squadrons;
+	}
 
-  enrollSquadron() {
-    this.squadrons.push(new Some(new Squadron(this.battalionId, this.squadrons.length)));
-  }
+	enrollSquadron () {
+		this.squadrons.push(
+			new Some(
+				new Squadron(
+					this.battalionId,
+					this.squadrons.length,
+					undefined,
+					this.allegiance
+				)
+			)
+		);
+	}
 
-  mapShips(cb: (ship: Ship) => Ship) {
-    this.squadrons.map((maybeSquadron) => {
-      maybeSquadron.map((squadron) => {
-        squadron.map(cb);
-        return squadron;
-      });
-      return maybeSquadron;
-    })
-  }
+	mapShips (cb: (ship: Ship) => Ship) {
+		this.squadrons.map((maybeSquadron) => {
+			maybeSquadron.map((squadron) => {
+				squadron.map(cb);
+				return squadron;
+			});
+			return maybeSquadron;
+		});
+	}
 
-  start() {
-    this.squadrons.map((maybeSquadron) => {
-      maybeSquadron.map((squadron) => {
-        squadron.start();
-        return squadron;
-      });
-      return maybeSquadron;
-    });
-  }
+	start () {
+		this.squadrons.map((maybeSquadron) => {
+			maybeSquadron.map((squadron) => {
+				squadron.start();
+				return squadron;
+			});
+			return maybeSquadron;
+		});
+	}
 
-  update() {
-    this.squadrons.map((maybeSquadron) => {
-      maybeSquadron.map((squadron) => {
-        squadron.update();
-        return squadron;
-      });
-      return maybeSquadron;
-    });
-  }
+	update () {
+		this.squadrons.map((maybeSquadron) => {
+			maybeSquadron.map((squadron) => {
+				squadron.update();
+				return squadron;
+			});
+			return maybeSquadron;
+		});
+	}
 }
