@@ -33,7 +33,7 @@ export class Battalion {
 		const spots = GameApi.battleStartSpots();
 		for (let i = 0; i < squadrons.length; i += 1) {
 			squadrons[i] = new Some(
-				new Squadron(this.battalionId, i, spots[i], this.getShipModel())
+				new Squadron(this, this.battalionId, i, spots[i], this.getShipModel())
 			);
 		}
 		return squadrons;
@@ -43,6 +43,7 @@ export class Battalion {
 		this.squadrons.push(
 			new Some(
 				new Squadron(
+					this,
 					this.battalionId,
 					this.squadrons.length,
 					undefined,
@@ -51,6 +52,18 @@ export class Battalion {
 			)
 		);
 	}
+
+  replaceSquadron(squadronId: number) {
+    this.squadrons[squadronId] = new Some(
+      new Squadron(
+        this,
+        this.battalionId,
+        this.squadrons.length,
+        undefined,
+        this.getShipModel()
+      )
+    );
+  }
 
 	mapShips (cb: (ship: Ship) => Ship) {
 		this.squadrons.map((maybeSquadron) => {

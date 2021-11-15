@@ -40,9 +40,9 @@ function get(index: number) {
 //   delete pool[index];
 // }
 
-function replace(battalion: number, squadron: number) {
-  pool[battalion].squadrons[squadron] = new Some(new Squadron(battalion, squadron, undefined, pool[battalion].getShipModel()));
-}
+// function replace(battalion: number, squadron: number) {
+//   pool[battalion].squadrons[squadron] = new Some(new Squadron(pool[battalion], battalion, squadron, undefined, pool[battalion].getShipModel()));
+// }
 
 function findSquadron(cb: (squadron: Maybe<Squadron>) => boolean): Maybe<Squadron> {
 	for (let i = 0; i < pool.length; i += 1) {
@@ -76,6 +76,6 @@ function enrollSquadron(battalionId: number) {
 
 // const push = () => pool.push(new Battalion(pool.length, 255 / pool.length));
 
-const Pool = { map, reduce, get, findSquadron, getRand, replace, enrollSquadron };
+const Pool = { map, reduce, get, findSquadron, getRand, enrollSquadron };
 
 export default Pool;

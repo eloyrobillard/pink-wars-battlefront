@@ -35,9 +35,9 @@ function update () {
 	});
 }
 
-function removeSquadron(battalionId: number, squadId: number) {
-	Pool.replace(battalionId, squadId);
-}
+// function removeSquadron(battalionId: number, squadId: number) {
+// 	Pool.replace(battalionId, squadId);
+// }
 
 const addSquadronTimer = GameApi.setTimer(GameApi.secToFPS(10), () => {
 	const rand = Math.floor(Math.random() * POOL_LEN);
@@ -45,6 +45,6 @@ const addSquadronTimer = GameApi.setTimer(GameApi.secToFPS(10), () => {
 });
 
 
-const Game = { start, frameIsReady, Pool, update, removeSquadron };
+const Game = { start, frameIsReady, Pool, update };
 
 export default Game;

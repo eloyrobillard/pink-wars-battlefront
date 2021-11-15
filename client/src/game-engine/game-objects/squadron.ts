@@ -1,6 +1,7 @@
 import { Maybe, Some, None, Vec2 } from '../types/index';
 import { FightMaker } from '../components/index';
 import ShipModels from './ship-model/index';
+import { Battalion } from './battalion';
 import Behavior from './behavior/index';
 import math from '../../math/index';
 import GameApi from '../GameApi';
@@ -14,6 +15,7 @@ export class Squadron {
 	id: number;
 
 	constructor (
+		private battalion: Battalion,
 		public battalionId: number,
 		id: number,
 		spot = GameApi.enterBattlefield(),
@@ -90,7 +92,7 @@ export class Squadron {
 
 	onDestroy () {
 		this.fightMaker.onDestroy();
-		Game.removeSquadron(this.battalionId, this.id);
+		this.battalion.replaceSquadron(this.id);
 	}
 
 	/**
