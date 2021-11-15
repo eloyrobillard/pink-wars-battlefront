@@ -7,14 +7,13 @@ export class HitBox2D {
 	vertices: Vec2[];
 	offsets: Vec2[];
 
-	constructor (private model: Model2D, private transform: Transform2D) {
-		this.offsets = this.scaleHitBox();
+	constructor (modelOffsets: Vec2[], private transform: Transform2D) {
+		this.offsets = this.scaleHitBox(modelOffsets);
 		this.vertices = this.placeHitBox();
 	}
 
-	private scaleHitBox (): Vec2[] {
-		const { offsets } = this.model;
-		return offsets.map((vec) => new Vec2(vec.x * 3, vec.y * 3));
+	private scaleHitBox (offsets: Vec2[]): Vec2[] {
+		return offsets.map((vec) => new Vec2(vec.x * 1.5, vec.y * 3));
 	}
 
 	private placeHitBox () {

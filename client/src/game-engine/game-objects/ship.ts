@@ -30,23 +30,30 @@ export class Ship {
 
 	missiles: Missiles;
 
-	constructor (position: Vec2, rot: number, private squadron: Squadron, public battalionId: number, rank: number = 0) {
+	constructor (
+		position: Vec2,
+		rot: number,
+		private squadron: Squadron,
+		public battalionId: number,
+		rank: number = 0
+	) {
 		this.transform = new Transform2D(position, rot);
 		this.rank = rank;
 		this.squadId = squadron.id;
-		this.model = new Model2D(
-			// [
-			// 	new Vec2(-15, -4),
-			// 	new Vec2(0, 0),
-			// 	new Vec2(-15, 4)
-			// ]
-			xWing,
-			255,
+		this.model = new Model2D(xWing, 255, this.transform);
+		this.hitbox = new HitBox2D(
+			[
+				new Vec2(-15, -4),
+				new Vec2(0, 0),
+				new Vec2(-15, 4)
+			],
 			this.transform
 		);
-		this.hitbox = new HitBox2D(this.model, this.transform);
 		this.trigger = new Trigger2D(this, this.transform, this.hitbox);
-		this.missiles = new Missiles(this.squadron.id, this.transform, [new Vec2(0, -5.625), new Vec2(0, 5.625)]);
+		this.missiles = new Missiles(this.squadron.id, this.transform, [
+			new Vec2(0, -5.625),
+			new Vec2(0, 5.625)
+		]);
 	}
 
 	// NOTE keep empty
