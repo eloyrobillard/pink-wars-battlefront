@@ -8,7 +8,7 @@ export class Battalion {
   battalionId: number;
   color: number;
 
-  constructor(id: number, color: number) {
+  constructor(id: number, color: number, allegiance: string = 'triangle') {
     this.battalionId = id;
     this.color = color;
     this.squadrons = this.getSquadrons();

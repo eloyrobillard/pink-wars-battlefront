@@ -11,9 +11,7 @@ export class Missiles {
 	constructor (
 		public battalionId: number,
 		public transform: Transform2D,
-		private offsets: Vec2[] = [
-			new Vec2(0, 0)
-		]
+		private offsets: Vec2[],
 	) {}
 
 	private fireCounter = GameApi.setTimer(

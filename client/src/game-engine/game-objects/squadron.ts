@@ -1,5 +1,6 @@
 import { Maybe, Some, None, Vec2 } from '../types/index';
 import { FightMaker } from '../components/index';
+import ShipModels from './ship-model/index';
 import Behavior from './behavior/index';
 import math from '../../math/index';
 import GameApi from '../GameApi';
@@ -12,7 +13,7 @@ export class Squadron {
 	leader: Ship;
 	id: number;
 
-	constructor (public battalionId: number, id: number, spot = GameApi.enterBattlefield()) {
+	constructor (public battalionId: number, id: number, spot = GameApi.enterBattlefield(), private shipsModel: string = 'triangle') {
 		this.id = id;
 
 		this.team = this.createTeam(spot);
@@ -33,7 +34,8 @@ export class Squadron {
 					rot,
 					this,
 					this.battalionId,
-					i
+					i,
+					ShipModels[this.shipsModel]
 				)
 			);
 		}

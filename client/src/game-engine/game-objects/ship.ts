@@ -9,7 +9,7 @@ import {
 	Missiles
 } from '../components/index';
 import { Vec2, Maybe, Some, None } from '../types/index';
-import { xWing } from './ship-model/xWing';
+import ShipModel from './ship-model/shipModel';
 // import { Missile } from './missile';
 import { Squadron } from './squadron';
 // import GameApi from '../GameApi';
@@ -35,22 +35,19 @@ export class Ship {
 		rot: number,
 		private squadron: Squadron,
 		public battalionId: number,
-		rank: number = 0
+		rank: number = 0,
+		shipModel: ShipModel
 	) {
 		this.transform = new Transform2D(position, rot);
 		this.rank = rank;
 		this.squadId = squadron.id;
-		this.model = new Model2D(xWing.model, 255, this.transform);
+		this.model = new Model2D(shipModel.model, 255, this.transform);
 		this.hitbox = new HitBox2D(
-			[
-				new Vec2(-25, -4),
-				new Vec2(-10, 0),
-				new Vec2(-25, 4)
-			],
+			shipModel.hitboxOffsets,
 			this.transform
 		);
 		this.trigger = new Trigger2D(this, this.transform, this.hitbox);
-		this.missiles = new Missiles(this.battalionId, this.transform);
+		this.missiles = new Missiles(this.battalionId, this.transform, shipModel.missileOffsets);
 	}
 
 	// NOTE keep empty
