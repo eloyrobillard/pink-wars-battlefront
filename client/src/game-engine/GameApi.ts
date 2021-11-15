@@ -54,15 +54,20 @@ function enterBattlefield () {
 	return res;
 }
 
-function giveBattalionSpots() {
-	const randSide = Math.floor(Math.random() * 4);
-	const middle = Math.floor(entrySpots[randSide].length / 2);
-	return [
-		entrySpots[randSide][middle-1],
-		entrySpots[randSide][middle],
-		entrySpots[randSide][middle+1],
-	];
-}
+const battleStartSpots = (() => {
+	const availableSpots = [ 0, 1, 2, 3 ];
+	return () => {
+		const randSide = Math.floor(Math.random() * availableSpots.length);
+		const side = availableSpots.splice(randSide, 1)[0];
+		const middle = Math.floor(entrySpots[side].length / 2);
+		const res = [
+			entrySpots[side][middle-1],
+			entrySpots[side][middle],
+			entrySpots[side][middle+1],
+		];
+		return res;
+	};
+})();
 
 function secToFPS(seconds: number) {
 	return FPS * seconds;
@@ -74,7 +79,7 @@ const GameApi = {
 	secToFPS,
 	fixedDeltaTime,
 	fixedDeltaMsec,
-	giveBattalionSpots
+	battleStartSpots
 };
 
 export default GameApi;

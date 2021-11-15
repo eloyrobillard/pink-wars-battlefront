@@ -16,7 +16,7 @@ export class Battalion {
 
   private getSquadrons(): Maybe<Squadron>[] {
     const squadrons: Maybe<Squadron>[] = Array.from({ length: 3}, () => new None());
-    const spots = GameApi.giveBattalionSpots();
+    const spots = GameApi.battleStartSpots();
     for (let i = 0; i < squadrons.length; i += 1) {
       squadrons[i] = new Some(new Squadron(this.battalionId, i, spots[i]))
     }
