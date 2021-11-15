@@ -45,7 +45,7 @@ export class Ship {
 		);
 		this.hitbox = new HitBox2D(this.model, this.transform);
 		this.trigger = new Trigger2D(this, this.transform, this.hitbox);
-		this.missiles = new Missiles(this.squadron.id, this.transform);
+		this.missiles = new Missiles(this.squadron.id, this.transform, [new Vec2(0, -5.625), new Vec2(0, 5.625)]);
 	}
 
 	// NOTE keep empty

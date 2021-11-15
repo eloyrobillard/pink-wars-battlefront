@@ -1,13 +1,20 @@
-import { Maybe, Some, None } from '../types/index';
+import { Maybe, Some, None, Vec2 } from '../types/index';
 import { Missile } from '../game-objects/missile';
 import { Transform2D } from './index';
 import GameApi from '../GameApi';
+import math from '../../math/index';
 
 export class Missiles {
 	curr = 0;
 	missiles: Maybe<Missile>[] = Array.from({ length: 10 }, () => new None());
 
-	constructor (public battalionId: number, public transform: Transform2D) {}
+	constructor (
+		public battalionId: number,
+		public transform: Transform2D,
+		private offsets: Vec2[] = [
+			new Vec2(0, 0)
+		]
+	) {}
 
 	private fireCounter = GameApi.setTimer(
 		GameApi.secToFPS(1.6) - Math.floor(Math.random() * GameApi.secToFPS(1.3)),
@@ -27,14 +34,22 @@ export class Missiles {
 		this.fireCounter = GameApi.setTimer(
 			GameApi.secToFPS(1.6) - Math.floor(Math.random() * GameApi.secToFPS(1.3)),
 			() => {
-				const missile = new Missile(
-					this,
-					this.transform.position,
-					this.transform.rot,
-					this.battalionId,
-					this.curr /* this.type */
-				);
-				this.insert(missile);
+				const { x, y } = this.transform.position;
+				const { rot } = this.transform;
+				for (let i = 0; i < this.offsets.length; i++) {
+					const { x: dx, y: dy } = this.offsets[i];
+					const missile = new Missile(
+						this,
+						new Vec2(
+							x + dx * math.cosConvert(rot) + dy * math.sinConvert(rot),
+							y - dx * math.sinConvert(rot) + dy * math.cosConvert(rot)
+						),
+						this.transform.rot,
+						this.battalionId,
+						this.curr /* this.type */
+					);
+					this.insert(missile);
+				}
 			}
 		);
 	}
