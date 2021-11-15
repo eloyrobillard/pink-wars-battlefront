@@ -10,13 +10,12 @@ export class Model2D {
 	color: number;
 
 	constructor (
-		numVerts: number,
 		offsets: Vec2[],
 		color: number,
 		transform: Transform2D
 	) {
 		this.offsets = offsets;
-		this.vertices = this.initVertices(numVerts, transform);
+		this.vertices = this.initVertices(offsets.length, transform);
 		this.color = color;
 	}
 

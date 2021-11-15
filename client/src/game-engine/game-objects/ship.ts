@@ -9,6 +9,7 @@ import {
 } from '../components/index';
 import { Vec2, Maybe, Some, None } from '../types/index';
 import { Squadron } from './squadron';
+import { xWing } from './xWing';
 // import { Missile } from './missile';
 // import GameApi from '../GameApi';
 
@@ -33,12 +34,12 @@ export class Ship {
 		this.rank = rank;
 		this.squadId = squadron.id;
 		this.model = new Model2D(
-			3,
-			[
-				new Vec2(-15, -4),
-				new Vec2(0, 0),
-				new Vec2(-15, 4)
-			],
+			// [
+			// 	new Vec2(-15, -4),
+			// 	new Vec2(0, 0),
+			// 	new Vec2(-15, 4)
+			// ]
+			xWing,
 			255,
 			this.transform
 		);
