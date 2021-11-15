@@ -43,9 +43,9 @@ export class Ship {
 		this.model = new Model2D(xWing, 255, this.transform);
 		this.hitbox = new HitBox2D(
 			[
-				new Vec2(-15, -4),
-				new Vec2(0, 0),
-				new Vec2(-15, 4)
+				new Vec2(-25, -4),
+				new Vec2(-10, 0),
+				new Vec2(-25, 4)
 			],
 			this.transform
 		);

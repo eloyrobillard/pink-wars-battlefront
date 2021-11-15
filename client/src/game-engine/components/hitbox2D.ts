@@ -13,7 +13,7 @@ export class HitBox2D {
 	}
 
 	private scaleHitBox (offsets: Vec2[]): Vec2[] {
-		return offsets.map((vec) => new Vec2(vec.x * 1.5, vec.y * 3));
+		return offsets.map((vec) => new Vec2(vec.x, vec.y));
 	}
 
 	private placeHitBox () {
