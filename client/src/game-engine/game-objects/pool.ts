@@ -41,7 +41,7 @@ function get(index: number) {
 // }
 
 function replace(battalion: number, squadron: number) {
-  pool[battalion].squadrons[squadron] = new Some(new Squadron(battalion, squadron, undefined, pool[battalion].allegiance));
+  pool[battalion].squadrons[squadron] = new Some(new Squadron(battalion, squadron, undefined, pool[battalion].getShipModel()));
 }
 
 function findSquadron(cb: (squadron: Maybe<Squadron>) => boolean): Maybe<Squadron> {

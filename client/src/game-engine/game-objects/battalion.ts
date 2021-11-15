@@ -8,7 +8,7 @@ export class Battalion {
 	squadrons: Maybe<Squadron>[];
 	battalionId: number;
 	color: number;
-  shipModels: string[];
+	shipModels: string[];
 
 	constructor (
 		id: number,
@@ -17,8 +17,12 @@ export class Battalion {
 	) {
 		this.battalionId = id;
 		this.color = color;
-    this.shipModels = allegiances[allegiance];
+		this.shipModels = allegiances[allegiance];
 		this.squadrons = this.getSquadrons();
+	}
+
+	getShipModel (): string {
+		return this.shipModels[Math.floor(Math.random() * this.shipModels.length)];
 	}
 
 	private getSquadrons (): Maybe<Squadron>[] {
@@ -28,23 +32,21 @@ export class Battalion {
 		);
 		const spots = GameApi.battleStartSpots();
 		for (let i = 0; i < squadrons.length; i += 1) {
-      const randModel = this.shipModels[Math.floor(Math.random() * this.shipModels.length)];
 			squadrons[i] = new Some(
-				new Squadron(this.battalionId, i, spots[i], randModel)
+				new Squadron(this.battalionId, i, spots[i], this.getShipModel())
 			);
 		}
 		return squadrons;
 	}
 
 	enrollSquadron () {
-    const randModel = this.shipModels[Math.floor(Math.random() * this.shipModels.length)];
 		this.squadrons.push(
 			new Some(
 				new Squadron(
 					this.battalionId,
 					this.squadrons.length,
 					undefined,
-					randModel
+					this.getShipModel()
 				)
 			)
 		);
