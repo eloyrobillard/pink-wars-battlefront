@@ -41,6 +41,7 @@ export class Ship {
 		this.transform = new Transform2D(position, rot);
 		this.rank = rank;
 		this.squadId = squadron.id;
+		this.rb = {...this.rb, speed: this.rb.speed * shipModel.speedMultiplier };
 		this.model = new Model2D(shipModel.model, 255, this.transform);
 		this.hitbox = new HitBox2D(
 			shipModel.hitboxOffsets,

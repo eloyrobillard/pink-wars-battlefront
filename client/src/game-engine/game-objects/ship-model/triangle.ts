@@ -3,6 +3,8 @@ import ShipModel from './shipModel';
 
 
 export const triangle: ShipModel = {
+  speedMultiplier: 1,
+  rotSpeedMultiplier: 1,
   missileOffsets: [
     new Vec2(0, 0),
   ],

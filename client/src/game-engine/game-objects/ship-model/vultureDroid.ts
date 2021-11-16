@@ -4,6 +4,8 @@ import { Vec2 } from '../../types/index';
 const SCALE = 1;
 
 export const vultureDroid: ShipModel = {
+	speedMultiplier: 1.5,
+	rotSpeedMultiplier: 2,
 	missileOffsets: [
 		new Vec2(0, -3).scalarMul(SCALE),
 		new Vec2(0, 3).scalarMul(SCALE),

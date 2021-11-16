@@ -4,6 +4,8 @@ import ShipModel from './shipModel';
 const SCALE = 1.5;
 
 export const xWing: ShipModel = {
+	speedMultiplier: 1,
+  rotSpeedMultiplier: 1,
 	missileOffsets: [
 		new Vec2(0, -5.625).scalarMul(SCALE),
 		new Vec2(0, 5.625).scalarMul(SCALE),
