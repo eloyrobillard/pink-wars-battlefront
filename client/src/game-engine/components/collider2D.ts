@@ -23,7 +23,7 @@ export class Collider2D {
 		this.checkCollision();
 	}
 
-	checkCollision = GameApi.setTimer(1, () => {
+	checkCollision = GameApi.setTimer(4, () => {
 		Game.Pool.map((battalion) => {
 			battalion.mapShips((ship) => {
 				const { trigger } = ship;
