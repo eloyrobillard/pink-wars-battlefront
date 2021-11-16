@@ -20,7 +20,7 @@ function setTimer (count: number, action: () => void) {
 	};
 }
 
-const entrySpots = [
+let entrySpots = [
 	[
 		{ pos: new Vec2(window.innerWidth / 6, 0), rot: 270 },
 		{ pos: new Vec2(window.innerWidth / 4, 0), rot: 270 },
@@ -46,6 +46,33 @@ const entrySpots = [
 		{ pos: new Vec2(0, window.innerHeight * 2 / 3), rot: 0 }
 	]
 ];
+
+window.addEventListener('resize', () => entrySpots = [
+	[
+		{ pos: new Vec2(window.innerWidth / 6, 0), rot: 270 },
+		{ pos: new Vec2(window.innerWidth / 4, 0), rot: 270 },
+		{ pos: new Vec2(window.innerWidth / 2, 0), rot: 270 },
+		{ pos: new Vec2(window.innerWidth * 3 / 4, 0), rot: 270 },
+		{ pos: new Vec2(window.innerWidth * 5 / 6, 0), rot: 270 }
+	],
+	[
+		{ pos: new Vec2(window.innerWidth, window.innerHeight / 3), rot: 180 },
+		{ pos: new Vec2(window.innerWidth, window.innerHeight / 2), rot: 180 },
+		{ pos: new Vec2(window.innerWidth, window.innerHeight * 2 / 3), rot: 180 }
+	],
+	[
+		{ pos: new Vec2(window.innerWidth / 6, window.innerHeight), rot: 90 },
+		{ pos: new Vec2(window.innerWidth / 4, window.innerHeight), rot: 90 },
+		{ pos: new Vec2(window.innerWidth / 2, window.innerHeight), rot: 90 },
+		{ pos: new Vec2(window.innerWidth * 3 / 4, window.innerHeight), rot: 90 },
+		{ pos: new Vec2(window.innerWidth * 5 / 6, window.innerHeight), rot: 90 }
+	],
+	[
+		{ pos: new Vec2(0, window.innerHeight / 3), rot: 0 },
+		{ pos: new Vec2(0, window.innerHeight / 2), rot: 0 },
+		{ pos: new Vec2(0, window.innerHeight * 2 / 3), rot: 0 }
+	]
+]);
 
 function enterBattlefield () {
 	const randSide = Math.floor(Math.random() * 4);
