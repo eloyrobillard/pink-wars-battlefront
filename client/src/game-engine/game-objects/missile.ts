@@ -23,7 +23,7 @@ export class Missile {
 		public battalionId: number,
 		private id: number
 	) {
-		this.transform = new Transform2D(pos, rot);
+		this.transform = new Transform2D(pos, rot, 1);
 		this.model = new Model2D(
 			[
 				new Vec2(-5, 0),

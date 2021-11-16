@@ -11,7 +11,7 @@ export class Transform2D {
 	wallEvadeRot = 0;
 	direction: Vec2;
 
-	constructor (position: Vec2, rot: number) {
+	constructor (position: Vec2, rot: number, private rotMultiplier: number) {
 		this.position = position;
 		this.rot = rot;
 		this.direction = this.computeDirection();
@@ -55,9 +55,9 @@ export class Transform2D {
 	private changeRot () {
 		// rot always >= 0
 		if (this.wallEvadeRot) {
-			return (this.rot = ((this.rot + this.wallEvadeRot) % 360 + 360) % 360);
+			return (this.rot = ((this.rot + this.wallEvadeRot * this.rotMultiplier) % 360 + 360) % 360);
 		} else if (this.deltaRot) {
-			return (this.rot = ((this.rot + this.deltaRot) % 360 + 360) % 360);
+			return (this.rot = ((this.rot + this.deltaRot * this.rotMultiplier) % 360 + 360) % 360);
 		}
 		return this.rot;
 	}
