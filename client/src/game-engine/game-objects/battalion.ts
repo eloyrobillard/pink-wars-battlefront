@@ -40,6 +40,7 @@ export class Battalion {
 	}
 
 	enrollSquadron () {
+		
 		this.squadrons.push(
 			new Some(
 				new Squadron(
@@ -47,7 +48,7 @@ export class Battalion {
 					this.battalionId,
 					this.squadrons.length,
 					undefined,
-					this.getShipModel()
+					this.getShipModel(),
 				)
 			)
 		);

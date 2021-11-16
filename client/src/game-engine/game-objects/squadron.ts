@@ -1,6 +1,6 @@
 import { Maybe, Some, None, Vec2 } from '../types/index';
 import { FightMaker } from '../components/index';
-import ShipModels from './ship-model/index';
+import retrieveShipModel from './ship-model/index';
 import { Battalion } from './battalion';
 import Behavior from './behavior/index';
 import math from '../../math/index';
@@ -19,7 +19,7 @@ export class Squadron {
 		public battalionId: number,
 		id: number,
 		spot = GameApi.enterBattlefield(),
-		private shipsModel: string = 'triangle'
+		private shipsModel: string = 'triangle',
 	) {
 		this.id = id;
 
@@ -30,7 +30,8 @@ export class Squadron {
 	}
 
 	private createTeam ({ pos, rot }: { pos: Vec2; rot: number }) {
-		const team: Maybe<Ship>[] = Array.from({ length: 6 }, () => new None());
+		const { model, count } = retrieveShipModel(this.shipsModel);
+		const team: Maybe<Ship>[] = Array.from({ length: count }, () => new None());
 		for (let i = 0; i < team.length; i += 1) {
 			team[i] = new Some(
 				new Ship(
@@ -42,7 +43,7 @@ export class Squadron {
 					this,
 					this.battalionId,
 					i,
-					ShipModels[this.shipsModel]
+					model
 				)
 			);
 		}
@@ -100,7 +101,7 @@ export class Squadron {
    * @returns a shallow copy of the team
    */
 	map (cb: (ship: Ship, index: number) => Ship) {
-		for (let i = 0; i < 6; i += 1) {
+		for (let i = 0; i < this.team.length; i += 1) {
 			this.team[i].map((self) => cb(self, i));
 		}
 		return [
