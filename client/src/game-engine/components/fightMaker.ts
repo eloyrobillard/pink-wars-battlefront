@@ -15,7 +15,6 @@ export class FightMaker {
 		this.querySwitchOpponent();
 		if (this.opponent.isSome) {
 			this.updateFight(this.opponent.unwrap()!);
-			this.fireNow();
 		} else {
 			this.queryOpponent();
 		}
@@ -25,11 +24,6 @@ export class FightMaker {
    * Switch opponent on a timer, to keep squadrons from circling.
    */
 	private querySwitchOpponent = GameApi.setTimer(GameApi.secToFPS(5), () => this.queryOpponent());
-
-	/**
-   * Tells squadron to shoot.
-   */
-	fireNow () {}
 
 	onDestroy () {
 		this.opponent.map((opponent) => {
@@ -49,10 +43,6 @@ export class FightMaker {
 	}
 
 	queryOpponent () {
-		let maybeOpponent: Maybe<Squadron>;
-		while ((maybeOpponent = Game.Pool.getRand(this.battalionId)).isNone) {}
-
-		this.opponent = maybeOpponent;
-		this.updateFight(maybeOpponent.unwrap()!);
+		this.opponent = Game.Pool.getRand(this.battalionId);
 	}
 }
