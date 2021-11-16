@@ -3,9 +3,9 @@ import { Battalion } from './battalion';
 import { Squadron } from './squadron';
 
 const pool: Battalion[] = [
-  new Battalion(0, 255, 'rebels'),
-  new Battalion(1, 120, 'separatists'),
-  new Battalion(2, 0)
+	new Battalion(0, 255, 'rebels'),
+	new Battalion(1, 120, 'separatists'),
+	new Battalion(2, 0)
 ];
 
 /**
@@ -13,23 +13,30 @@ const pool: Battalion[] = [
  * @param {(Ship, number) => Ship} cb the usual map callback
  * @returns {Ship[]}
  */
-function map(cb: (battalion: Battalion, index: number) => Battalion): Battalion[] {
-  for (let i = 0; i < pool.length; i += 1) {
-    pool[i] = cb(pool[i], i);
-  }
-  return [...pool];
+function map (
+	cb: (battalion: Battalion, index: number) => Battalion
+): Battalion[] {
+	for (let i = 0; i < pool.length; i += 1) {
+		pool[i] = cb(pool[i], i);
+	}
+	return [
+		...pool
+	];
 }
 
-function reduce<T>(cb: (acc: T, battalion: Battalion, index: number) => T, first: T): T {
-  let acc = first;
-  for (let i = first ? 0 : 1; i < pool.length; i += 1) {
-    acc = cb(acc, pool[i], i);
-  }
-  return acc;
+function reduce<T> (
+	cb: (acc: T, battalion: Battalion, index: number) => T,
+	first: T
+): T {
+	let acc = first;
+	for (let i = first ? 0 : 1; i < pool.length; i += 1) {
+		acc = cb(acc, pool[i], i);
+	}
+	return acc;
 }
 
-function get(index: number) {
-  return pool[index];
+function get (index: number) {
+	return pool[index];
 }
 
 // function set(ships: Battalion[]) {
@@ -44,14 +51,16 @@ function get(index: number) {
 //   pool[battalion].squadrons[squadron] = new Some(new Squadron(pool[battalion], battalion, squadron, undefined, pool[battalion].getShipModel()));
 // }
 
-function findSquadron(cb: (squadron: Maybe<Squadron>) => boolean): Maybe<Squadron> {
+function findSquadron (
+	cb: (squadron: Maybe<Squadron>) => boolean
+): Maybe<Squadron> {
 	for (let i = 0; i < pool.length; i += 1) {
 		const current = Pool.get(i);
 		for (let j = 0; j < current.squadrons.length; j += 1) {
-      if (cb(current.squadrons[j])) {
-        return current.squadrons[j];
-      }
-    }
+			if (cb(current.squadrons[j])) {
+				return current.squadrons[j];
+			}
+		}
 	}
 	return new None();
 }
@@ -59,19 +68,21 @@ function findSquadron(cb: (squadron: Maybe<Squadron>) => boolean): Maybe<Squadro
 /**
  * Returns rand from pool, excluding own squadron.
  */
-function getRand(except: number): Maybe<Squadron> {
-  const rand = Math.floor(Math.random() * pool.length);
-  if (rand !== except) {
-    const randSquad = Math.floor(Math.random() * pool[rand].squadrons.length);
-    return pool[rand].squadrons[randSquad];
-  }
-  const adjustedRand = (except + 1) % pool.length;
-  const randSquad = Math.floor(Math.random() * pool[adjustedRand].squadrons.length);
-  return pool[adjustedRand].squadrons[randSquad];
+function getRand (except: number): Maybe<Squadron> {
+	const rand = Math.floor(Math.random() * pool.length);
+	if (rand !== except) {
+		const randSquad = Math.floor(Math.random() * pool[rand].squadrons.length);
+		return pool[rand].squadrons[randSquad];
+	}
+	const adjustedRand = (except + 1) % pool.length;
+	const randSquad = Math.floor(
+		Math.random() * pool[adjustedRand].squadrons.length
+	);
+	return pool[adjustedRand].squadrons[randSquad];
 }
 
-function enrollSquadron(battalionId: number) {
-  pool[battalionId].enrollSquadron();
+function enrollSquadron (battalionId: number) {
+	pool[battalionId].enrollSquadron();
 }
 
 // const push = () => pool.push(new Battalion(pool.length, 255 / pool.length));

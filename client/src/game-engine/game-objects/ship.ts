@@ -35,20 +35,25 @@ export class Ship {
 		rot: number,
 		private squadron: Squadron,
 		public battalionId: number,
-		rank: number = 0,
+		rank: number,
 		shipModel: ShipModel
 	) {
-		this.transform = new Transform2D(position, rot, shipModel.rotSpeedMultiplier);
+		this.transform = new Transform2D(
+			position,
+			rot,
+			shipModel.rotSpeedMultiplier
+		);
 		this.rank = rank;
 		this.squadId = squadron.id;
-		this.rb = {...this.rb, speed: this.rb.speed * shipModel.speedMultiplier };
+		this.rb = { ...this.rb, speed: this.rb.speed * shipModel.speedMultiplier };
 		this.model = new Model2D(shipModel.model, 255, this.transform);
-		this.hitbox = new HitBox2D(
-			shipModel.hitboxOffsets,
-			this.transform
-		);
+		this.hitbox = new HitBox2D(shipModel.hitboxOffsets, this.transform);
 		this.trigger = new Trigger2D(this, this.transform, this.hitbox);
-		this.missiles = new Missiles(this.battalionId, this.transform, shipModel.missileOffsets);
+		this.missiles = new Missiles(
+			this.battalionId,
+			this.transform,
+			shipModel.missileOffsets
+		);
 	}
 
 	// NOTE keep empty

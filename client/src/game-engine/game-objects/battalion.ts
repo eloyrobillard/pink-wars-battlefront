@@ -6,16 +6,14 @@ import { Ship } from './ship';
 
 export class Battalion {
 	squadrons: Maybe<Squadron>[];
-	battalionId: number;
 	color: number;
 	shipModels: string[];
 
 	constructor (
-		id: number,
+		public battalionId: number,
 		color: number,
 		public allegiance: string = 'triangles'
 	) {
-		this.battalionId = id;
 		this.color = color;
 		this.shipModels = allegiances[allegiance];
 		this.squadrons = this.getSquadrons();
@@ -40,7 +38,6 @@ export class Battalion {
 	}
 
 	enrollSquadron () {
-		
 		this.squadrons.push(
 			new Some(
 				new Squadron(
@@ -48,23 +45,23 @@ export class Battalion {
 					this.battalionId,
 					this.squadrons.length,
 					undefined,
-					this.getShipModel(),
+					this.getShipModel()
 				)
 			)
 		);
 	}
 
-  replaceSquadron(squadronId: number) {
-    this.squadrons[squadronId] = new Some(
-      new Squadron(
-        this,
-        this.battalionId,
-        this.squadrons.length,
-        undefined,
-        this.getShipModel()
-      )
-    );
-  }
+	replaceSquadron (squadronId: number) {
+		this.squadrons[squadronId] = new Some(
+			new Squadron(
+				this,
+				this.battalionId,
+				squadronId,
+				undefined,
+				this.getShipModel()
+			)
+		);
+	}
 
 	mapShips (cb: (ship: Ship) => Ship) {
 		this.squadrons.map((maybeSquadron) => {

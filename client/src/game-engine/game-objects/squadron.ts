@@ -19,7 +19,7 @@ export class Squadron {
 		public battalionId: number,
 		id: number,
 		spot = GameApi.enterBattlefield(),
-		private shipsModel: string = 'triangle',
+		private shipsModel: string = 'triangle'
 	) {
 		this.id = id;
 
@@ -65,8 +65,9 @@ export class Squadron {
 	}
 
 	onCasualty (rank: number) {
+		const casualty = this.team[rank].unwrap()!;
 		this.team[rank] = new None();
-		if (rank > 0) return;
+		if (casualty !== this.leader) return;
 
 		const highestRankingOfficer = this.findHighestRankingOfficer();
 		if (highestRankingOfficer > -1) {
@@ -79,7 +80,7 @@ export class Squadron {
 
 	welcomeLeader (rank: number) {
 		const leader = this.team[rank].unwrap()!;
-		leader.rank = 0;
+		// leader.rank = 0;
 		leader.anchor = new None();
 		this.team.slice(rank + 1).map((member) =>
 			member.map((self) => {

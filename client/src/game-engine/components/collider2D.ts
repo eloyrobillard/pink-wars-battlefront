@@ -23,13 +23,13 @@ export class Collider2D {
 		this.checkCollision();
 	}
 
-	checkCollision = GameApi.setTimer(2, () => {
+	checkCollision = GameApi.setTimer(1, () => {
 		Game.Pool.map((battalion) => {
 			battalion.mapShips((ship) => {
 				const { trigger } = ship;
         if (this.checkOverlap(trigger)) {
-					this.object.onCollide(trigger);
-					ship.onCollide(this);
+					this.trigger(trigger);
+					trigger.trigger(this);
         }
 				return ship;
 			});
@@ -40,7 +40,7 @@ export class Collider2D {
 
 	checkOverlap (other: Trigger2D) {
 		const { position } = this.transform;
-		const { vertices } = other.hitbox!;
+		const { vertices } = other.hitbox;
 
 		// LINK https://www.gamedev.net/forums/topic.asp?topic_id=295943
 		// LINK (japanese) http://www.thothchildren.com/chapter/5b267a436298160664e80763
