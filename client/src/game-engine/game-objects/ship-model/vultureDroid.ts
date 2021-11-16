@@ -3,10 +3,10 @@ import { Vec2 } from '../../types/index';
 
 const SCALE = 1;
 
-export const DroidFighter: ShipModel = {
+export const vultureDroid: ShipModel = {
 	missileOffsets: [
-		new Vec2(0, -5.625).scalarMul(SCALE),
-		new Vec2(0, 5.625).scalarMul(SCALE),
+		new Vec2(0, -3).scalarMul(SCALE),
+		new Vec2(0, 3).scalarMul(SCALE),
 	],
 	hitboxOffsets: [
 		new Vec2(-25, -8),

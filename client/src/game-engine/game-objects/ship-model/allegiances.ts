@@ -7,6 +7,10 @@ const allegiances: Allegiances = {
     'x-wing',
     'xWing'
   ],
+  separatists: [
+    'droid-fighter',
+    'droidFighter'
+  ],
   triangles: [
     'default',
     'triangle'
