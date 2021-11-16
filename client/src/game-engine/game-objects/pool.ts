@@ -5,7 +5,7 @@ import { Squadron } from './squadron';
 const pool: Battalion[] = [
 	new Battalion(0, 255, 'rebels'),
 	new Battalion(1, 120, 'separatists'),
-	new Battalion(2, 0)
+	new Battalion(2, 0, 'empire')
 ];
 
 /**

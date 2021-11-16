@@ -11,6 +11,10 @@ const allegiances: Allegiances = {
     'droid-fighter',
     'droidFighter'
   ],
+  empire: [
+    'tie-fighter',
+    'tieFighter'
+  ],
   triangles: [
     'default',
     'triangle'

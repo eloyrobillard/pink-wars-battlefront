@@ -1,9 +1,13 @@
+import { vultureDroid } from './vultureDroid';
+import { tieFighter } from './tieFighter';
 import { triangle } from './triangle';
 import { xWing } from './xWing';
-import { vultureDroid } from './vultureDroid';
 
 export default function retrieveShipModel (model: string) {
 	switch (model) {
+    case 'tie-fighter':
+    case 'tieFighter':
+      return { model: tieFighter, count: 8 };
     case 'x-wing':
     case 'xWing':
       return { model: xWing, count: 6 };
