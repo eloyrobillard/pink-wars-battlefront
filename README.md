@@ -2,6 +2,8 @@
 
 Pink-friendly space battle simulation.
 
+> [Live version available on Netlify](https://pink-wars-battlefront.netlify.app/)
+
 ## Getting started
 
 1. clone
